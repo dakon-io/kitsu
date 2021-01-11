@@ -40,7 +40,6 @@
          </div>
 
          <div v-if="!isCurrentUserClient && !isCurrentUserVendor">
-           <h2>{{ $t('main.studio')}}</h2>
 
            <p @click="toggleSidebar()" v-if="isCurrentUserAdmin">
              <router-link :to="{name: 'productions'}">
