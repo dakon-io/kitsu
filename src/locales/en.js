@@ -169,6 +169,10 @@ export default {
     }
   },
 
+  feeds: {
+    title: 'Feeds'
+  },
+
   keyboard: {
     altdown: 'Move task selection down',
     altj: 'Select previous preview',
