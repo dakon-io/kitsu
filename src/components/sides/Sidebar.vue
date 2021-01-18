@@ -44,7 +44,7 @@
 
            <p @click="toggleSidebar()">
              <router-link :to="{name: 'feeds'}">
-               <film-icon size="0.9x" />
+               <rss-icon size="0.9x" />
                {{ $t("feeds.title") }}
              </router-link>
            </p>
@@ -140,6 +140,7 @@ import {
   FilmIcon,
   GitPullRequestIcon,
   ListIcon,
+  RssIcon,
   SettingsIcon,
   UsersIcon
 } from 'vue-feather-icons'
@@ -156,6 +157,7 @@ export default {
     FilmIcon,
     GitPullRequestIcon,
     ListIcon,
+    RssIcon,
     SettingsIcon,
     UsersIcon
   },
