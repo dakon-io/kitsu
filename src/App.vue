@@ -620,6 +620,10 @@ body {
   }
 } // End dark theme
 
+// Dakon Additional
+.owl-dots .owl-dot span { margin: 5px 3px !important; }
+.card { border-radius: $size-2; }
+
 #app .router-link-active {
   color: #00d1b2;
 }
@@ -1489,9 +1493,10 @@ tbody:last-child .empty-line:last-child {
   height: 100%;
 }
 
-.button:focus,
-.button:active {
-  border-color: #666;
+.button {
+  transition: $transition-fast;
+  &:focus, &:active { border-color: #666; }
+  &:active { transform: scale(.9); }
 }
 
 .thumbnail-picture {
