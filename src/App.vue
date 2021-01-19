@@ -409,6 +409,7 @@ body {
   .input,
   select,
   textarea,
+  [contenteditable],
   .page,
   .loading-info,
   .side-column {

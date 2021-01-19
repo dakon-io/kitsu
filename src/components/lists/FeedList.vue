@@ -1,5 +1,36 @@
 <template>
   <div class="feed-items">
+    <div class="feed-item create">
+      <div class="card">
+        <div class="card-content">
+          <div class="feed-sender media">
+            <div class="media-left">
+              <div class="photo-container">
+                <div
+                  class="avatar"
+                  :style="{ backgroundImage: 'url(' + require('@/assets/kitsu.png') + ')' }"></div>
+              </div>
+            </div>
+            <div class="text media-content">
+              <p class="username title is-6">
+                <b>@username</b>
+              </p>
+            </div>
+          </div>
+
+          <div class="feed-content">
+            <!-- <div class="content-create" contenteditable></div> -->
+            <textarea class="content-create" rows="10"></textarea>
+          </div>
+
+          <div class="feed-action">
+            <button class="button">
+              <send-icon class="icon"/>Post
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
     <!-- <div class="feed-item">
       <div class="card">
         <div class="card-content">
@@ -272,7 +303,8 @@
 import carousel from 'vue-owl-carousel2'
 import {
   ThumbsUpIcon,
-  MessageCircleIcon
+  MessageCircleIcon,
+  SendIcon
 } from 'vue-feather-icons'
 
 export default {
@@ -281,7 +313,8 @@ export default {
   components: {
     carousel,
     ThumbsUpIcon,
-    MessageCircleIcon
+    MessageCircleIcon,
+    SendIcon
   }
 }
 </script>
@@ -356,6 +389,20 @@ export default {
         font-size: inherit;
         margin-right: $size-1;
         transform: scale(0.8);
+      }
+    }
+    &.create {
+      .feed-content .content-create {
+        width: 100%;
+        // height: 100px;
+        padding: $size-1 $size-3 !important;
+        // overflow-y: auto;
+      }
+      .feed-action {
+        display: flex;
+        width: 100%;
+        border: 0;
+        .button { margin-left: auto; }
       }
     }
   }
