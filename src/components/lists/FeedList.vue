@@ -1,5 +1,5 @@
 <template>
-  <div class="feeds">
+  <div class="feed-items">
     <!-- <div class="feed-item">
       <div class="card">
         <div class="card-content">
@@ -55,12 +55,12 @@
           <div class="feed-action">
             <div class="columns">
               <div class="column">
-                <button class="button is-light is-fullwidth">
+                <button class="button is-fullwidth">
                   <thumbs-up-icon class="icon"/>Like
                 </button>
               </div>
               <div class="column">
-                <button class="button is-light is-fullwidth">
+                <button class="button is-fullwidth">
                   <message-circle-icon class="icon"/>Comment
                 </button>
               </div>
@@ -99,12 +99,12 @@
           <div class="feed-action">
             <div class="columns">
               <div class="column">
-                <button class="button is-light is-fullwidth">
+                <button class="button is-fullwidth">
                   <thumbs-up-icon class="icon"/>Like
                 </button>
               </div>
               <div class="column">
-                <button class="button is-light is-fullwidth">
+                <button class="button is-fullwidth">
                   <message-circle-icon class="icon"/>Comment
                 </button>
               </div>
@@ -143,12 +143,12 @@
           <div class="feed-action">
             <div class="columns">
               <div class="column">
-                <button class="button is-light is-fullwidth">
+                <button class="button is-fullwidth">
                   <thumbs-up-icon class="icon"/>Like
                 </button>
               </div>
               <div class="column">
-                <button class="button is-light is-fullwidth">
+                <button class="button is-fullwidth">
                   <message-circle-icon class="icon"/>Comment
                 </button>
               </div>
@@ -191,12 +191,12 @@
           <div class="feed-action">
             <div class="columns">
               <div class="column">
-                <button class="button is-light is-fullwidth">
+                <button class="button is-fullwidth">
                   <thumbs-up-icon class="icon"/>Like
                 </button>
               </div>
               <div class="column">
-                <button class="button is-light is-fullwidth">
+                <button class="button is-fullwidth">
                   <message-circle-icon class="icon"/>Comment
                 </button>
               </div>
@@ -251,12 +251,12 @@
           <div class="feed-action">
             <div class="columns">
               <div class="column">
-                <button class="button is-light is-fullwidth">
+                <button class="button is-fullwidth">
                   <thumbs-up-icon class="icon"/>Like
                 </button>
               </div>
               <div class="column">
-                <button class="button is-light is-fullwidth">
+                <button class="button is-fullwidth">
                   <message-circle-icon class="icon"/>Comment
                 </button>
               </div>
@@ -287,13 +287,23 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  .dark {
+    .feed-item {
+      background-color: $dark-grey-lighter;
+      color: $white-grey;
+    }
+  }
   .page {
     height: auto;
   }
   .feed-item {
-    max-width: 500px;
     margin: 0 auto;
     margin-bottom: $size-3;
+    background-color: var(--background);
+    .card {
+      background: transparent;
+      color: inherit;
+    }
     .card-content {
       padding: 12px;
       &:not(:nth-last-child(1)) {
@@ -347,6 +357,18 @@ export default {
         margin-right: $size-1;
         transform: scale(0.8);
       }
+    }
+  }
+  @media(max-width: 768px) {
+    .feed-items {
+      margin-left: -12px;
+      margin-right: -12px;
+    }
+  }
+  @media(min-width: 768px) {
+    .feed-item {
+      max-width: 500px;
+      border-radius: $size-2;
     }
   }
 </style>

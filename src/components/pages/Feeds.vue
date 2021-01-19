@@ -1,7 +1,7 @@
 <template>
   <div class="feeds page">
 
-    <page-title :text="$t('feeds.title')" />
+    <!-- <page-title :text="$t('feeds.title')" /> -->
 
     <feed-list/>
 
@@ -9,14 +9,14 @@
 </template>
 
 <script>
-import PageTitle from '../widgets/PageTitle'
+// import PageTitle from '../widgets/PageTitle'
 import FeedList from '../lists/FeedList'
 
 export default {
   name: 'feeds',
 
   components: {
-    PageTitle,
+    // PageTitle,
     FeedList
   }
 }
@@ -27,5 +27,11 @@ export default {
     padding: 1em;
     padding-top: 90px;
     padding-left: 2em;
+  }
+  @media(max-width: 767px) {
+    .page {
+      padding-left: 12px;
+      padding-right: 12px;
+    }
   }
 </style>

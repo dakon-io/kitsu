@@ -618,6 +618,13 @@ body {
     background: $dark-grey;
     color: white;
   }
+
+  .owl-dots .owl-dot {
+    span { background: var(--background) !important; }
+    &.active, &:hover {
+      span { background: #D6D6D6 !important; }
+    }
+  }
 } // End dark theme
 
 // Dakon Additional
