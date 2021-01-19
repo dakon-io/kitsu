@@ -804,6 +804,37 @@ a:hover {
   margin-left: 2px;
 }
 
+.photo-container {
+  // @wh: 6rem;
+  // width: @wh;
+  // height: @wh;
+  .avatar {
+    width: inherit;
+    height: inherit;
+    background-color: $white;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  .avatar-icon {
+    border-radius: 100vmax;
+    text-align: center;
+    color: $white;
+  }
+  .rating {
+    font-weight: bold;
+    border-radius: 100vmax;
+    text-align: center;
+    color: #ff8300;
+    background-color: #ffdf00;
+    // font-size: 1.1rem;
+    // @wh: 2.6rem;
+    // width: @wh;
+    // height: @wh;
+    // margin: ~"-@{wh}" 0 0 auto;
+  }
+}
+
 span.select {
 }
 

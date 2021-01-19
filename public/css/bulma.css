@@ -3114,7 +3114,7 @@ a.box:active {
 }
 
 .media-left {
-  margin-right: 1rem;
+  margin-right: .5rem;
 }
 
 .media-right {
