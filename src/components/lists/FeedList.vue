@@ -20,7 +20,26 @@
 
           <div class="feed-content">
             <!-- <div class="content-create" contenteditable></div> -->
-            <textarea class="content-create" rows="10"></textarea>
+            <!-- <textarea class="content-create" rows="10"></textarea> -->
+            <!-- <Mentionable
+              :keys="['@']"
+              :items="items"
+              insert-space
+              offset="6">
+              <textarea
+                class="content-create"
+                rows="10"
+                v-model="text"/>
+              <template #item-@="{ item }">
+                <div class="user">
+                  {{ item.value }} - <span class="dim">{{ item.fullName }}</span>
+                </div>
+              </template>
+            </Mentionable> -->
+            <vue-tribute :options="tributeOptions">
+              <div class="content-create" contenteditable></div>
+            </vue-tribute>
+            <div class="asd"></div>
           </div>
 
           <div class="feed-action">
@@ -301,6 +320,8 @@
 
 <script>
 import carousel from 'vue-owl-carousel2'
+import VueTribute from 'vue-tribute'
+// import { Mentionable } from 'vue-mention'
 import {
   ThumbsUpIcon,
   MessageCircleIcon,
@@ -312,9 +333,50 @@ export default {
 
   components: {
     carousel,
+    VueTribute,
+    // Mentionable,
     ThumbsUpIcon,
     MessageCircleIcon,
     SendIcon
+  },
+
+  data () {
+    return {
+      // text: '',
+      // items: [
+      //   {
+      //     value: 'username-1',
+      //     fullName: 'User Full Name-1',
+      //     searchText: 'username-1'
+      //   },
+      //   {
+      //     value: 'username-2',
+      //     fullName: 'User Full Name-2',
+      //     searchText: 'username-2'
+      //   },
+      //   {
+      //     value: 'username-3',
+      //     fullName: 'User Full Name-3',
+      //     searchText: 'username-3'
+      //   }
+      // ]
+      tributeOptions: {
+        trigger: '@',
+        values: [
+          // Key is what will be shown in list and search term as default
+          // Value is what will be shown in mention as default
+          { key: 'caksawintang', username: 'caksawintang', fullname: 'Caksa Wintang' },
+          { key: 'username', username: 'username', fullname: 'User Full Name' },
+          { key: 'username', username: 'username', fullname: 'User Full Name' }
+        ],
+        selectTemplate: function (item) {
+          return ('<span class="mention people" contenteditable="false">@' + item.original.username + '</span>')
+        },
+        menuItemTemplate: function (item) {
+          return ('<div><p class="username title is-6"><b>' + item.string + '</b></p><p class="subtitle is-6"><small>' + item.original.fullname + '</small></p></div>')
+        }
+      }
+    }
   }
 }
 </script>
@@ -394,9 +456,9 @@ export default {
     &.create {
       .feed-content .content-create {
         width: 100%;
-        // height: 100px;
+        max-height: 170px;
         padding: $size-1 $size-3 !important;
-        // overflow-y: auto;
+        overflow-y: auto;
       }
       .feed-action {
         display: flex;
@@ -418,4 +480,13 @@ export default {
       border-radius: $size-2;
     }
   }
+
+  // .mention-item {
+  //   padding: 4px 10px;
+  //   border-radius: 4px;
+  // }
+
+  // .mention-selected {
+  //   background: rgb(192, 250, 153);
+  // }
 </style>

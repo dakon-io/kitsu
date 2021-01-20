@@ -400,6 +400,16 @@ body {
   border: 0;
 }
 
+// Dakon Additional
+[contenteditable] {
+  transition: $transition-fast;
+  background-color: $light-grey-light;
+  border: 1px solid $light-grey;
+  border-radius: $size-1;
+  &:focus { background-color: $white; }
+}
+// End Dakon Additional
+
 .dark {
 
   .hero {
@@ -417,8 +427,10 @@ body {
     color: $white-grey;
   }
 
-  textarea.input:focus {
-    border-color: $green;
+  textarea.input, [contenteditable] {
+    &:focus {
+      border-color: $green;
+    }
   }
 
   strong {
@@ -439,6 +451,7 @@ body {
 
   select,
   textarea,
+  [contenteditable],
   .input {
     border-color: #25282E;
   }
@@ -478,9 +491,10 @@ body {
   }
 
   .button {
-    background: #4E5159;
+    background: $dark-grey-lightmore;
     border-color: #25282E;
     color: $white-grey;
+    &:hover, &:focus { background-color: $dark-grey-light; }
   }
 
   .button.is-danger {
@@ -627,10 +641,6 @@ body {
     }
   }
 } // End dark theme
-
-// Dakon Additional
-.owl-dots .owl-dot span { margin: 5px 3px !important; }
-.card { border-radius: $size-2; }
 
 #app .router-link-active {
   color: #00d1b2;
@@ -1501,12 +1511,6 @@ tbody:last-child .empty-line:last-child {
   height: 100%;
 }
 
-.button {
-  transition: $transition-fast;
-  &:focus, &:active { border-color: #666; }
-  &:active { transform: scale(.9); }
-}
-
 .thumbnail-picture {
   border: 1px solid #CCC;
 }
@@ -1838,4 +1842,54 @@ th.validation-cell {
     flex-direction: column;
   }
 }
+
+// Dakon Additional
+.owl-dots .owl-dot span { margin: 5px 3px !important; }
+
+.card { border-radius: $size-2; }
+
+.tribute-container {
+  background-color: $white;
+  border: 1px solid $light-grey;
+  border-radius: $size-1;
+  >ul {
+    list-style: none;
+    margin: 0;
+    >li {
+      padding: .15rem .75rem;
+      transition: $transition-fast;
+      &:first-child { border-radius: $size-1 $size-1 0 0; }
+      &:last-child { border-radius: 0 0 $size-1 $size-1; }
+      &.highlight {
+        margin: 0;
+        background-color: $light-grey;
+      }
+    }
+  }
+}
+.mention {
+  display: inline-block;
+  padding: 2px .45rem;
+  border-radius: .5rem;
+  &.people {
+    color: #14a3d6;
+    background-color: #8adfff;
+  }
+  &.division {
+    color: #ff48df;
+    background-color: #ffb4f2;
+  }
+}
+
+.button {
+  background-color: $light-grey-light;
+  transition: $transition-fast;
+  &:hover { background-color: $light-grey; }
+  &:focus, &:active { border-color: #666; }
+  &:active { transform: scale(.9); }
+}
+
+.dark {
+}
+// End Dakon Additional
 </style>
