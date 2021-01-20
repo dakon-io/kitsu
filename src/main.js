@@ -16,7 +16,6 @@ import VueDragDrop from 'vue-drag-drop'
 import VueLazyload from 'vue-lazyload'
 import vuescroll from 'vue-scroll'
 import VueTextareaAutosize from 'vue-textarea-autosize'
-import VTooltip from 'v-tooltip'
 import VueWebsocket from 'vue-websocket'
 
 import 'v-autocomplete/dist/v-autocomplete.css'
@@ -26,7 +25,6 @@ Vue.config.productionTip = false
 Vue.use(Autocomplete)
 Vue.use(Meta)
 Vue.use(resizableColumn)
-Vue.use(VTooltip)
 Vue.use(VueChartkick, { adapter: Chart })
 Vue.use(VueCookie)
 Vue.use(VueLazyload)
