@@ -149,7 +149,10 @@
         </div>
       </div>
     </div> -->
-    <div class="feed-item">
+    <div
+      v-for="feed in feeds"
+      :key="feed.id"
+      class="feed-item">
       <div class="card">
         <div class="card-content">
           <div class="feed-sender media">
@@ -157,172 +160,41 @@
               <div class="photo-container">
                 <div
                   class="avatar"
-                  :style="{ backgroundImage: 'url(' + require('@/assets/kitsu.png') + ')' }"></div>
+                  :style="{ backgroundImage: 'url(' + require('@/assets/' + feed.user.avatar) + ')' }"></div>
               </div>
             </div>
             <div class="text media-content">
               <p class="username title is-6">
-                <b>@username</b>
+                <b>@{{ feed.user.username }}</b>
               </p>
               <p class="subtitle is-6">
-                <small>feed created date</small>
+                <small>{{ feed.created }}</small>
               </p>
             </div>
           </div>
 
           <div class="feed-content">
             <div class="content-text">
-              <h2>Short feed text</h2>
+              <h2 v-if="feed.content.text.length <= 100">{{ feed.content.text }}</h2>
+              <p v-if="feed.content.text.length > 100">{{ feed.content.text }}</p>
             </div>
-          </div>
-
-          <div class="feed-action">
-            <div class="columns">
-              <div class="column">
-                <button class="button is-fullwidth">
-                  <thumbs-up-icon class="icon"/>Like
-                </button>
-              </div>
-              <div class="column">
-                <button class="button is-fullwidth">
-                  <message-circle-icon class="icon"/>Comment
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="feed-item">
-      <div class="card">
-        <div class="card-content">
-          <div class="feed-sender media">
-            <div class="media-left">
-              <div class="photo-container">
-                <div
-                  class="avatar"
-                  :style="{ backgroundImage: 'url(' + require('@/assets/kitsu.png') + ')' }"></div>
-              </div>
-            </div>
-            <div class="text media-content">
-              <p class="username title is-6">
-                <b>@username</b>
-              </p>
-              <p class="subtitle is-6">
-                <small>feed created date</small>
-              </p>
-            </div>
-          </div>
-
-          <div class="feed-content">
-            <div class="content-text">
-              <p>Long feed text > 100. Lorem ipsum dolor sit, amet consectetur adipisicing, elit. Ipsa magni nesciunt dolores animi laboriosam voluptatem at impedit, odit sint, fuga delectus maxime, eius architecto est, obcaecati! Repellendus mollitia veritatis hic.</p>
-            </div>
-          </div>
-
-          <div class="feed-action">
-            <div class="columns">
-              <div class="column">
-                <button class="button is-fullwidth">
-                  <thumbs-up-icon class="icon"/>Like
-                </button>
-              </div>
-              <div class="column">
-                <button class="button is-fullwidth">
-                  <message-circle-icon class="icon"/>Comment
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="feed-item">
-      <div class="card">
-        <div class="card-content">
-          <div class="feed-sender media">
-            <div class="media-left">
-              <div class="photo-container">
-                <div
-                  class="avatar"
-                  :style="{ backgroundImage: 'url(' + require('@/assets/kitsu.png') + ')' }"></div>
-              </div>
-            </div>
-            <div class="text media-content">
-              <p class="username title is-6">
-                <b>@username</b>
-              </p>
-              <p class="subtitle is-6">
-                <small>feed created date</small>
-              </p>
-            </div>
-          </div>
-
-          <div class="feed-content">
             <div class="content-media">
               <div
                 class="img"
-                :style="{ backgroundImage: 'url(' + require('@/assets/images/imgExampleLandscape1.png') + ')' }">
+                 v-if="feed.content.img.length == 1"
+                :style="{ backgroundImage: 'url(' + require('@/assets/images/' + feed.content.img) + ')' }">
                 <img src="@/assets/images/imgExampleLandscape1.png">
               </div>
-            </div>
-          </div>
-
-          <div class="feed-action">
-            <div class="columns">
-              <div class="column">
-                <button class="button is-fullwidth">
-                  <thumbs-up-icon class="icon"/>Like
-                </button>
-              </div>
-              <div class="column">
-                <button class="button is-fullwidth">
-                  <message-circle-icon class="icon"/>Comment
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="feed-item">
-      <div class="card">
-        <div class="card-content">
-          <div class="feed-sender media">
-            <div class="media-left">
-              <div class="photo-container">
+              <carousel
+                :nav="false"
+                :items="1"
+                v-if="feed.content.img.length > 1">
                 <div
-                  class="avatar"
-                  :style="{ backgroundImage: 'url(' + require('@/assets/kitsu.png') + ')' }"></div>
-              </div>
-            </div>
-            <div class="text media-content">
-              <p class="username title is-6">
-                <b>@username</b>
-              </p>
-              <p class="subtitle is-6">
-                <small>feed created date</small>
-              </p>
-            </div>
-          </div>
-
-          <div class="feed-content">
-            <div class="content-media">
-              <carousel :nav="false" :items="1">
-                <div
+                  v-for="(feedImg, index) in feed.content.img"
+                  :key="index"
                   class="carousel-item"
-                  :style="{ backgroundImage: 'url(' + require('@/assets/images/imgExampleSquare1.jpeg') + ')' }">
-                  <img src="@/assets/images/imgExampleSquare1.jpeg">
-                </div>
-                <div
-                  class="carousel-item"
-                  :style="{ backgroundImage: 'url(' + require('@/assets/images/imgExampleSquare1.jpeg') + ')' }">
-                  <img src="@/assets/images/imgExampleSquare1.jpeg">
-                </div>
-                <div
-                  class="carousel-item"
-                  :style="{ backgroundImage: 'url(' + require('@/assets/images/imgExampleSquare1.jpeg') + ')' }">
-                  <img src="@/assets/images/imgExampleSquare1.jpeg">
+                  :style="{ backgroundImage: 'url(' + require('@/assets/images/' + feedImg) + ')' }">
+                  <img :src="require('@/assets/images/' + feedImg)">
                 </div>
               </carousel>
             </div>
@@ -436,7 +308,63 @@ export default {
         menuItemTemplate: function (item) {
           return ('<div><p class="username title is-6"><b>' + item.string + '</b></p><p class="subtitle is-6"><small>' + item.original.fullname + '</small></p></div>')
         }
-      }
+      },
+      feeds: [
+        {
+          id: 'feed1',
+          created: 'time creation',
+          user: {
+            username: 'username',
+            avatar: 'kitsu.png'
+          },
+          content: {
+            text: 'This is short feed text',
+            img: []
+          }
+        },
+        {
+          id: 'feed2',
+          created: 'time creation',
+          user: {
+            username: 'username',
+            avatar: 'kitsu.png'
+          },
+          content: {
+            text: 'This is long feed text. Lorem ipsum dolor, sit amet consectetur adipisicing, elit. Neque deserunt veniam, labore mollitia maiores nostrum aliquid atque est',
+            img: []
+          }
+        },
+        {
+          id: 'feed3',
+          created: 'time creation',
+          user: {
+            username: 'username',
+            avatar: 'kitsu.png'
+          },
+          content: {
+            text: 'This is feed with single image',
+            img: [
+              'imgExampleLandscape1.png'
+            ]
+          }
+        },
+        {
+          id: 'feed4',
+          created: 'time creation',
+          user: {
+            username: 'username',
+            avatar: 'kitsu.png'
+          },
+          content: {
+            text: 'This is feed with multiple images',
+            img: [
+              'imgExampleSquare1.jpeg',
+              'imgExampleSquare1.jpeg',
+              'imgExampleSquare1.jpeg'
+            ]
+          }
+        }
+      ]
     }
   },
 
