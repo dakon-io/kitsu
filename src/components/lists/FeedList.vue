@@ -19,6 +19,18 @@
           </div>
 
           <div class="feed-content">
+            <div id="editor">
+              <vue-tribute :options="tributeOptions">
+                <textarea
+                  :value="inputCreate"
+                  @input="updateInputCreate"
+                  class="input content-create"
+                  :class="{ preview: isPreview }"></textarea>
+              </vue-tribute>
+              <div
+                v-html="compiledMarkdown"
+                :class="{ preview: !isPreview }"></div>
+            </div>
             <!-- <div class="content-create" contenteditable></div> -->
             <!-- <textarea class="content-create" rows="10"></textarea> -->
             <!-- <Mentionable
@@ -36,16 +48,34 @@
                 </div>
               </template>
             </Mentionable> -->
-            <vue-tribute :options="tributeOptions">
+            <!-- <vue-tribute :options="tributeOptions">
               <div class="content-create" contenteditable></div>
-            </vue-tribute>
+            </vue-tribute> -->
             <div class="asd"></div>
           </div>
 
           <div class="feed-action">
+            <button
+              @click="isPreview = !isPreview"
+              :class="{ hidden: isPreview }"
+              class="button ml-auto">
+              <eye-icon class="icon"/>Text preview
+            </button>
+            <button
+              @click="isPreview = !isPreview"
+              :class="{ hidden: !isPreview }"
+              class="button ml-auto">
+              <edit-icon class="icon"/>Edit text
+            </button>
             <button class="button">
               <send-icon class="icon"/>Post
             </button>
+            <a
+              href="https://www.markdownguide.org/basic-syntax/"
+              target="_blank"
+              class="button">
+              <type-icon class="icon"/>Help
+            </a>
           </div>
         </div>
       </div>
@@ -319,13 +349,18 @@
 </template>
 
 <script>
+import _ from 'lodash'
+import marked from 'marked'
 import carousel from 'vue-owl-carousel2'
 import VueTribute from 'vue-tribute'
 // import { Mentionable } from 'vue-mention'
 import {
   ThumbsUpIcon,
   MessageCircleIcon,
-  SendIcon
+  EyeIcon,
+  EditIcon,
+  SendIcon,
+  TypeIcon
 } from 'vue-feather-icons'
 
 export default {
@@ -337,29 +372,55 @@ export default {
     // Mentionable,
     ThumbsUpIcon,
     MessageCircleIcon,
-    SendIcon
+    EyeIcon,
+    EditIcon,
+    SendIcon,
+    TypeIcon
   },
+
+  // data () {
+  //   return {
+  //     // text: '',
+  //     // items: [
+  //     //   {
+  //     //     value: 'username-1',
+  //     //     fullName: 'User Full Name-1',
+  //     //     searchText: 'username-1'
+  //     //   },
+  //     //   {
+  //     //     value: 'username-2',
+  //     //     fullName: 'User Full Name-2',
+  //     //     searchText: 'username-2'
+  //     //   },
+  //     //   {
+  //     //     value: 'username-3',
+  //     //     fullName: 'User Full Name-3',
+  //     //     searchText: 'username-3'
+  //     //   }
+  //     // ]
+  //     tributeOptions: {
+  //       trigger: '@',
+  //       values: [
+  //         // Key is what will be shown in list and search term as default
+  //         // Value is what will be shown in mention as default
+  //         { key: 'caksawintang', username: 'caksawintang', fullname: 'Caksa Wintang' },
+  //         { key: 'username', username: 'username', fullname: 'User Full Name' },
+  //         { key: 'username', username: 'username', fullname: 'User Full Name' }
+  //       ],
+  //       selectTemplate: function (item) {
+  //         return ('<span class="mention people" contenteditable="false">@' + item.original.username + '</span>')
+  //       },
+  //       menuItemTemplate: function (item) {
+  //         return ('<div><p class="username title is-6"><b>' + item.string + '</b></p><p class="subtitle is-6"><small>' + item.original.fullname + '</small></p></div>')
+  //       }
+  //     }
+  //   }
+  // },
 
   data () {
     return {
-      // text: '',
-      // items: [
-      //   {
-      //     value: 'username-1',
-      //     fullName: 'User Full Name-1',
-      //     searchText: 'username-1'
-      //   },
-      //   {
-      //     value: 'username-2',
-      //     fullName: 'User Full Name-2',
-      //     searchText: 'username-2'
-      //   },
-      //   {
-      //     value: 'username-3',
-      //     fullName: 'User Full Name-3',
-      //     searchText: 'username-3'
-      //   }
-      // ]
+      inputCreate: '',
+      isPreview: false,
       tributeOptions: {
         trigger: '@',
         values: [
@@ -370,13 +431,25 @@ export default {
           { key: 'username', username: 'username', fullname: 'User Full Name' }
         ],
         selectTemplate: function (item) {
-          return ('<span class="mention people" contenteditable="false">@' + item.original.username + '</span>')
+          return ('@[' + item.original.username + ']')
         },
         menuItemTemplate: function (item) {
           return ('<div><p class="username title is-6"><b>' + item.string + '</b></p><p class="subtitle is-6"><small>' + item.original.fullname + '</small></p></div>')
         }
       }
     }
+  },
+
+  computed: {
+    compiledMarkdown () {
+      return marked(this.inputCreate, { sanitize: true })
+    }
+  },
+
+  methods: {
+    updateInputCreate: _.debounce(function (e) {
+      this.inputCreate = e.target.value
+    }, 300)
   }
 }
 </script>
@@ -454,17 +527,33 @@ export default {
       }
     }
     &.create {
-      .feed-content .content-create {
-        width: 100%;
-        max-height: 170px;
-        padding: $size-1 $size-3 !important;
-        overflow-y: auto;
+      .feed-content {
+        .content-create {
+          width: 100%;
+          padding: $size-1 $size-3;
+          overflow-y: auto;
+          transition: $transition-fast;
+          &:focus { height: 170px; }
+        }
+        .preview {
+          transition: $transition-fast !important;
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 0 !important;
+          height: 0 !important;
+          padding: 0;
+          margin: 0;
+        }
       }
       .feed-action {
         display: flex;
         width: 100%;
         border: 0;
-        .button { margin-left: auto; }
+        .button {
+          &.ml-auto { margin-left: auto; }
+          &:not(.ml-auto) { margin-left: $size-1; }
+        }
       }
     }
   }
