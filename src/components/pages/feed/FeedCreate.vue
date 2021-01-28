@@ -59,23 +59,17 @@
               @click="isPreview = !isPreview"
               :class="{ hidden: isPreview }"
               class="button ml-auto">
-              <eye-icon class="icon"/>Text preview
+              <eye-icon class="icon"/>Preview
             </button>
             <button
               @click="isPreview = !isPreview"
               :class="{ hidden: !isPreview }"
               class="button ml-auto">
-              <edit-icon class="icon"/>Edit text
+              <edit-icon class="icon"/>Edit
             </button>
             <button class="button">
               <send-icon class="icon"/>Post
             </button>
-            <a
-              href="https://www.markdownguide.org/basic-syntax/"
-              target="_blank"
-              class="button">
-              <type-icon class="icon"/>Help
-            </a>
           </div>
         </div>
       </div>
@@ -91,8 +85,7 @@ import VueTribute from 'vue-tribute'
 import {
   EyeIcon,
   EditIcon,
-  SendIcon,
-  TypeIcon
+  SendIcon
 } from 'vue-feather-icons'
 
 export default {
@@ -103,8 +96,7 @@ export default {
     // Mentionable,
     EyeIcon,
     EditIcon,
-    SendIcon,
-    TypeIcon
+    SendIcon
   },
 
   // data () {
@@ -165,63 +157,7 @@ export default {
         menuItemTemplate: function (item) {
           return ('<div><p class="username title is-6"><b>' + item.string + '</b></p><p class="subtitle is-6"><small>' + item.original.fullname + '</small></p></div>')
         }
-      },
-      feeds: [
-        {
-          id: 'feed1',
-          created: 'time creation',
-          user: {
-            username: 'username',
-            avatar: 'kitsu.png'
-          },
-          content: {
-            text: 'This is short feed text',
-            img: []
-          }
-        },
-        {
-          id: 'feed2',
-          created: 'time creation',
-          user: {
-            username: 'username',
-            avatar: 'kitsu.png'
-          },
-          content: {
-            text: 'This is long feed text. Lorem ipsum dolor, sit amet consectetur adipisicing, elit. Neque deserunt veniam, labore mollitia maiores nostrum aliquid atque est',
-            img: []
-          }
-        },
-        {
-          id: 'feed3',
-          created: 'time creation',
-          user: {
-            username: 'username',
-            avatar: 'kitsu.png'
-          },
-          content: {
-            text: 'This is feed with single image',
-            img: [
-              'imgExampleLandscape1.png'
-            ]
-          }
-        },
-        {
-          id: 'feed4',
-          created: 'time creation',
-          user: {
-            username: 'username',
-            avatar: 'kitsu.png'
-          },
-          content: {
-            text: 'This is feed with multiple images',
-            img: [
-              'imgExampleSquare1.jpeg',
-              'imgExampleSquare1.jpeg',
-              'imgExampleSquare1.jpeg'
-            ]
-          }
-        }
-      ]
+      }
     }
   },
 
