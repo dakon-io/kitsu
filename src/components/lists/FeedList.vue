@@ -19,18 +19,6 @@
           </div>
 
           <div class="feed-content">
-            <div id="editor">
-              <vue-tribute :options="tributeOptions">
-                <textarea
-                  :value="inputCreate"
-                  @input="updateInputCreate"
-                  class="input content-create"
-                  :class="{ preview: isPreview }"></textarea>
-              </vue-tribute>
-              <div
-                v-html="compiledMarkdown"
-                :class="{ preview: !isPreview }"></div>
-            </div>
             <!-- <div class="content-create" contenteditable></div> -->
             <!-- <textarea class="content-create" rows="10"></textarea> -->
             <!-- <Mentionable
@@ -48,34 +36,16 @@
                 </div>
               </template>
             </Mentionable> -->
-            <!-- <vue-tribute :options="tributeOptions">
+            <vue-tribute :options="tributeOptions">
               <div class="content-create" contenteditable></div>
-            </vue-tribute> -->
+            </vue-tribute>
             <div class="asd"></div>
           </div>
 
           <div class="feed-action">
-            <button
-              @click="isPreview = !isPreview"
-              :class="{ hidden: isPreview }"
-              class="button ml-auto">
-              <eye-icon class="icon"/>Text preview
-            </button>
-            <button
-              @click="isPreview = !isPreview"
-              :class="{ hidden: !isPreview }"
-              class="button ml-auto">
-              <edit-icon class="icon"/>Edit text
-            </button>
             <button class="button">
               <send-icon class="icon"/>Post
             </button>
-            <a
-              href="https://www.markdownguide.org/basic-syntax/"
-              target="_blank"
-              class="button">
-              <type-icon class="icon"/>Help
-            </a>
           </div>
         </div>
       </div>
@@ -149,10 +119,7 @@
         </div>
       </div>
     </div> -->
-    <div
-      v-for="feed in feeds"
-      :key="feed.id"
-      class="feed-item">
+    <div class="feed-item">
       <div class="card">
         <div class="card-content">
           <div class="feed-sender media">
@@ -160,41 +127,172 @@
               <div class="photo-container">
                 <div
                   class="avatar"
-                  :style="{ backgroundImage: 'url(' + require('@/assets/' + feed.user.avatar) + ')' }"></div>
+                  :style="{ backgroundImage: 'url(' + require('@/assets/kitsu.png') + ')' }"></div>
               </div>
             </div>
             <div class="text media-content">
               <p class="username title is-6">
-                <b>@{{ feed.user.username }}</b>
+                <b>@username</b>
               </p>
               <p class="subtitle is-6">
-                <small>{{ feed.created }}</small>
+                <small>feed created date</small>
               </p>
             </div>
           </div>
 
           <div class="feed-content">
             <div class="content-text">
-              <h2 v-if="feed.content.text.length <= 100">{{ feed.content.text }}</h2>
-              <p v-if="feed.content.text.length > 100">{{ feed.content.text }}</p>
+              <h2>Short feed text</h2>
             </div>
+          </div>
+
+          <div class="feed-action">
+            <div class="columns">
+              <div class="column">
+                <button class="button is-fullwidth">
+                  <thumbs-up-icon class="icon"/>Like
+                </button>
+              </div>
+              <div class="column">
+                <button class="button is-fullwidth">
+                  <message-circle-icon class="icon"/>Comment
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="feed-item">
+      <div class="card">
+        <div class="card-content">
+          <div class="feed-sender media">
+            <div class="media-left">
+              <div class="photo-container">
+                <div
+                  class="avatar"
+                  :style="{ backgroundImage: 'url(' + require('@/assets/kitsu.png') + ')' }"></div>
+              </div>
+            </div>
+            <div class="text media-content">
+              <p class="username title is-6">
+                <b>@username</b>
+              </p>
+              <p class="subtitle is-6">
+                <small>feed created date</small>
+              </p>
+            </div>
+          </div>
+
+          <div class="feed-content">
+            <div class="content-text">
+              <p>Long feed text > 100. Lorem ipsum dolor sit, amet consectetur adipisicing, elit. Ipsa magni nesciunt dolores animi laboriosam voluptatem at impedit, odit sint, fuga delectus maxime, eius architecto est, obcaecati! Repellendus mollitia veritatis hic.</p>
+            </div>
+          </div>
+
+          <div class="feed-action">
+            <div class="columns">
+              <div class="column">
+                <button class="button is-fullwidth">
+                  <thumbs-up-icon class="icon"/>Like
+                </button>
+              </div>
+              <div class="column">
+                <button class="button is-fullwidth">
+                  <message-circle-icon class="icon"/>Comment
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="feed-item">
+      <div class="card">
+        <div class="card-content">
+          <div class="feed-sender media">
+            <div class="media-left">
+              <div class="photo-container">
+                <div
+                  class="avatar"
+                  :style="{ backgroundImage: 'url(' + require('@/assets/kitsu.png') + ')' }"></div>
+              </div>
+            </div>
+            <div class="text media-content">
+              <p class="username title is-6">
+                <b>@username</b>
+              </p>
+              <p class="subtitle is-6">
+                <small>feed created date</small>
+              </p>
+            </div>
+          </div>
+
+          <div class="feed-content">
             <div class="content-media">
               <div
                 class="img"
-                 v-if="feed.content.img.length == 1"
-                :style="{ backgroundImage: 'url(' + require('@/assets/images/' + feed.content.img) + ')' }">
+                :style="{ backgroundImage: 'url(' + require('@/assets/images/imgExampleLandscape1.png') + ')' }">
                 <img src="@/assets/images/imgExampleLandscape1.png">
               </div>
-              <carousel
-                :nav="false"
-                :items="1"
-                v-if="feed.content.img.length > 1">
+            </div>
+          </div>
+
+          <div class="feed-action">
+            <div class="columns">
+              <div class="column">
+                <button class="button is-fullwidth">
+                  <thumbs-up-icon class="icon"/>Like
+                </button>
+              </div>
+              <div class="column">
+                <button class="button is-fullwidth">
+                  <message-circle-icon class="icon"/>Comment
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="feed-item">
+      <div class="card">
+        <div class="card-content">
+          <div class="feed-sender media">
+            <div class="media-left">
+              <div class="photo-container">
                 <div
-                  v-for="(feedImg, index) in feed.content.img"
-                  :key="index"
+                  class="avatar"
+                  :style="{ backgroundImage: 'url(' + require('@/assets/kitsu.png') + ')' }"></div>
+              </div>
+            </div>
+            <div class="text media-content">
+              <p class="username title is-6">
+                <b>@username</b>
+              </p>
+              <p class="subtitle is-6">
+                <small>feed created date</small>
+              </p>
+            </div>
+          </div>
+
+          <div class="feed-content">
+            <div class="content-media">
+              <carousel :nav="false" :items="1">
+                <div
                   class="carousel-item"
-                  :style="{ backgroundImage: 'url(' + require('@/assets/images/' + feedImg) + ')' }">
-                  <img :src="require('@/assets/images/' + feedImg)">
+                  :style="{ backgroundImage: 'url(' + require('@/assets/images/imgExampleSquare1.jpeg') + ')' }">
+                  <img src="@/assets/images/imgExampleSquare1.jpeg">
+                </div>
+                <div
+                  class="carousel-item"
+                  :style="{ backgroundImage: 'url(' + require('@/assets/images/imgExampleSquare1.jpeg') + ')' }">
+                  <img src="@/assets/images/imgExampleSquare1.jpeg">
+                </div>
+                <div
+                  class="carousel-item"
+                  :style="{ backgroundImage: 'url(' + require('@/assets/images/imgExampleSquare1.jpeg') + ')' }">
+                  <img src="@/assets/images/imgExampleSquare1.jpeg">
                 </div>
               </carousel>
             </div>
@@ -221,18 +319,13 @@
 </template>
 
 <script>
-import _ from 'lodash'
-import marked from 'marked'
 import carousel from 'vue-owl-carousel2'
 import VueTribute from 'vue-tribute'
 // import { Mentionable } from 'vue-mention'
 import {
   ThumbsUpIcon,
   MessageCircleIcon,
-  EyeIcon,
-  EditIcon,
-  SendIcon,
-  TypeIcon
+  SendIcon
 } from 'vue-feather-icons'
 
 export default {
@@ -244,55 +337,29 @@ export default {
     // Mentionable,
     ThumbsUpIcon,
     MessageCircleIcon,
-    EyeIcon,
-    EditIcon,
-    SendIcon,
-    TypeIcon
+    SendIcon
   },
-
-  // data () {
-  //   return {
-  //     // text: '',
-  //     // items: [
-  //     //   {
-  //     //     value: 'username-1',
-  //     //     fullName: 'User Full Name-1',
-  //     //     searchText: 'username-1'
-  //     //   },
-  //     //   {
-  //     //     value: 'username-2',
-  //     //     fullName: 'User Full Name-2',
-  //     //     searchText: 'username-2'
-  //     //   },
-  //     //   {
-  //     //     value: 'username-3',
-  //     //     fullName: 'User Full Name-3',
-  //     //     searchText: 'username-3'
-  //     //   }
-  //     // ]
-  //     tributeOptions: {
-  //       trigger: '@',
-  //       values: [
-  //         // Key is what will be shown in list and search term as default
-  //         // Value is what will be shown in mention as default
-  //         { key: 'caksawintang', username: 'caksawintang', fullname: 'Caksa Wintang' },
-  //         { key: 'username', username: 'username', fullname: 'User Full Name' },
-  //         { key: 'username', username: 'username', fullname: 'User Full Name' }
-  //       ],
-  //       selectTemplate: function (item) {
-  //         return ('<span class="mention people" contenteditable="false">@' + item.original.username + '</span>')
-  //       },
-  //       menuItemTemplate: function (item) {
-  //         return ('<div><p class="username title is-6"><b>' + item.string + '</b></p><p class="subtitle is-6"><small>' + item.original.fullname + '</small></p></div>')
-  //       }
-  //     }
-  //   }
-  // },
 
   data () {
     return {
-      inputCreate: '',
-      isPreview: false,
+      // text: '',
+      // items: [
+      //   {
+      //     value: 'username-1',
+      //     fullName: 'User Full Name-1',
+      //     searchText: 'username-1'
+      //   },
+      //   {
+      //     value: 'username-2',
+      //     fullName: 'User Full Name-2',
+      //     searchText: 'username-2'
+      //   },
+      //   {
+      //     value: 'username-3',
+      //     fullName: 'User Full Name-3',
+      //     searchText: 'username-3'
+      //   }
+      // ]
       tributeOptions: {
         trigger: '@',
         values: [
@@ -303,81 +370,13 @@ export default {
           { key: 'username', username: 'username', fullname: 'User Full Name' }
         ],
         selectTemplate: function (item) {
-          return ('@[' + item.original.username + ']')
+          return ('<span class="mention people" contenteditable="false">@' + item.original.username + '</span>')
         },
         menuItemTemplate: function (item) {
           return ('<div><p class="username title is-6"><b>' + item.string + '</b></p><p class="subtitle is-6"><small>' + item.original.fullname + '</small></p></div>')
         }
-      },
-      feeds: [
-        {
-          id: 'feed1',
-          created: 'time creation',
-          user: {
-            username: 'username',
-            avatar: 'kitsu.png'
-          },
-          content: {
-            text: 'This is short feed text',
-            img: []
-          }
-        },
-        {
-          id: 'feed2',
-          created: 'time creation',
-          user: {
-            username: 'username',
-            avatar: 'kitsu.png'
-          },
-          content: {
-            text: 'This is long feed text. Lorem ipsum dolor, sit amet consectetur adipisicing, elit. Neque deserunt veniam, labore mollitia maiores nostrum aliquid atque est',
-            img: []
-          }
-        },
-        {
-          id: 'feed3',
-          created: 'time creation',
-          user: {
-            username: 'username',
-            avatar: 'kitsu.png'
-          },
-          content: {
-            text: 'This is feed with single image',
-            img: [
-              'imgExampleLandscape1.png'
-            ]
-          }
-        },
-        {
-          id: 'feed4',
-          created: 'time creation',
-          user: {
-            username: 'username',
-            avatar: 'kitsu.png'
-          },
-          content: {
-            text: 'This is feed with multiple images',
-            img: [
-              'imgExampleSquare1.jpeg',
-              'imgExampleSquare1.jpeg',
-              'imgExampleSquare1.jpeg'
-            ]
-          }
-        }
-      ]
+      }
     }
-  },
-
-  computed: {
-    compiledMarkdown () {
-      return marked(this.inputCreate, { sanitize: true })
-    }
-  },
-
-  methods: {
-    updateInputCreate: _.debounce(function (e) {
-      this.inputCreate = e.target.value
-    }, 300)
   }
 }
 </script>
@@ -455,33 +454,17 @@ export default {
       }
     }
     &.create {
-      .feed-content {
-        .content-create {
-          width: 100%;
-          padding: $size-1 $size-3;
-          overflow-y: auto;
-          transition: $transition-fast;
-          &:focus { height: 170px; }
-        }
-        .preview {
-          transition: $transition-fast !important;
-          position: fixed;
-          top: 0;
-          left: 0;
-          width: 0 !important;
-          height: 0 !important;
-          padding: 0;
-          margin: 0;
-        }
+      .feed-content .content-create {
+        width: 100%;
+        max-height: 170px;
+        padding: $size-1 $size-3 !important;
+        overflow-y: auto;
       }
       .feed-action {
         display: flex;
         width: 100%;
         border: 0;
-        .button {
-          &.ml-auto { margin-left: auto; }
-          &:not(.ml-auto) { margin-left: $size-1; }
-        }
+        .button { margin-left: auto; }
       }
     }
   }
