@@ -3,7 +3,7 @@
 
     <!-- <page-title :text="$t('feeds.title')" /> -->
 
-    <FeedCreate/>
+    <FeedCreate @create-feed="createNewFeed"/>
 
     <FeedList
       v-for="feed in feeds" :key="feed.id"
@@ -85,16 +85,34 @@ export default {
         }
       ]
     }
+  },
+
+  methods: {
+    createNewFeed (feed) {
+      this.feeds.unshift({
+        id: this.feeds.length + 1,
+        created: 'time creation',
+        user: {
+          username: 'username',
+          avatar: 'kitsu.png'
+        },
+        content: {
+          text: feed,
+          img: []
+        }
+      })
+    }
+  },
+
+  metaInfo () {
+    return {
+      title: `${this.$t('feeds.title')} - Kitsu`
+    }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-  .fixed-page {
-    padding: 1em;
-    padding-top: 90px;
-    padding-left: 2em;
-  }
   @media(max-width: 767px) {
     .page {
       padding-left: 12px;

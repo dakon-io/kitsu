@@ -1869,10 +1869,13 @@ th.validation-cell {
 }
 .mention {
   display: inline-block;
-  padding: 2px .45rem;
-  border-radius: .5rem;
+  padding: $size-1;
+  border: none;
+  border-radius: $size-2;
+  font-weight: bold;
+  line-height: 1;
   &.people {
-    color: #14a3d6;
+    color: #0597cc;
     background-color: #8adfff;
   }
   &.division {
@@ -1889,7 +1892,108 @@ th.validation-cell {
   &:active { transform: scale(.9); }
 }
 
+.feed-item {
+  margin: 0 auto;
+  margin-bottom: $size-3;
+  background-color: var(--background);
+  .card {
+    background: transparent;
+    color: inherit;
+  }
+  .card-content {
+    padding: 12px;
+    &:not(:nth-last-child(1)) {
+      border-bottom: 2px solid var(--border);
+    }
+  }
+  .feed-sender {
+    .photo-container {
+      $wh: 2.3rem;
+      width: $wh;
+      height: $wh;
+    }
+  }
+  .feed-content {
+    margin-top: -1;
+    .photo-container {
+      $wh: 3rem;
+      width: $wh;
+      height: $wh;
+    }
+    &.content { margin-bottom: 0; }
+    .content-text * { margin-bottom: 0; }
+    .content-media {
+      margin :0 -12px;
+      .carousel-item, .img {
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        img {
+          width: 100%;
+          visibility: hidden;
+        }
+      }
+    }
+  }
+  .feed-action {
+    padding: $size-1 0;
+    border: 1px solid var(--border);
+    border-width: 1px 0;
+    margin-top: $size-3;
+    .columns {
+      margin-bottom: 0;
+      .column {
+        padding: 0 $size-1;
+        &:first-child { padding-left: 0; }
+        &:last-child { padding-right: 0; }
+      }
+    }
+    .button .icon {
+      font-size: inherit;
+      margin-right: $size-1;
+      transform: scale(0.8);
+    }
+  }
+  &.create {
+    .feed-content {
+      .content-create {
+        width: 100%;
+        padding: $size-1 $size-3;
+        overflow-y: auto;
+        transition: $transition-fast;
+        height: 170px;
+      }
+      .preview { display: none; }
+    }
+    .feed-action {
+      display: flex;
+      width: 100%;
+      border: 0;
+      .button {
+        &.ml-auto { margin-left: auto; }
+        &:not(.ml-auto) { margin-left: $size-1; }
+      }
+    }
+  }
+}
+@media(min-width: 768px) {
+  .feed-item {
+    max-width: 500px;
+    border-radius: $size-2;
+  }
+}
+
 .dark {
+  .mention {
+    &.people {
+      color: #0066a2;
+      background-color: #4b96b3;
+    }
+  }
+  .feed-item {
+    background-color: $dark-grey-lighter;
+    color: $white-grey;
+  }
 }
 // End Dakon Additional
 </style>

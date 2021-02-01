@@ -23,8 +23,8 @@
 
           <div class="feed-content">
             <div v-if="feed.content.text" class="content-text">
-              <h2 v-if="feed.content.text.length <= 100">{{ feed.content.text }}</h2>
-              <p v-else>{{ feed.content.text }}</p>
+              <h2 v-if="feed.content.text.length <= 100" v-html="compiledMarkdown"></h2>
+              <div v-else v-html="compiledMarkdown"></div>
             </div>
             <div v-if="feed.content.img.length > 0" class="content-media">
               <div
@@ -66,6 +66,7 @@
 </template>
 
 <script>
+import marked from 'marked'
 import carousel from 'vue-owl-carousel2'
 import {
   ThumbsUpIcon,
@@ -86,93 +87,19 @@ export default {
       type: Object,
       required: true
     }
+  },
+
+  computed: {
+    compiledMarkdown () {
+      const md = marked(this.feed.content.text, { sanitize: true })
+      const regex = /[@]/g
+      const username = 'user1'
+      const mentionReplacer = `<a href="user/${username}">
+        <span class="mention people" contenteditable="false">@${username}</span>
+      </a>`
+      const translateMention = md.replace(regex, mentionReplacer)
+      return translateMention
+    }
   }
 }
 </script>
-
-<style lang="scss" scoped>
-  .dark {
-    .feed-item {
-      background-color: $dark-grey-lighter;
-      color: $white-grey;
-    }
-  }
-  .page {
-    height: auto;
-  }
-  .feed-item {
-    margin: 0 auto;
-    margin-bottom: $size-3;
-    background-color: var(--background);
-    .card {
-      background: transparent;
-      color: inherit;
-    }
-    .card-content {
-      padding: 12px;
-      &:not(:nth-last-child(1)) {
-        border-bottom: 2px solid var(--border);
-      }
-    }
-    .feed-sender {
-      .photo-container {
-        $wh: 2.3rem;
-        width: $wh;
-        height: $wh;
-      }
-    }
-    .feed-content {
-      margin-top: -1;
-      .photo-container {
-        $wh: 3rem;
-        width: $wh;
-        height: $wh;
-      }
-      &.content { margin-bottom: 0; }
-      .content-text * { margin-bottom: 0; }
-      .content-media {
-        margin :0 -12px;
-        .carousel-item, .img {
-          background-size: contain;
-          background-repeat: no-repeat;
-          background-position: center;
-          img {
-            width: 100%;
-            visibility: hidden;
-          }
-        }
-      }
-    }
-    .feed-action {
-      padding: $size-1 0;
-      border: 1px solid var(--border);
-      border-width: 1px 0;
-      margin-top: $size-3;
-      .columns {
-        margin-bottom: 0;
-        .column {
-          padding: 0 $size-1;
-          &:first-child { padding-left: 0; }
-          &:last-child { padding-right: 0; }
-        }
-      }
-      .button .icon {
-        font-size: inherit;
-        margin-right: $size-1;
-        transform: scale(0.8);
-      }
-    }
-  }
-  @media(max-width: 768px) {
-    .feed-items {
-      margin-left: -12px;
-      margin-right: -12px;
-    }
-  }
-  @media(min-width: 768px) {
-    .feed-item {
-      max-width: 500px;
-      border-radius: $size-2;
-    }
-  }
-</style>
