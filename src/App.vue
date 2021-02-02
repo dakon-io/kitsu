@@ -1964,6 +1964,23 @@ th.validation-cell {
         height: 170px;
       }
       .preview { display: none; }
+      .content-create-image {
+        text-align: center;
+        padding: $size-1 $size-3;
+        border: 1px dashed #dbdbdb;
+        border-radius: 3px;
+        margin-top: $size-3;
+        transition: $transition-fast;
+        &:hover { border-color: #b5b5b5 }
+        &.dropzone .dz-preview {
+          margin: $size-1;
+          .dz-image img { border-radius: 3px; }
+        }
+        &.vue-dropzone>.dz-preview .dz-details {
+          background-color: $green;
+          border-radius: 3px;
+        }
+      }
     }
     .feed-action {
       display: flex;
