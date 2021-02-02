@@ -30,6 +30,7 @@
               v-html="compiledMarkdown"
               :class="{ preview: !isPreview }"></div>
           </div>
+          <vue-dropzone ref="inputCreateImage" id="dropzone" class="content-create-image" :options="inputCreateImage" :duplicateCheck="true"></vue-dropzone>
         </div>
 
         <div class="feed-action">
@@ -58,6 +59,8 @@
 import _ from 'lodash'
 import marked from 'marked'
 import VueTribute from 'vue-tribute'
+import vue2Dropzone from 'vue2-dropzone'
+import 'vue2-dropzone/dist/vue2Dropzone.min.css'
 import {
   EyeIcon,
   EditIcon,
@@ -69,6 +72,7 @@ export default {
 
   components: {
     VueTribute,
+    vueDropzone: vue2Dropzone,
     EyeIcon,
     EditIcon,
     SendIcon
@@ -132,6 +136,14 @@ export default {
         menuItemTemplate: function (item) {
           return ('<div><p class="username title is-6"><b>' + item.string + '</b></p><p class="subtitle is-6"><small>' + item.original.fullname + '</small></p></div>')
         }
+      },
+      inputCreateImage: {
+        url: 'https://httpbin.org/post',
+        // url: 'f',
+        maxFilesize: 0.5,
+        headers: { 'My-Awesome-Header': 'header value' },
+        addRemoveLinks: true,
+        dictDefaultMessage: 'Drop pictures here to post'
       }
     }
   },
