@@ -1,62 +1,60 @@
 <template>
-  <div class="feed-items">
-    <div class="feed-item">
-      <div class="card">
-        <div class="card-content">
-          <div class="feed-sender media">
-            <div class="media-left">
-              <div class="photo-container">
-                <div
-                  class="avatar"
-                  :style="{ backgroundImage: 'url(' + require('@/assets/' + feed.user.avatar) + ')' }"></div>
-              </div>
-            </div>
-            <div class="text media-content">
-              <p class="username title is-6">
-                <b>@{{ feed.user.username }}</b>
-              </p>
-              <p class="subtitle is-6">
-                <small>{{ feed.created }}</small>
-              </p>
-            </div>
-          </div>
-
-          <div class="feed-content">
-            <div v-if="feed.content.text" class="content-text">
-              <h2 v-if="feed.content.text.length <= 100" v-html="compiledMarkdown"></h2>
-              <div v-else v-html="compiledMarkdown"></div>
-            </div>
-            <div v-if="feed.content.img.length > 0" class="content-media">
+  <div class="feed-item">
+    <div class="card">
+      <div class="card-content">
+        <div class="feed-sender media">
+          <div class="media-left">
+            <div class="photo-container">
               <div
-                v-if="feed.content.img.length == 1"
-                class="img"
-                :style="{ backgroundImage: 'url(' + require('@/assets/images/' + feed.content.img) + ')' }">
-                <img :src="require('@/assets/images/' + feed.content.img)">
-              </div>
-              <carousel v-if="feed.content.img.length > 1" :nav="false" :items="1">
-                <div
-                  v-for="(feedImg, index) in feed.content.img"
-                  :key="index"
-                  class="carousel-item"
-                  :style="{ backgroundImage: 'url(' + require('@/assets/images/' + feedImg) + ')' }">
-                  <img :src="require('@/assets/images/' + feedImg)">
-                </div>
-              </carousel>
+                class="avatar"
+                :style="{ backgroundImage: 'url(' + require('@/assets/' + feed.user.avatar) + ')' }"></div>
             </div>
           </div>
+          <div class="text media-content">
+            <p class="username title is-6">
+              <b>@{{ feed.user.username }}</b>
+            </p>
+            <p class="subtitle is-6">
+              <small>{{ feed.created }}</small>
+            </p>
+          </div>
+        </div>
 
-          <div class="feed-action">
-            <div class="columns">
-              <div class="column">
-                <button class="button is-fullwidth">
-                  <thumbs-up-icon class="icon"/>Like
-                </button>
+        <div class="feed-content">
+          <div v-if="feed.content.text" class="content-text">
+            <h2 v-if="feed.content.text.length <= 100" v-html="compiledMarkdown"></h2>
+            <div v-else v-html="compiledMarkdown"></div>
+          </div>
+          <div v-if="feed.content.img.length > 0" class="content-media">
+            <div
+              v-if="feed.content.img.length == 1"
+              class="img"
+              :style="{ backgroundImage: 'url(' + require('@/assets/images/' + feed.content.img) + ')' }">
+              <img :src="require('@/assets/images/' + feed.content.img)">
+            </div>
+            <carousel v-if="feed.content.img.length > 1" :nav="false" :items="1">
+              <div
+                v-for="(feedImg, index) in feed.content.img"
+                :key="index"
+                class="carousel-item"
+                :style="{ backgroundImage: 'url(' + require('@/assets/images/' + feedImg) + ')' }">
+                <img :src="require('@/assets/images/' + feedImg)">
               </div>
-              <div class="column">
-                <button class="button is-fullwidth">
-                  <message-circle-icon class="icon"/>Comment
-                </button>
-              </div>
+            </carousel>
+          </div>
+        </div>
+
+        <div class="feed-action">
+          <div class="columns">
+            <div class="column">
+              <button class="button is-fullwidth">
+                <thumbs-up-icon class="icon"/>Like
+              </button>
+            </div>
+            <div class="column">
+              <button class="button is-fullwidth">
+                <message-circle-icon class="icon"/>Comment
+              </button>
             </div>
           </div>
         </div>

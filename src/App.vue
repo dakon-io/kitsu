@@ -1894,11 +1894,13 @@ th.validation-cell {
 
 .feed-item {
   margin: 0 auto;
+  margin: 0 -12px;
   margin-bottom: $size-3;
   background-color: var(--background);
   .card {
     background: transparent;
     color: inherit;
+    border-radius: 0;
   }
   .card-content {
     padding: 12px;
@@ -1996,7 +1998,9 @@ th.validation-cell {
 @media(min-width: 768px) {
   .feed-item {
     max-width: 500px;
-    border-radius: $size-2;
+    margin-left: auto;
+    margin-right: auto;
+    .card { border-radius: $size-2; }
   }
 }
 
