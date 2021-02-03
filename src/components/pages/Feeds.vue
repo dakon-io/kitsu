@@ -89,6 +89,7 @@ export default {
 
   methods: {
     createNewFeed (feed) {
+      console.log(feed.img)
       this.feeds.unshift({
         id: this.feeds.length + 1,
         created: 'time creation',
@@ -97,8 +98,8 @@ export default {
           avatar: 'kitsu.png'
         },
         content: {
-          text: feed,
-          img: []
+          text: feed.text,
+          img: feed.img
         }
       })
     }

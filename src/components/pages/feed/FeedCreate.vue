@@ -30,7 +30,13 @@
               v-html="compiledMarkdown"
               :class="{ preview: !isPreview }"></div>
           </div>
-          <vue-dropzone ref="inputCreateImage" id="dropzone" class="content-create-image" :options="inputCreateImage" :duplicateCheck="true"></vue-dropzone>
+          <vue-dropzone
+            ref="inputCreateImage"
+            id="dropzone"
+            class="content-create-image"
+            :options="inputCreateImageOptions"
+            :duplicateCheck="true"
+            @vdropzone-thumbnail="inputCreateImageDataUrl"></vue-dropzone>
         </div>
 
         <div class="feed-action">
@@ -120,6 +126,7 @@ export default {
   data () {
     return {
       inputCreate: '',
+      img: [],
       isPreview: false,
       tributeOptions: {
         trigger: '@',
@@ -137,13 +144,18 @@ export default {
           return ('<div><p class="username title is-6"><b>' + item.string + '</b></p><p class="subtitle is-6"><small>' + item.original.fullname + '</small></p></div>')
         }
       },
-      inputCreateImage: {
+      inputCreateImageOptions: {
         url: 'https://httpbin.org/post',
         // url: 'f',
+        acceptedFiles: '.jpg, .jpeg, .png',
         maxFilesize: 0.5,
-        headers: { 'My-Awesome-Header': 'header value' },
-        addRemoveLinks: true,
-        dictDefaultMessage: 'Drop pictures here to post'
+        // headers: { 'My-Awesome-Header': 'header value' },
+        // addRemoveLinks: true,
+        // autoProcessQueue: false,
+        thumbnailWidth: null,
+        thumbnailHeight: null,
+        // thumbnailMethod: 'contain',
+        dictDefaultMessage: 'Drop pictures here to post (.jpg, .jpeg, .png)'
       }
     }
   },
@@ -168,10 +180,23 @@ export default {
       this.inputCreate = e.target.value
     }, 300),
 
+    inputCreateImageDataUrl (file, dataUrl) {
+      this.img.push(dataUrl)
+    },
+
     createNewFeed () {
       if (this.inputCreate) {
-        this.$emit('create-feed', this.inputCreate)
-        this.inputCreate = ''
+        const value = {
+          text: this.inputCreate,
+          img: this.img
+        }
+        this.$emit('create-feed', value)
+        // console.log(this.img)
+        // const img = this.$refs.inputCreateImage.getAcceptedFiles()
+        // console.log(img)
+        // this.$refs.inputCreateImage.processQueue()
+        // this.$refs.inputCreateImage.removeAllFiles()
+        // this.inputCreate = ''
       }
     }
   }
