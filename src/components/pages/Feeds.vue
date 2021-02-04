@@ -52,36 +52,6 @@ export default {
             text: 'This is long feed text. Lorem ipsum dolor, sit amet consectetur adipisicing, elit. Neque deserunt veniam, labore mollitia maiores nostrum aliquid atque est',
             img: []
           }
-        },
-        {
-          id: 'feed3',
-          created: 'time creation',
-          user: {
-            username: 'username',
-            avatar: 'kitsu.png'
-          },
-          content: {
-            text: 'This is feed with single image',
-            img: [
-              'imgExampleLandscape1.png'
-            ]
-          }
-        },
-        {
-          id: 'feed4',
-          created: 'time creation',
-          user: {
-            username: 'username',
-            avatar: 'kitsu.png'
-          },
-          content: {
-            text: 'This is feed with multiple images',
-            img: [
-              'imgExampleSquare1.jpeg',
-              'imgExampleSquare1.jpeg',
-              'imgExampleSquare1.jpeg'
-            ]
-          }
         }
       ]
     }

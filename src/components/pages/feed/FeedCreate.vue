@@ -151,7 +151,7 @@ export default {
         maxFilesize: 0.5,
         // headers: { 'My-Awesome-Header': 'header value' },
         // addRemoveLinks: true,
-        // autoProcessQueue: false,
+        autoProcessQueue: false,
         thumbnailWidth: null,
         thumbnailHeight: null,
         // thumbnailMethod: 'contain',
@@ -195,8 +195,9 @@ export default {
         // const img = this.$refs.inputCreateImage.getAcceptedFiles()
         // console.log(img)
         // this.$refs.inputCreateImage.processQueue()
-        // this.$refs.inputCreateImage.removeAllFiles()
-        // this.inputCreate = ''
+        this.$refs.inputCreateImage.removeAllFiles()
+        this.inputCreate = ''
+        this.img = []
       }
     }
   }

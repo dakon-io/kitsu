@@ -29,16 +29,16 @@
             <div
               v-if="feed.content.img.length == 1"
               class="img"
-              :style="{ backgroundImage: 'url(' + require('@/assets/images/' + feed.content.img) + ')' }">
-              <img :src="require('@/assets/images/' + feed.content.img)">
+              :style="{ backgroundImage: `url(${ feed.content.img })` }">
+              <img :src="`${ feed.content.img }`">
             </div>
             <carousel v-if="feed.content.img.length > 1" :nav="false" :items="1">
               <div
                 v-for="(feedImg, index) in feed.content.img"
                 :key="index"
                 class="carousel-item"
-                :style="{ backgroundImage: 'url(' + require('@/assets/images/' + feedImg) + ')' }">
-                <img :src="require('@/assets/images/' + feedImg)">
+                :style="{ backgroundImage: `url(${ feedImg })` }">
+                <img :src="`${ feedImg }`">
               </div>
             </carousel>
           </div>
