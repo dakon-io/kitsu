@@ -1974,9 +1974,11 @@ th.validation-cell {
         margin-top: $size-3;
         transition: $transition-fast;
         &:hover { border-color: #b5b5b5 }
-        &.dropzone .dz-preview {
-          margin: $size-1;
-          .dz-image img { border-radius: 3px; }
+        &.dropzone {
+          .dz-preview {
+            margin: $size-1;
+            .dz-image img { border-radius: 3px; }
+          }
         }
         &.vue-dropzone>.dz-preview .dz-details {
           background-color: $green;
@@ -2014,6 +2016,11 @@ th.validation-cell {
   .feed-item {
     background-color: $dark-grey-lighter;
     color: $white-grey;
+  }
+  .dropzone { background: #36393F; }
+  .vue-dropzone {
+    border-color: #25282E;
+    :hover { background-color: #2c2e33 }
   }
 }
 // End Dakon Additional
