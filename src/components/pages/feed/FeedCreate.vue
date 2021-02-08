@@ -19,13 +19,18 @@
 
         <div class="feed-content">
           <div id="editor">
-            <vue-tribute :options="tributeOptions">
+            <!-- <vue-tribute :options="tributeOptions">
               <textarea
                 v-model="inputCreate"
                 @input="updateInputCreate"
                 class="input content-create"
                 :class="{ preview: isPreview }"></textarea>
-            </vue-tribute>
+            </vue-tribute> -->
+            <textarea
+              v-model="inputCreate"
+              @input="updateInputCreate"
+              class="input content-create"
+              :class="{ preview: isPreview }"></textarea>
             <div
               v-html="compiledMarkdown"
               :class="{ preview: !isPreview }"></div>
@@ -64,7 +69,7 @@
 <script>
 import _ from 'lodash'
 import marked from 'marked'
-import VueTribute from 'vue-tribute'
+// import VueTribute from 'vue-tribute'
 import vue2Dropzone from 'vue2-dropzone'
 import 'vue2-dropzone/dist/vue2Dropzone.min.css'
 import {
@@ -77,7 +82,7 @@ export default {
   name: 'FeedCreate',
 
   components: {
-    VueTribute,
+    // VueTribute,
     vueDropzone: vue2Dropzone,
     EyeIcon,
     EditIcon,
@@ -128,22 +133,22 @@ export default {
       inputCreate: '',
       img: [],
       isPreview: false,
-      tributeOptions: {
-        trigger: '@',
-        values: [
-          // Key is what will be shown in list and search term as default
-          // Value is what will be shown in mention as default
-          { key: 'caksawintang', username: 'caksawintang', fullname: 'Caksa Wintang' },
-          { key: 'username', username: 'username', fullname: 'User Full Name' },
-          { key: 'username', username: 'username', fullname: 'User Full Name' }
-        ],
-        selectTemplate: function (item) {
-          return ('@' + item.original.username)
-        },
-        menuItemTemplate: function (item) {
-          return ('<div><p class="username title is-6"><b>' + item.string + '</b></p><p class="subtitle is-6"><small>' + item.original.fullname + '</small></p></div>')
-        }
-      },
+      // tributeOptions: {
+      //   trigger: '@',
+      //   values: [
+      //     // Key is what will be shown in list and search term as default
+      //     // Value is what will be shown in mention as default
+      //     { key: 'caksawintang', username: 'caksawintang', fullname: 'Caksa Wintang' },
+      //     { key: 'username', username: 'username', fullname: 'User Full Name' },
+      //     { key: 'username', username: 'username', fullname: 'User Full Name' }
+      //   ],
+      //   selectTemplate: function (item) {
+      //     return ('@' + item.original.username)
+      //   },
+      //   menuItemTemplate: function (item) {
+      //     return ('<div><p class="username title is-6"><b>' + item.string + '</b></p><p class="subtitle is-6"><small>' + item.original.fullname + '</small></p></div>')
+      //   }
+      // },
       inputCreateImageOptions: {
         url: 'https://httpbin.org/post',
         // url: 'f',
@@ -164,14 +169,14 @@ export default {
     compiledMarkdown () {
       const md = marked(this.inputCreate, { sanitize: true })
       // const regex = /[@]\w+/g
-      const regex = /[@]/g
-      // const username = ['user1', 'user2']
-      const username = 'user1'
-      const mentionReplacer = `<a href="user/${username}">
-        <span class="mention people" contenteditable="false">@${username}</span>
-      </a>`
-      const translateMention = md.replace(regex, mentionReplacer)
-      return translateMention
+      // const regex = /[@]/g
+      // const username = 'user1'
+      // const mentionReplacer = `<a href="user/${username}">
+      //   <span class="mention people" contenteditable="false">@${username}</span>
+      // </a>`
+      // const translateMention = md.replace(regex, mentionReplacer)
+      // return translateMention
+      return md
     }
   },
 
