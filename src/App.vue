@@ -2000,7 +2000,7 @@ th.validation-cell {
 }
 @media(min-width: 768px) {
   .feed-item {
-    max-width: 500px;
+    max-width: 600px;
     border-radius: $size-2;
     margin-left: auto;
     margin-right: auto;
