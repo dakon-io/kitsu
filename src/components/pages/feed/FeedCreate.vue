@@ -29,6 +29,7 @@
             <textarea
               v-model="inputCreate"
               @input="updateInputCreate"
+              placeholder="Type here ..."
               class="input content-create"
               :class="{ preview: isPreview }"></textarea>
             <div

@@ -1965,14 +1965,15 @@ th.validation-cell {
         overflow-y: auto;
         transition: $transition-fast;
         height: 170px;
+        border-bottom-width: 0;
+        border-radius: 3px 3px 0 0;
       }
       .preview { display: none; }
       .content-create-image {
         text-align: center;
         padding: $size-1 $size-3;
-        border: 1px dashed #dbdbdb;
-        border-radius: 3px;
-        margin-top: $size-3;
+        border: 3px dashed #dbdbdb;
+        border-radius: 0 0 3px 3px;
         transition: $transition-fast;
         &:hover { border-color: #b5b5b5 }
         &.dropzone {
@@ -2017,6 +2018,12 @@ th.validation-cell {
   .feed-item {
     background-color: $dark-grey-lighter;
     color: $white-grey;
+    &.create {
+      .vue-dropzone {
+        border-color: #25282E;
+        :hover { background-color: #2c2e33 }
+      }
+    }
   }
   .dropzone { background: #36393F; }
   .vue-dropzone {
