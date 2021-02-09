@@ -23,28 +23,11 @@
           >
             {{ $t('tasks.fields.task_type') }}
           </th>
-          <th
-            scope="col"
-            class="name datatable-row-header"
-            ref="th-name"
-            :style="{left: colNamePosX}"
-          >
-            {{ $t('tasks.fields.entity') }}
-          </th>
-          <th scope="col" class="estimation">
-            {{ $t('tasks.fields.duration').substring(0, 3) }}.
-          </th>
-          <th scope="col" class="due-date">
-            {{ $t('tasks.fields.due_date') }}
-          </th>
           <th scope="col" class="status">
             {{ $t('tasks.fields.task_status') }}
           </th>
-          <th scope="col" class="last-comment" v-if="!done">
-            {{ $t('tasks.fields.last_comment') }}
-          </th>
-          <th scope="col" class="end-date" v-else>
-            {{ $t('tasks.fields.end_date') }}
+          <th scope="col" class="due-date">
+            {{ $t('tasks.fields.due_date') }}
           </th>
         </tr>
       </thead>
@@ -74,26 +57,7 @@
             class="type datatable-row-header datatable-row-header--nobd"
             :production-id="entry.project_id"
             :task-type="getTaskType(entry)"
-            :style="{left: colTypePosX}"
-          />
-          <td class="name datatable-row-header" :style="{left: colNamePosX}">
-            <div class="flexrow">
-              <entity-thumbnail
-                :empty-width="60"
-                :empty-height="40"
-                :entity="{preview_file_id: entry.entity_preview_file_id}"
-              />
-              <router-link :to="entityPath(entry)">
-                {{ entry.full_entity_name }}
-              </router-link>
-            </div>
-          </td>
-          <td class="estimation">
-            {{ formatDuration(entry.duration) }}
-          </td>
-          <td class="due-date">
-            {{ formatDate(entry.due_date) }}
-          </td>
+            :style="{left: colTypePosX}"/>
           <validation-cell
             class="status unselectable"
             :ref="'validation-' + i + '-0'"
@@ -107,15 +71,9 @@
             :columnY="0"
             @select="onTaskSelected"
             @unselect="onTaskUnselected"
-            :column="entry.taskStatus"
-          />
-          <last-comment-cell
-            class="last-comment"
-            :task="entry"
-            v-if="!done"
-          />
-          <td class="end-date" v-else>
-            {{ formatDate(entry.end_date) }}
+            :column="entry.taskStatus"/>
+          <td class="due-date">
+            {{ formatDate(entry.due_date) }}
           </td>
        </tr>
       </tbody>
@@ -156,8 +114,6 @@ import { formatListMixin } from '@/components/mixins/format'
 import { PAGE_SIZE } from '@/lib/pagination'
 import { formatSimpleDate } from '@/lib/time'
 
-import EntityThumbnail from '@/components/widgets/EntityThumbnail'
-import LastCommentCell from '@/components/cells/LastCommentCell'
 import ProductionNameCell from '@/components/cells/ProductionNameCell'
 import TaskTypeCell from '@/components/cells/TaskTypeName'
 import TableInfo from '@/components/widgets/TableInfo'
@@ -168,8 +124,6 @@ export default {
   mixins: [formatListMixin, selectionListMixin],
 
   components: {
-    EntityThumbnail,
-    LastCommentCell,
     ProductionNameCell,
     TableInfo,
     TaskTypeCell,
@@ -305,39 +259,6 @@ export default {
       return taskType
     },
 
-    entityPath (entity) {
-      const entityType = entity.sequence_name ? 'shot' : 'asset'
-      const route = {
-        name: entityType,
-        params: {
-          production_id: entity.project_id
-        }
-      }
-
-      if (entityType === 'asset') {
-        route.params.asset_id = entity.entity_id
-      } else {
-        route.params.shot_id = entity.entity_id
-      }
-
-      const production = this.productionMap[entity.project_id]
-      let episodeId = entity.episode_id
-      if (production && production.production_type === 'tvshow' && !episodeId) {
-        if (entityType === 'shot') {
-          episodeId = production.first_episode_id
-        } else {
-          episodeId = 'main'
-        }
-      }
-
-      if (episodeId) {
-        route.name = `episode-${entityType}`
-        route.params.episode_id = episodeId
-      }
-
-      return route
-    },
-
     onKeyDown (event) {
       const lastSelection =
         this.lastSelection ? this.lastSelection : { x: 0, y: 0 }
@@ -415,15 +336,6 @@ export default {
   cursor: pointer;
 }
 
-.name {
-  width: 230px;
-  min-width: 230px;
-}
-
-.name a {
-  color: inherit;
-}
-
 .production {
   width: 70px;
   min-width: 70px;
@@ -443,15 +355,6 @@ export default {
 .due-date {
   width: 110px;
   min-width: 110px;
-}
-
-th.last-comment {
- max-width: 100%;
- width: 100%;
-}
-
-td.last-comment {
-  min-width: 250px;
 }
 
 td.end-date {
