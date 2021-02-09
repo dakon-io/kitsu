@@ -1,16 +1,16 @@
 <template>
   <div class="feeds page">
 
-    <div class="columns">
+    <div class="is-flex">
 
-      <div class="column feed">
+      <div class="feed">
         <FeedCreate @create-feed="createNewFeed"/>
         <FeedList
           v-for="feed in feeds" :key="feed.id"
           :feed="feed"/>
       </div>
 
-      <div class="column todo-list">
+      <div class="todo-list">
         <feed-todos-list
           ref="todo-list"
           :tasks="sortedTasks"
@@ -22,7 +22,7 @@
 
     </div>
     <div
-      class="column side-column"
+      class="side-column"
       v-if="nbSelectedTasks === 1">
       <task-info
         :task="Object.values(selectedTasks)[0]"
@@ -177,11 +177,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .column {
-    &.feed, &.todo-list {
-      height: calc(100vh - 77px);
-      overflow-y: auto;
-    }
+  .feed, .todo-list {
+    margin-right: auto;
+    margin-left: auto;
+  }
+  .todo-list {
+    width: 100%;
+    max-width: 400px;
   }
   @media(max-width: 767px) {
     .page {
