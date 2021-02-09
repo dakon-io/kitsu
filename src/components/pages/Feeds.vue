@@ -11,7 +11,7 @@
       </div>
 
       <div class="column todo-list">
-        <todos-list
+        <feed-todos-list
           ref="todo-list"
           :tasks="sortedTasks"
           :is-loading="isTodosLoading"
@@ -20,6 +20,13 @@
           @scroll="setTodoListScrollPosition"/>
       </div>
 
+    </div>
+    <div
+      class="column side-column"
+      v-if="nbSelectedTasks === 1">
+      <task-info
+        :task="Object.values(selectedTasks)[0]"
+      />
     </div>
 
   </div>
@@ -31,7 +38,8 @@ import firstBy from 'thenby'
 
 import FeedCreate from './feed/FeedCreate'
 import FeedList from '../lists/FeedList'
-import TodosList from '../lists/TodosList'
+import FeedTodosList from '../lists/FeedTodosList'
+import TaskInfo from '../sides/TaskInfo'
 
 export default {
   name: 'feeds',
@@ -39,7 +47,8 @@ export default {
   components: {
     FeedCreate,
     FeedList,
-    TodosList
+    FeedTodosList,
+    TaskInfo
   },
 
   data () {
@@ -79,6 +88,8 @@ export default {
       'displayedTodos',
       'isTodosLoading',
       'isTodosLoadingError',
+      'nbSelectedTasks',
+      'selectedTasks',
       'todoSelectionGrid'
     ]),
 
@@ -166,7 +177,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .feed {}
+  .column {
+    &.feed, &.todo-list {
+      height: calc(100vh - 77px);
+      overflow-y: auto;
+    }
+  }
   @media(max-width: 767px) {
     .page {
       padding-left: 12px;
