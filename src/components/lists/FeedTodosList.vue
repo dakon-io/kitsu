@@ -32,9 +32,6 @@
             {{ $t('tasks.fields.entity') }}
           </th>
           <th scope="col" class="estimation">
-            {{ $t('tasks.fields.estimation').substring(0, 3) }}.
-          </th>
-          <th scope="col" class="estimation">
             {{ $t('tasks.fields.duration').substring(0, 3) }}.
           </th>
           <th scope="col" class="due-date">
@@ -90,9 +87,6 @@
                 {{ entry.full_entity_name }}
               </router-link>
             </div>
-          </td>
-          <td class="estimation">
-            {{ formatDuration(entry.estimation) }}
           </td>
           <td class="estimation">
             {{ formatDuration(entry.duration) }}
