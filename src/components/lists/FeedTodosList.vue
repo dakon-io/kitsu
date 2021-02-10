@@ -373,4 +373,6 @@ td.end-date {
 .empty-list img {
   max-width: 80vh;
 }
+
+.task-list { max-height: calc(100vh - 72px); }
 </style>

@@ -177,11 +177,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .feed, .todo-list {
-    margin-right: auto;
-    margin-left: auto;
+  .page {
+    $px: 150px;
+    padding-left: $px;
+    padding-right: $px;
   }
   .todo-list {
+    position: fixed;
+    top: 42px;
+    right: 150px;
     width: 100%;
     max-width: 400px;
   }
