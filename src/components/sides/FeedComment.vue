@@ -8,7 +8,7 @@
 
           <!-- Please add .other or .me after .by -->
           <div
-            v-for="(comment, index) in comments" :key="index"
+            v-for="(comment, index) in comment" :key="index"
             class="by me">
             <div>
               <div class="photo-container">
@@ -70,28 +70,16 @@ export default {
     SendIcon
   },
 
+  props: {
+    comment: {
+      type: Array,
+      required: true
+    }
+  },
+
   data () {
     return {
-      show: true,
-      user: {
-        id: 'usr1'
-      },
-      comments: [
-        {
-          userId: 'usr1',
-          username: 'user-1',
-          id: 'comm1-1',
-          content: { text: '1. This is comment comm1-1' },
-          replyTo: ''
-        },
-        {
-          userId: 'usr2',
-          username: 'user-2',
-          id: 'comm1-2',
-          content: { text: '2. This is comment comm1-2' },
-          replyTo: 'id: comm1-2'
-        }
-      ]
+      show: true
     }
   }
 }

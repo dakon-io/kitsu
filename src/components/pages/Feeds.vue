@@ -1,7 +1,7 @@
 <template>
   <div class="feeds page">
 
-    <FeedComment/>
+    <FeedComment :comment="comments"/>
 
     <div class="is-flex">
 
@@ -68,19 +68,7 @@ export default {
           content: {
             text: 'This is short feed text',
             img: []
-          },
-          comments: [
-            {
-              id: 'commFeed1',
-              by: 'usr1',
-              content: { text: '1. This is comment for commFeed1' }
-            },
-            {
-              id: 'commFeed1',
-              by: 'usr2',
-              content: { text: '1. This is comment for commFeed1' }
-            }
-          ]
+          }
         },
         {
           id: 'feed2',
@@ -92,19 +80,28 @@ export default {
           content: {
             text: 'This is long feed text. Lorem ipsum dolor, sit amet consectetur adipisicing, elit. Neque deserunt veniam, labore mollitia maiores nostrum aliquid atque est',
             img: []
-          },
-          comments: [
-            {
-              id: 'commFeed2',
-              by: 'usr1',
-              content: { text: '1. This is comment for commFeed2' }
-            },
-            {
-              id: 'commFeed2',
-              by: 'usr2',
-              content: { text: '1. This is comment for commFeed2' }
-            }
-          ]
+          }
+        }
+      ],
+      user: {
+        id: 'usr1'
+      },
+      comments: [
+        {
+          id: 'comm1-1',
+          feedRef: 'feed1',
+          userId: 'usr1',
+          username: 'user-1',
+          content: { text: '1. This is comment comm1-1' },
+          replyTo: ''
+        },
+        {
+          id: 'comm1-2',
+          feedRef: 'feed2',
+          userId: 'usr2',
+          username: 'user-2',
+          content: { text: '2. This is comment comm1-2' },
+          replyTo: 'id: comm1-2'
         }
       ],
       currentSort: 'priority'
