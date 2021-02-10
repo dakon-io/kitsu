@@ -1,6 +1,8 @@
 <template>
   <div class="feeds page">
 
+    <FeedComment/>
+
     <div class="is-flex">
 
       <div class="feed">
@@ -37,6 +39,7 @@ import { mapGetters, mapActions } from 'vuex'
 import firstBy from 'thenby'
 
 import FeedCreate from './feed/FeedCreate'
+import FeedComment from '../sides/FeedComment'
 import FeedList from '../lists/FeedList'
 import FeedTodosList from '../lists/FeedTodosList'
 import TaskInfo from '../sides/TaskInfo'
@@ -46,6 +49,7 @@ export default {
 
   components: {
     FeedCreate,
+    FeedComment,
     FeedList,
     FeedTodosList,
     TaskInfo
@@ -64,7 +68,19 @@ export default {
           content: {
             text: 'This is short feed text',
             img: []
-          }
+          },
+          comments: [
+            {
+              id: 'commFeed1',
+              by: 'usr1',
+              content: { text: '1. This is comment for commFeed1' }
+            },
+            {
+              id: 'commFeed1',
+              by: 'usr2',
+              content: { text: '1. This is comment for commFeed1' }
+            }
+          ]
         },
         {
           id: 'feed2',
@@ -76,7 +92,19 @@ export default {
           content: {
             text: 'This is long feed text. Lorem ipsum dolor, sit amet consectetur adipisicing, elit. Neque deserunt veniam, labore mollitia maiores nostrum aliquid atque est',
             img: []
-          }
+          },
+          comments: [
+            {
+              id: 'commFeed2',
+              by: 'usr1',
+              content: { text: '1. This is comment for commFeed2' }
+            },
+            {
+              id: 'commFeed2',
+              by: 'usr2',
+              content: { text: '1. This is comment for commFeed2' }
+            }
+          ]
         }
       ],
       currentSort: 'priority'
