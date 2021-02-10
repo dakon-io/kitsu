@@ -178,16 +178,21 @@ export default {
 
 <style lang="scss" scoped>
   .page {
+    $todo-list-max-w: 400px;
     $px: 150px;
     padding-left: $px;
     padding-right: $px;
-  }
-  .todo-list {
-    position: fixed;
-    top: 42px;
-    right: 150px;
-    width: 100%;
-    max-width: 400px;
+    .feed {
+      width: 100%;
+      max-width: calc(100vw - (#{$px} * 2) - #{$todo-list-max-w});
+    }
+    .todo-list {
+      position: fixed;
+      top: 42px;
+      right: 150px;
+      width: 100%;
+      max-width: $todo-list-max-w;
+    }
   }
   @media(max-width: 767px) {
     .page {
