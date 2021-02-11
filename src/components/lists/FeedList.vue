@@ -52,7 +52,7 @@
               </button>
             </div>
             <div class="column">
-              <button class="button is-fullwidth">
+              <button @click="openComment" class="button is-fullwidth">
                 <message-circle-icon class="icon"/>Comment
               </button>
             </div>
@@ -97,6 +97,12 @@ export default {
       </a>`
       const translateMention = md.replace(regex, mentionReplacer)
       return translateMention
+    }
+  },
+
+  methods: {
+    openComment () {
+      this.$emit('open-comment')
     }
   }
 }

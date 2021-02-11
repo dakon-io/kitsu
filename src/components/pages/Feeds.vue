@@ -1,7 +1,16 @@
 <template>
   <div class="feeds page">
 
-    <FeedComment :comment="comments"/>
+    <div
+      v-if="showFeedComment"
+      class="feed-comment-container">
+      <FeedComment :comment="comments"/>
+      <div
+        id="c-mask"
+        @click="showFeedComment = !showFeedComment"
+        :class="{'is-active': showFeedComment}">
+      </div>
+    </div>
 
     <div class="is-flex">
 
@@ -9,7 +18,8 @@
         <FeedCreate @create-feed="createNewFeed"/>
         <FeedList
           v-for="feed in feeds" :key="feed.id"
-          :feed="feed"/>
+          :feed="feed"
+          @open-comment="showFeedComment = !showFeedComment"/>
       </div>
 
       <div class="todo-list">
@@ -57,6 +67,7 @@ export default {
 
   data () {
     return {
+      showFeedComment: true,
       feeds: [
         {
           id: 'feed1',
@@ -217,6 +228,20 @@ export default {
       right: 150px;
       width: 100%;
       max-width: $todo-list-max-w;
+    }
+  }
+  .feed-comment-container {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: 100vw;
+    height: 100vh;
+    #c-mask {
+      display: block;
+      width: 100vw;
+      height: 100vh;
     }
   }
   @media(max-width: 767px) {
