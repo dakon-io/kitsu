@@ -1,7 +1,7 @@
 <template>
   <aside class="sidebar-comment">
     <div class="chat-wrapper">
-      <div class="chat">
+      <div class="chat" ref="chat">
 
         <!-- Please add .other or .me after .by -->
         <div
@@ -37,8 +37,8 @@
       </div>
       <div class="create">
         <div class="create-area">
-          <textarea rows="3" class="input type-area"></textarea>
-          <button class="button send">
+          <textarea v-model="inputComment" rows="3" class="input type-area"></textarea>
+          <button @click="createNewComment" class="button send">
             <send-icon/>
           </button>
         </div>
@@ -65,6 +65,28 @@ export default {
     comment: {
       type: Array,
       required: true
+    }
+  },
+
+  data () {
+    return {
+      inputComment: ''
+    }
+  },
+
+  methods: {
+    createNewComment () {
+      if (this.inputComment) {
+        const value = {
+          text: this.inputComment
+        }
+        this.$emit('create-comment', value)
+        this.inputComment = ''
+      }
+      const ct = this.$refs.chat
+      setTimeout(function () {
+        ct.scrollTop = ct.scrollHeight
+      }, 500)
     }
   }
 }

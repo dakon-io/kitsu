@@ -4,7 +4,9 @@
     <div
       v-if="showFeedComment"
       class="feed-comment-container">
-      <FeedComment :comment="comments"/>
+      <FeedComment
+        :comment="comments"
+        @create-comment="createNewComment"/>
       <div
         id="c-mask"
         @click="showFeedComment = !showFeedComment"
@@ -67,7 +69,7 @@ export default {
 
   data () {
     return {
-      showFeedComment: true,
+      showFeedComment: false,
       feeds: [
         {
           id: 'feed1',
@@ -200,6 +202,17 @@ export default {
           text: feed.text,
           img: feed.img
         }
+      })
+    },
+
+    createNewComment (comment) {
+      this.comments.push({
+        id: this.comments.length + 1,
+        feedRef: 'feed2',
+        userId: 'usr1',
+        username: 'user-1',
+        content: { text: comment.text },
+        replyTo: ''
       })
     }
   },
