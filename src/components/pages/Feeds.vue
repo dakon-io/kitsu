@@ -17,7 +17,9 @@
     <div class="is-flex">
 
       <div class="feed">
-        <FeedCreate @create-feed="createNewFeed"/>
+        <FeedCreate
+          :peoples="displayedPeople"
+          @create-feed="createNewFeed"/>
         <FeedList
           v-for="feed in feeds" :key="feed.id"
           :feed="feed"
@@ -128,7 +130,8 @@ export default {
       'isTodosLoadingError',
       'nbSelectedTasks',
       'selectedTasks',
-      'todoSelectionGrid'
+      'todoSelectionGrid',
+      'displayedPeople'
     ]),
 
     todoList () {
@@ -190,10 +193,10 @@ export default {
     ]),
 
     createNewFeed (feed) {
-      console.log(feed.img)
+      // console.log(feed.img)
       this.feeds.unshift({
         id: this.feeds.length + 1,
-        created: 'time creation',
+        created: 'a minute ago',
         user: {
           username: 'username',
           avatar: 'kitsu.png'
