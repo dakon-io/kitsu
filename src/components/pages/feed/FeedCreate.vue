@@ -19,22 +19,30 @@
 
         <div class="feed-content">
           <div id="editor">
-            <!-- <vue-tribute :options="tributeOptions">
+            <at-ta
+              :members="peoples"
+              name-key="full_name"
+              :limit="2"
+            >
+              <template slot="item" slot-scope="peoples">
+                <div class="flexrow">
+                  <people-avatar
+                    class="flexrow-item"
+                    :person="peoples.item"
+                    :size="20"
+                    :no-cache="true"
+                  />
+                  <span class="flexrow-item">
+                    {{ peoples.item.full_name }}
+                  </span>
+                </div>
+              </template>
               <textarea
                 v-model="inputCreate"
-                @input="updateInputCreate"
-                class="input content-create"
-                :class="{ preview: isPreview }"></textarea>
-            </vue-tribute> -->
-            <textarea
-              v-model="inputCreate"
-              @input="updateInputCreate"
-              placeholder="Type here ..."
-              class="input content-create"
-              :class="{ preview: isPreview }"></textarea>
-            <div
-              v-html="compiledMarkdown"
-              :class="{ preview: !isPreview }"></div>
+                @keyup.enter.ctrl="createNewFeed()"
+                placeholder="Type here ..."
+                class="input content-create"></textarea>
+            </at-ta>
           </div>
           <vue-dropzone
             ref="inputCreateImage"
@@ -46,19 +54,7 @@
         </div>
 
         <div class="feed-action">
-          <button
-            @click="isPreview = !isPreview"
-            :class="{ hidden: isPreview }"
-            class="button ml-auto">
-            <eye-icon class="icon"/>Preview
-          </button>
-          <button
-            @click="isPreview = !isPreview"
-            :class="{ hidden: !isPreview }"
-            class="button ml-auto">
-            <edit-icon class="icon"/>Edit
-          </button>
-          <button @click="createNewFeed" class="button">
+          <button @click="createNewFeed()" class="button ml-auto" title="or Ctrl + Enter to send">
             <send-icon class="icon"/>Post
           </button>
         </div>
@@ -68,88 +64,35 @@
 </template>
 
 <script>
-import _ from 'lodash'
-import marked from 'marked'
-// import VueTribute from 'vue-tribute'
+import AtTa from 'vue-at/dist/vue-at-textarea'
+import PeopleAvatar from '@/components/widgets/PeopleAvatar'
 import vue2Dropzone from 'vue2-dropzone'
 import 'vue2-dropzone/dist/vue2Dropzone.min.css'
 import {
-  EyeIcon,
-  EditIcon,
   SendIcon
 } from 'vue-feather-icons'
 
 export default {
   name: 'FeedCreate',
 
-  components: {
-    // VueTribute,
-    vueDropzone: vue2Dropzone,
-    EyeIcon,
-    EditIcon,
-    SendIcon
+  props: {
+    peoples: {
+      type: Array,
+      default: () => []
+    }
   },
 
-  // data () {
-  //   return {
-  //     // text: '',
-  //     // items: [
-  //     //   {
-  //     //     value: 'username-1',
-  //     //     fullName: 'User Full Name-1',
-  //     //     searchText: 'username-1'
-  //     //   },
-  //     //   {
-  //     //     value: 'username-2',
-  //     //     fullName: 'User Full Name-2',
-  //     //     searchText: 'username-2'
-  //     //   },
-  //     //   {
-  //     //     value: 'username-3',
-  //     //     fullName: 'User Full Name-3',
-  //     //     searchText: 'username-3'
-  //     //   }
-  //     // ]
-  //     tributeOptions: {
-  //       trigger: '@',
-  //       values: [
-  //         // Key is what will be shown in list and search term as default
-  //         // Value is what will be shown in mention as default
-  //         { key: 'caksawintang', username: 'caksawintang', fullname: 'Caksa Wintang' },
-  //         { key: 'username', username: 'username', fullname: 'User Full Name' },
-  //         { key: 'username', username: 'username', fullname: 'User Full Name' }
-  //       ],
-  //       selectTemplate: function (item) {
-  //         return ('<span class="mention people" contenteditable="false">@' + item.original.username + '</span>')
-  //       },
-  //       menuItemTemplate: function (item) {
-  //         return ('<div><p class="username title is-6"><b>' + item.string + '</b></p><p class="subtitle is-6"><small>' + item.original.fullname + '</small></p></div>')
-  //       }
-  //     }
-  //   }
-  // },
+  components: {
+    AtTa,
+    PeopleAvatar,
+    vueDropzone: vue2Dropzone,
+    SendIcon
+  },
 
   data () {
     return {
       inputCreate: '',
       img: [],
-      isPreview: false,
-      // tributeOptions: {
-      //   trigger: '@',
-      //   values: [
-      //     // Key is what will be shown in list and search term as default
-      //     // Value is what will be shown in mention as default
-      //     { key: 'caksawintang', username: 'caksawintang', fullname: 'Caksa Wintang' },
-      //     { key: 'username', username: 'username', fullname: 'User Full Name' },
-      //     { key: 'username', username: 'username', fullname: 'User Full Name' }
-      //   ],
-      //   selectTemplate: function (item) {
-      //     return ('@' + item.original.username)
-      //   },
-      //   menuItemTemplate: function (item) {
-      //     return ('<div><p class="username title is-6"><b>' + item.string + '</b></p><p class="subtitle is-6"><small>' + item.original.fullname + '</small></p></div>')
-      //   }
-      // },
       inputCreateImageOptions: {
         url: 'https://httpbin.org/post',
         // url: 'f',
@@ -166,37 +109,19 @@ export default {
     }
   },
 
-  computed: {
-    compiledMarkdown () {
-      const md = marked(this.inputCreate, { sanitize: true })
-      // const regex = /[@]\w+/g
-      // const regex = /[@]/g
-      // const username = 'user1'
-      // const mentionReplacer = `<a href="user/${username}">
-      //   <span class="mention people" contenteditable="false">@${username}</span>
-      // </a>`
-      // const translateMention = md.replace(regex, mentionReplacer)
-      // return translateMention
-      return md
-    }
-  },
-
   methods: {
-    updateInputCreate: _.debounce(function (e) {
-      this.inputCreate = e.target.value
-    }, 300),
-
     inputCreateImageDataUrl (file, dataUrl) {
       this.img.push(dataUrl)
     },
 
-    createNewFeed () {
+    createNewFeed (inputCreate) {
       if (this.inputCreate) {
         const value = {
           text: this.inputCreate,
           img: this.img
         }
         this.$emit('create-feed', value)
+        // this.$emit('create-feed', inputCreate)
         // console.log(this.img)
         // const img = this.$refs.inputCreateImage.getAcceptedFiles()
         // console.log(img)
