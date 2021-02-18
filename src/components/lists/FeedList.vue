@@ -89,14 +89,16 @@ export default {
 
   computed: {
     compiledMarkdown () {
-      const md = marked(this.feed.content.text, { sanitize: true })
-      const regex = /[@]/g
-      const username = 'user1'
-      const mentionReplacer = `<a href="user/${username}">
-        <span class="mention people" contenteditable="false">@${username}</span>
-      </a>`
-      const translateMention = md.replace(regex, mentionReplacer)
-      return translateMention
+      // const md = marked(this.feed.content.text, { sanitize: true })
+      // const regex = /[@]/g
+      // const username = 'user1'
+      // const mentionReplacer = `<a href="user/${username}">
+      //   <span class="mention people" contenteditable="false">@${username}</span>
+      // </a>`
+      // const translateMention = md.replace(regex, mentionReplacer)
+      // return translateMention
+      const md = marked(this.feed.content.text)
+      return md
     }
   },
 
