@@ -15,7 +15,7 @@
               <b>@{{ feed.user.username }}</b>
             </p>
             <p class="subtitle is-6">
-              <small>{{ feed.created }}</small>
+              <small>{{ shortDate }}</small>
             </p>
           </div>
         </div>
@@ -64,8 +64,11 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+import moment from 'moment'
 import marked from 'marked'
 import carousel from 'vue-owl-carousel2'
+import { parseDate } from '@/lib/time'
 import {
   ThumbsUpIcon,
   MessageCircleIcon
@@ -88,8 +91,12 @@ export default {
   },
 
   computed: {
+    ...mapGetters([
+      'user'
+    ]),
+
     compiledMarkdown () {
-      // const md = marked(this.feed.content.text, { sanitize: true })
+      const md = marked(this.feed.content.text, { sanitize: true })
       // const regex = /[@]/g
       // const username = 'user1'
       // const mentionReplacer = `<a href="user/${username}">
@@ -97,8 +104,20 @@ export default {
       // </a>`
       // const translateMention = md.replace(regex, mentionReplacer)
       // return translateMention
-      const md = marked(this.feed.content.text)
+      // const md = marked(this.feed.content.text)
       return md
+    },
+
+    postDate () {
+      return parseDate(this.feed.created)
+    },
+
+    shortDate () {
+      if (moment().diff(this.postDate, 'days') > 1) {
+        return this.postDate.tz(this.user.timezone).format('MMM/DD/YYYY')
+      } else {
+        return this.postDate.tz(this.user.timezone).format('HH:mm')
+      }
     }
   },
 

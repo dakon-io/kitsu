@@ -196,7 +196,7 @@ export default {
       // console.log(feed.img)
       this.feeds.unshift({
         id: this.feeds.length + 1,
-        created: 'a minute ago',
+        created: new Date(),
         user: {
           username: 'username',
           avatar: 'kitsu.png'
