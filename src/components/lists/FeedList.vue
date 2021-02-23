@@ -3,17 +3,17 @@
     <div class="card">
       <div class="card-content">
         <div class="feed-sender media">
-          <div class="media-left">
-            <div class="photo-container">
-              <div
-                class="avatar"
-                :style="{ backgroundImage: 'url(' + require('@/assets/' + feed.user.avatar) + ')' }"></div>
-            </div>
-          </div>
-          <div class="text media-content">
-            <p class="username title is-6">
-              <b>@{{ feed.user.username }}</b>
-            </p>
+          <people-avatar
+            class="flexrow-item"
+            :size="38"
+            :font-size="20"
+            :person="feed.user"/>
+          <div>
+            <strong>
+              <people-name
+                class=""
+                :person="feed.user"/>
+            </strong>
             <p class="subtitle is-6">
               <small>{{ shortDate }}</small>
             </p>
@@ -67,6 +67,8 @@
 import { mapGetters } from 'vuex'
 import moment from 'moment'
 import marked from 'marked'
+import PeopleAvatar from '@/components/widgets/PeopleAvatar'
+import PeopleName from '@/components/widgets/PeopleName'
 import carousel from 'vue-owl-carousel2'
 import { parseDate } from '@/lib/time'
 import {
@@ -78,6 +80,8 @@ export default {
   name: 'feed-list',
 
   components: {
+    PeopleAvatar,
+    PeopleName,
     carousel,
     ThumbsUpIcon,
     MessageCircleIcon

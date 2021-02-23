@@ -3,18 +3,16 @@
     <div class="card">
       <div class="card-content">
         <div class="feed-sender media">
-          <div class="media-left">
-            <div class="photo-container">
-              <div
-                class="avatar"
-                :style="{ backgroundImage: 'url(' + require('@/assets/kitsu.png') + ')' }"></div>
-            </div>
-          </div>
-          <div class="text media-content">
-            <p class="username title is-6">
-              <b>@username</b>
-            </p>
-          </div>
+          <people-avatar
+            class="flexrow-item"
+            :size="25"
+            :font-size="12"
+            :person="user"/>
+          <strong class="flexrow-item">
+            <people-name
+              class=""
+              :person="user"/>
+          </strong>
         </div>
 
         <div
@@ -79,6 +77,7 @@
 <script>
 import AtTa from 'vue-at/dist/vue-at-textarea'
 import PeopleAvatar from '@/components/widgets/PeopleAvatar'
+import PeopleName from '@/components/widgets/PeopleName'
 import vue2Dropzone from 'vue2-dropzone'
 import 'vue2-dropzone/dist/vue2Dropzone.min.css'
 import {
@@ -90,6 +89,10 @@ export default {
   name: 'FeedCreate',
 
   props: {
+    user: {
+      type: Object,
+      default: () => {}
+    },
     peoples: {
       type: Array,
       default: () => []
@@ -99,6 +102,7 @@ export default {
   components: {
     AtTa,
     PeopleAvatar,
+    PeopleName,
     vueDropzone: vue2Dropzone,
     ImageIcon,
     SendIcon

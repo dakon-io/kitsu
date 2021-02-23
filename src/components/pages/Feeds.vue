@@ -2,15 +2,15 @@
   <div class="feeds page">
 
     <div
-      v-if="showFeedComment"
+      v-if="showFeedInfo"
       class="feed-comment-container">
-      <FeedComment
+      <FeedInfo
         :comment="comments"
         @create-comment="createNewComment"/>
       <div
         id="c-mask"
-        @click="showFeedComment = !showFeedComment"
-        :class="{'is-active': showFeedComment}">
+        @click="showFeedInfo = !showFeedInfo"
+        :class="{'is-active': showFeedInfo}">
       </div>
     </div>
 
@@ -18,12 +18,13 @@
 
       <div class="feed">
         <FeedCreate
+          :user="user"
           :peoples="displayedPeople"
           @create-feed="createNewFeed"/>
         <FeedList
           v-for="feed in feeds" :key="feed.id"
           :feed="feed"
-          @open-comment="showFeedComment = !showFeedComment"/>
+          @open-comment="showFeedInfo = !showFeedInfo"/>
       </div>
 
       <div class="todo-list">
@@ -53,7 +54,7 @@ import { mapGetters, mapActions } from 'vuex'
 import firstBy from 'thenby'
 
 import FeedCreate from './feed/FeedCreate'
-import FeedComment from '../sides/FeedComment'
+import FeedInfo from '../sides/FeedInfo'
 import FeedList from '../lists/FeedList'
 import FeedTodosList from '../lists/FeedTodosList'
 import TaskInfo from '../sides/TaskInfo'
@@ -63,7 +64,7 @@ export default {
 
   components: {
     FeedCreate,
-    FeedComment,
+    FeedInfo,
     FeedList,
     FeedTodosList,
     TaskInfo
@@ -71,14 +72,18 @@ export default {
 
   data () {
     return {
-      showFeedComment: false,
+      showFeedInfo: false,
       feeds: [
         {
           id: 'feed1',
           created: 'time creation',
           user: {
-            username: 'username',
-            avatar: 'kitsu.png'
+            first_name: 'user',
+            last_name: '1',
+            has_avatar: false,
+            id: 'b2d2c606-0cbd-402a-b12e-2de13843e4bb',
+            initials: 'U1',
+            color: 'red'
           },
           content: {
             text: 'This is short feed text',
@@ -89,8 +94,12 @@ export default {
           id: 'feed2',
           created: 'time creation',
           user: {
-            username: 'username',
-            avatar: 'kitsu.png'
+            first_name: 'user',
+            last_name: '1',
+            has_avatar: false,
+            id: 'b2d2c606-0cbd-402a-b12e-2de13843e4bb',
+            initials: 'U1',
+            color: 'red'
           },
           content: {
             text: 'This is long feed text. Lorem ipsum dolor, sit amet consectetur adipisicing, elit. Neque deserunt veniam, labore mollitia maiores nostrum aliquid atque est',
@@ -98,9 +107,6 @@ export default {
           }
         }
       ],
-      user: {
-        id: 'usr1'
-      },
       comments: [
         {
           id: 'comm1-1',
@@ -131,7 +137,8 @@ export default {
       'nbSelectedTasks',
       'selectedTasks',
       'todoSelectionGrid',
-      'displayedPeople'
+      'displayedPeople',
+      'user'
     ]),
 
     todoList () {
@@ -197,10 +204,7 @@ export default {
       this.feeds.unshift({
         id: this.feeds.length + 1,
         created: new Date(),
-        user: {
-          username: 'username',
-          avatar: 'kitsu.png'
-        },
+        user: this.user,
         content: {
           text: feed.text,
           img: feed.img
