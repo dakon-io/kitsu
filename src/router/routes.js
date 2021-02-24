@@ -25,6 +25,7 @@ const Breakdown = () => import('../components/pages/Breakdown')
 const CustomActions = () => import('../components/pages/CustomActions')
 const Episodes = () => import('../components/pages/Episodes')
 const Feeds = () => import('../components/pages/Feeds')
+const Invoices = () => import('../components/pages/Invoices')
 const MainSchedule = () => import('../components/pages/MainSchedule')
 const NotFound = () => import('../components/pages/NotFound')
 const Person = () => import('../components/pages/Person')
@@ -175,6 +176,12 @@ export const routes = [
         name: 'feeds',
         path: 'feeds',
         component: Feeds
+      },
+
+      {
+        name: 'invoices',
+        path: 'invoices',
+        component: Invoices
       },
 
       {
