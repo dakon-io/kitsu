@@ -176,6 +176,10 @@ export default {
       upload_pictures: 'Pictures',
       drop_pictures: 'Drop pictures here',
       post: 'Post'
+    },
+    list: {
+      like: 'Like',
+      comment: 'Comment'
     }
   },
 

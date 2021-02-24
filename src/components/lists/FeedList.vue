@@ -48,12 +48,12 @@
           <div class="columns">
             <div class="column">
               <button class="button is-fullwidth">
-                <thumbs-up-icon class="icon"/>Like
+                <thumbs-up-icon class="icon"/>{{ $t('feeds.list.like') }}
               </button>
             </div>
             <div class="column">
               <button @click="openComment" class="button is-fullwidth">
-                <message-circle-icon class="icon"/>Comment
+                <message-circle-icon class="icon"/>{{ $t('feeds.list.comment') }}
               </button>
             </div>
           </div>
