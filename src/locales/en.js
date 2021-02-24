@@ -180,6 +180,10 @@ export default {
     list: {
       like: 'Like',
       comment: 'Comment'
+    },
+    comments: {
+      type_here: 'Add a comment...',
+      post: 'Post comment'
     }
   },
 

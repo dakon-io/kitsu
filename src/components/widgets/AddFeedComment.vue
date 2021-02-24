@@ -40,7 +40,7 @@
         <textarea
           ref="comment-textarea"
           class="textarea flexrow-item"
-          :placeholder="$t('comments.add_comment')"
+          :placeholder="$t('feeds.comments.type_here')"
           :disabled="isLoading"
           v-model="text"
           @keyup.enter.ctrl="runAddComment(text)"
@@ -57,7 +57,7 @@
           }"
           @click="runAddComment(text)"
         >
-          {{ $t('comments.post_status') }}
+          {{ $t('feeds.comments.post') }}
         </button>
       </group-button>
       <div
