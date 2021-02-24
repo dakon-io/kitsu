@@ -37,17 +37,16 @@
                {{ $t("productions.open_productions") }}
              </router-link>
            </p>
-         </div>
-
-         <div v-if="!isCurrentUserClient && !isCurrentUserVendor">
-           <h2>{{ $t('main.studio')}}</h2>
-
            <p @click="toggleSidebar()">
              <router-link :to="{name: 'feeds'}">
                <rss-icon size="0.9x" />
                {{ $t("feeds.title") }}
              </router-link>
            </p>
+         </div>
+
+         <div v-if="!isCurrentUserClient && !isCurrentUserVendor">
+           <h2>{{ $t('main.studio')}}</h2>
 
            <p @click="toggleSidebar()" v-if="isCurrentUserAdmin">
              <router-link :to="{name: 'productions'}">
@@ -68,7 +67,7 @@
                <clock-icon size="0.9x" />
                {{ $t("timesheets.title") }}
              </router-link>
-         </p>
+           </p>
 
            <p @click="toggleSidebar()" v-if="isCurrentUserAdmin">
              <router-link :to="{name: 'main-schedule'}">
@@ -118,6 +117,17 @@
            </p>
          </div>
 
+         <div v-if="isCurrentUserVendor">
+           <h2>{{ $t('main.vendor')}}</h2>
+
+           <p @click="toggleSidebar()">
+             <router-link :to="{name: 'invoices'}">
+               <dollar-sign-icon size="0.9x" />
+               {{ $t('invoices.title') }}
+             </router-link>
+           </p>
+         </div>
+
         </section>
       </div>
     </aside>
@@ -137,6 +147,7 @@ import {
   CalendarIcon,
   CheckIcon,
   ClockIcon,
+  DollarSignIcon,
   FilmIcon,
   GitPullRequestIcon,
   ListIcon,
@@ -154,6 +165,7 @@ export default {
     CalendarIcon,
     CheckIcon,
     ClockIcon,
+    DollarSignIcon,
     FilmIcon,
     GitPullRequestIcon,
     ListIcon,

@@ -187,6 +187,10 @@ export default {
     }
   },
 
+  invoices: {
+    title: 'Invoices'
+  },
+
   keyboard: {
     altdown: 'Move task selection down',
     altj: 'Select previous preview',
@@ -298,6 +302,7 @@ export default {
     to: 'To',
     tutorials: 'Tutorials',
     user: 'User',
+    vendor: 'Vendor',
     white_theme: 'White Theme',
     yes: 'Yes',
     csv: {
