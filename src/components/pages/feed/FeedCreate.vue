@@ -43,9 +43,11 @@
               <textarea
                 ref="caption"
                 v-model="inputCreate"
+                @input="changeInputCreateFontSize"
                 @keyup.enter.ctrl="createNewFeed()"
-                placeholder="Type here ..."
-                class="input content-create"></textarea>
+                :placeholder="$t('feeds.create.type_here')"
+                class="input content-create"
+                :style="inputCreateFontSize"></textarea>
             </at-ta>
           </div>
           <vue-dropzone
@@ -113,6 +115,7 @@ export default {
       hideTa: false,
       hideDropzone: true,
       inputCreate: '',
+      inputCreateFontSize: { fontSize: '1.75rem' },
       img: [],
       inputCreateImageOptions: {
         url: 'https://httpbin.org/post',
@@ -131,6 +134,12 @@ export default {
   },
 
   methods: {
+    changeInputCreateFontSize () {
+      if (this.inputCreate.length <= 100) {
+        this.inputCreateFontSize = { fontSize: '1.75rem' }
+      } else { this.inputCreateFontSize = {} }
+    },
+
     checkDragOver (e) {
       e.preventDefault()
       e.stopPropagation()
