@@ -65,10 +65,10 @@
 
         <div class="feed-action">
           <button @click="openDropzone" class="button ml-auto" title="Upload pictures">
-            <image-icon class="icon"/>Pictures
+            <image-icon class="icon"/>{{ $t('feeds.create.upload_pictures') }}
           </button>
           <button @click="createNewFeed()" class="button" title="or Ctrl + Enter to send">
-            <send-icon class="icon"/>Post
+            <send-icon class="icon"/>{{ $t('feeds.create.post') }}
           </button>
         </div>
       </div>
@@ -128,7 +128,7 @@ export default {
         thumbnailWidth: null,
         thumbnailHeight: null,
         // thumbnailMethod: 'contain',
-        dictDefaultMessage: 'Drop pictures here to post (.jpg, .jpeg, .png)'
+        dictDefaultMessage: 'Drop pictures here (.jpg, .jpeg, .png)'
       }
     }
   },

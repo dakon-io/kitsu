@@ -170,7 +170,13 @@ export default {
   },
 
   feeds: {
-    title: 'Feeds'
+    title: 'Feeds',
+    create: {
+      type_here: 'What`s on your mind?',
+      upload_pictures: 'Pictures',
+      drop_pictures: 'Drop pictures here',
+      post: 'Post'
+    }
   },
 
   keyboard: {
