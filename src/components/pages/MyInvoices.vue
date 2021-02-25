@@ -49,7 +49,22 @@
     <div v-if="isTabActive('done')">
       &nbsp;
     </div>
-    <MyInvoice v-if="isTabActive('done')"/>
+    <div
+      v-if="isTabActive('done')"
+      class="invoices-container">
+      <div
+        v-for="(invoice, index) in invoices"
+        :key="index"
+        class="invoices-item">
+        <MyInvoice/>
+      </div>
+    </div>
+    <div
+      v-if="invoices.length === 0">
+      <p>
+        {{ $t('invoices.empty') }}
+      </p>
+    </div>
 
   </div>
 
@@ -103,9 +118,9 @@ export default {
   },
 
   methods: {
-    isTabActive (tab) {
-      return this.activeTab === tab
-    },
+    isTabActive (tab) { return this.activeTab === tab },
+
+    selectTab (tab) { this.activeTab = tab },
 
     updateActiveTab () {
       if (['done', 'timesheets'].includes(this.$route.params.tab)) {
