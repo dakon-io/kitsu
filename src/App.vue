@@ -2025,7 +2025,9 @@ th.validation-cell {
   $margin: .5rem;
   display: flex;
   width: 100%;
+  height: calc(100vh - 167px);
   flex-flow: wrap;
+  overflow-y: auto;
   .invoices-item {
     width: 100%;
     max-width: calc(100% / 4);

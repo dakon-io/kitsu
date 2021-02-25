@@ -104,6 +104,12 @@
              </router-link>
            </p>
            <p @click="toggleSidebar()">
+             <router-link :to="{name: 'invoices'}">
+               <dollar-sign-icon size="0.9x" />
+               {{ $t('invoices.title') }}
+             </router-link>
+           </p>
+           <p @click="toggleSidebar()">
              <router-link :to="{name: 'settings'}">
                <settings-icon size="0.9x" />
                {{ $t("settings.title") }}
