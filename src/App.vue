@@ -2000,6 +2000,18 @@ th.validation-cell {
   }
 }
 
+.tag {
+  text-transform: uppercase;
+  &.orange {
+    background-color: $orange-carrot;
+    color: $white;
+  }
+  &.green {
+    background-color: $green;
+    color: $white;
+  }
+}
+
 .invoice-tabs {
   margin-top: 1em;
   margin-bottom: 1em;

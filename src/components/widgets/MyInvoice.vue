@@ -4,7 +4,12 @@
     <div class="card-content">
       <div class="flexrow">
         <div class="flexrow-item">
-          <span class="invoice-id">#INVDKN123</span>
+          <span class="invoice-id mr05">#INVDKN123</span>
+          <span
+            class="tag"
+            :class="[statusColor]">
+            {{ $t('invoices.status.ongoing') }}
+          </span>
         </div>
         <div class="filler"></div>
         <div class="flexrow-item menu-wrapper">
@@ -48,13 +53,24 @@ export default {
 
   data () {
     return {
-      showMenu: false
+      showMenu: false,
+      statusName: 'ongoing'
     }
   },
 
   methods: {
     toggleInvoiceMenu () {
       this.showMenu = !this.showMenu
+    }
+  },
+
+  computed: {
+    statusColor () {
+      if (this.statusName === 'ongoing') {
+        return 'orange'
+      } else if (this.statusName === 'done') {
+        return 'green'
+      } else { return false }
     }
   }
 }
