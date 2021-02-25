@@ -130,26 +130,4 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-.invoice-tabs {
-  margin-top: 1em;
-  margin-bottom: 1em;
-  font-size: 1.1em;
-
-  ul {
-    margin-left: 0;
-  }
-}
-
-.invoices-container {
-  $margin: .5rem;
-  display: flex;
-  width: 100%;
-  flex-flow: wrap;
-  .invoices-item {
-    width: 100%;
-    max-width: calc(100% / 4);
-    padding: $margin
-  }
-}
-</style>
+<style lang="scss" scoped></style>

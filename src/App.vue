@@ -1999,6 +1999,60 @@ th.validation-cell {
     }
   }
 }
+
+.invoice-tabs {
+  margin-top: 1em;
+  margin-bottom: 1em;
+  font-size: 1.1em;
+
+  ul {
+    margin-left: 0;
+  }
+}
+.invoices-container {
+  $margin: .5rem;
+  display: flex;
+  width: 100%;
+  flex-flow: wrap;
+  .invoices-item {
+    width: 100%;
+    max-width: calc(100% / 4);
+    padding: $margin
+  }
+}
+.invoice-item {
+  .card {
+    border-radius: $size-2;
+    background-color: var(--background);
+  }
+  .card-content {
+    padding: 12px;
+    color: var(--text);
+  }
+  .invoice-id {
+    font-weight: bold;
+    color: var(--text);
+  }
+  .menu-icon {
+    width: 20px;
+    cursor: pointer;
+    color: $light-grey;
+  }
+}
+.invoice-menu {
+  position: absolute;
+  background: white;
+  width: 118px;
+  box-shadow: 0px 2px 6px $light-grey;
+  top: 32px;
+  right: 0;
+  z-index: 100;
+}
+.invoice-menu div {
+  cursor: pointer;
+  padding: 0.5em;
+}
+
 @media(min-width: 768px) {
   .feed-item {
     max-width: 600px;
@@ -2029,6 +2083,17 @@ th.validation-cell {
   .vue-dropzone {
     border-color: #25282E;
     :hover { background-color: #2c2e33 }
+  }
+  .invoice-item {
+    .card {
+      background-color: $dark-grey-lighter;
+      color: $white-grey;
+    }
+  }
+  .invoice-menu {
+    background-color: $dark-grey-light;
+    box-shadow: 0px 2px 6px $dark-grey-light;
+    color: $light-grey-light;
   }
 }
 // End Dakon Additional
