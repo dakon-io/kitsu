@@ -185,7 +185,7 @@ export default {
 
     shortDate () {
       if (moment().diff(this.commentDate, 'days') > 1) {
-        return this.commentDate.tz(this.user.timezone).format('MM/DD')
+        return this.commentDate.tz(this.user.timezone).format('MMM/DD/YYYY')
       } else {
         return this.commentDate.tz(this.user.timezone).format('HH:mm')
       }

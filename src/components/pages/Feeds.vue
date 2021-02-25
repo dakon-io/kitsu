@@ -213,7 +213,7 @@ export default {
     },
 
     createNewComment (comment) {
-      this.comments.push({
+      this.comments.unshift({
         id: this.comments.length + 1,
         feedRef: 'feed2',
         userId: 'usr1',

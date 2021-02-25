@@ -89,11 +89,11 @@ export default {
       this.feedComments.unshift({
         created_at: new Date(),
         data: null,
-        id: '316151ec-337b-4082-864b-89e6ce058101',
+        id: '316151ec-337b-4082-864b-89e6ce05811' + this.feedComments.length + 1,
         object_id: 'b2878463-b0d9-454b-88ec-d2a2764776ec',
         object_type: 'Task',
         person: this.user,
-        person_id: 'b2d2c606-0cbd-402a-b12e-2de13843e4bb',
+        person_id: this.user.id,
         pinned: false,
         shotgun_id: null,
         text: comment.text,
@@ -148,5 +148,6 @@ export default {
     padding-top: calc(60px + #{$size-2});
     background-color: var(--background);
     border-left: 3px solid var(--border);
+    overflow-y: auto;
   }
 </style>
