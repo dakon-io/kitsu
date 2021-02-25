@@ -188,7 +188,21 @@ export default {
   },
 
   invoices: {
-    title: 'Invoices'
+    title: 'Invoices',
+    my_invoices: 'My invoices',
+    action: {
+      create_new: 'Create new invoice',
+      abort: 'Abort'
+    },
+    done_empty: 'There are no done invoices',
+    empty: 'There are no ongoing invoices',
+    status: {
+      ongoing: 'Ongoing',
+      pending: 'Pending',
+      approved: 'Approved',
+      declined: 'Declined',
+      done: 'Done'
+    }
   },
 
   keyboard: {
@@ -244,6 +258,7 @@ export default {
   },
 
   main: {
+    abort: 'Abort',
     about: 'About',
     add: 'add',
     all: 'All',

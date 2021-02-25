@@ -21,7 +21,7 @@
             </div>
             <div
               class="error">
-              {{ $t('main.delete')}}
+              {{ $t('main.abort')}}
             </div>
           </div>
           <!-- End MyInvoiceMenu -->
