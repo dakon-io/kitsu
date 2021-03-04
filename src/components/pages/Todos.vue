@@ -91,7 +91,6 @@
         :tasks="displayedDoneTasks"
         :is-loading="isTodosLoading"
         :is-error="isTodosLoadingError"
-        :done="true"
         v-if="isTabActive('done')"
       />
 
