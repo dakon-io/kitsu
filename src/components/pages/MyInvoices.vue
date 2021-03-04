@@ -28,9 +28,21 @@
     </div>
 
     <div v-if="isTabActive('ongoing')">
+      <div class="flexrow">
+        <div class="filler"></div>
+        <router-link :to="{ name: 'todos'}">
+          <button-simple
+            class="flexrow-item"
+            :text="$t('invoices.action.create_new')"
+            :is-responsive="true"
+            icon="plus"
+            v-if="isCurrentUserVendor"/>
+        </router-link>
+      </div>
       <div
         v-if="invoices.length > 0"
-        class="invoices-container">
+        class="invoices-container"
+        style="height: calc(100vh - 202px);">
         <div
           v-for="(invoice, index) in invoices"
           :key="index"
@@ -72,13 +84,17 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 import MyInvoice from '@/components/widgets/MyInvoice'
+import ButtonSimple from '@/components/widgets/ButtonSimple'
 
 export default {
   name: 'Invoices',
 
   components: {
-    MyInvoice
+    MyInvoice,
+    ButtonSimple
   },
 
   data () {
@@ -115,6 +131,12 @@ export default {
 
   mounted () {
     this.updateActiveTab()
+  },
+
+  computed: {
+    ...mapGetters([
+      'isCurrentUserVendor'
+    ])
   },
 
   methods: {
