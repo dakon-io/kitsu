@@ -30,7 +30,7 @@
     <div v-if="isTabActive('ongoing')">
       <div class="flexrow">
         <div class="filler"></div>
-        <router-link :to="{ name: 'todos'}">
+        <router-link :to="{ name: 'todos-tab', params: {tab: 'done'}}">
           <button-simple
             class="flexrow-item"
             :text="$t('invoices.action.create_new')"
