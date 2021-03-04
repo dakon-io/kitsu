@@ -117,6 +117,11 @@
           {{ $t('comments.post_status') }}
         </button>
       </group-button>
+      <button
+        v-if="task.taskStatus.is_done == true"
+        class="button is-warning mt1 is-pulled-right">
+        {{ $t('invoices.action.add_to_invoice') }}
+      </button>
       <div
         class="error pull-right"
         v-if="isError"
