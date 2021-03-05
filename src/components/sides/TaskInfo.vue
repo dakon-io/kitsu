@@ -128,6 +128,7 @@
               @add-comment="addComment"
               @add-preview="onAddPreviewClicked"
               @file-drop="selectFile"
+              @add-to-invoice="addToInvoice"
               v-if="isCommentingAllowed"
             />
 
@@ -898,6 +899,10 @@ export default {
           }
         }
       }
+    },
+
+    addToInvoice () {
+      alert('Added to invc')
     }
   },
 

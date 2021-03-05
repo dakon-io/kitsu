@@ -267,6 +267,7 @@ export default {
     all_assets: 'All assets',
     admin: 'Admin',
     after: 'After',
+    and_enter: ' and Enter',
     before: 'Before',
     cancel: 'Cancel',
     clear_selection: 'Clear current selection',

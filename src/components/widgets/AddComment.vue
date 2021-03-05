@@ -117,15 +117,18 @@
           {{ $t('comments.post_status') }}
         </button>
       </group-button>
-      <div class="flexrow mt1">
+      <div v-if="task.taskStatus.is_done == true" class="flexrow mt1">
         <input
           type="text"
           inputmode="number"
-          :placeholder="$t('invoices.action.give_a_price')"
+          v-model="invoice.price"
+          ref="inputInvoicePrice"
+          :placeholder="$t('invoices.action.give_a_price') + $t('main.and_enter')"
+          @keyup.enter="addToInvoice"
           class="flexrow-item input"
           style="height: fit-content; padding: 0.25rem .5rem; margin-right: .5rem;"/>
         <button
-          v-if="task.taskStatus.is_done == true"
+          @click="addToInvoice"
           class="flexrow-item button is-warning">
           {{ $t('invoices.action.add_to_invoice') }}
         </button>
@@ -190,6 +193,9 @@ export default {
       },
       modals: {
         addCommentAttachment: false
+      },
+      invoice: {
+        price: null
       }
     }
   },
@@ -351,6 +357,17 @@ export default {
       this.checklist[item.index].text = this.checklist[item.index].text.trim()
       delete item.index
       this.checklist.push(item)
+    },
+
+    addToInvoice () {
+      if (this.invoice.price && this.invoice.price !== 0) {
+        // alert('Added to invoice')
+        this.$emit('add-to-invoice')
+      } else if (!this.invoice.price) {
+        this.$refs.inputInvoicePrice.focus()
+      } else {
+        alert('Something wrong when adding to invoice')
+      }
     }
   },
 
