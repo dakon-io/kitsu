@@ -117,11 +117,19 @@
           {{ $t('comments.post_status') }}
         </button>
       </group-button>
-      <button
-        v-if="task.taskStatus.is_done == true"
-        class="button is-warning mt1 is-pulled-right">
-        {{ $t('invoices.action.add_to_invoice') }}
-      </button>
+      <div class="flexrow mt1">
+        <input
+          type="text"
+          inputmode="number"
+          :placeholder="$t('invoices.action.give_a_price')"
+          class="flexrow-item input"
+          style="height: fit-content; padding: 0.25rem .5rem; margin-right: .5rem;"/>
+        <button
+          v-if="task.taskStatus.is_done == true"
+          class="flexrow-item button is-warning">
+          {{ $t('invoices.action.add_to_invoice') }}
+        </button>
+      </div>
       <div
         class="error pull-right"
         v-if="isError"

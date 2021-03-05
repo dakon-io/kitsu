@@ -191,6 +191,7 @@ export default {
     title: 'Invoices',
     my_invoices: 'My invoices',
     action: {
+      give_a_price: 'Give a price',
       add_to_invoice: 'Add to invoice',
       create_new: 'Create new invoice',
       abort: 'Abort'
