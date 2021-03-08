@@ -122,6 +122,7 @@
           type="text"
           inputmode="number"
           v-model="invoice.price"
+          v-numericOnly
           ref="inputInvoicePrice"
           :placeholder="$t('invoices.action.give_a_price') + $t('main.and_enter')"
           @keyup.enter="addToInvoice"

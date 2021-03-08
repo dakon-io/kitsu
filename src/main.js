@@ -42,6 +42,16 @@ Vue.directive('focus', {
     el.focus()
   }
 })
+Vue.directive('numericOnly', {
+  inserted (el) {
+    el.addEventListener('input', () => {
+      const regex = /^[0-9]*$/
+      if (!regex.test(el.value)) {
+        el.value = el.value.slice(0, -1)
+      }
+    })
+  }
+})
 
 // Allow access to i18n object from vue instance.
 Vue.prototype.$locale = {
