@@ -46,6 +46,9 @@
           <th scope="col" class="status">
             {{ $t('tasks.fields.task_status') }}
           </th>
+          <th scope="col" v-if="isCurrentUserVendor">
+            {{ $t('invoices.status.invoice') }}
+          </th>
           <th scope="col" class="last-comment" v-if="!done">
             {{ $t('tasks.fields.last_comment') }}
           </th>
@@ -122,6 +125,12 @@
             @unselect="onTaskUnselected"
             :column="entry.taskStatus"
           />
+          <td v-if="isCurrentUserVendor">
+            <span
+              class="tag orange">
+              {{ $t('invoices.status.ongoing') }}
+            </span>
+          </td>
           <last-comment-cell
             class="last-comment"
             :task="entry"
@@ -226,7 +235,8 @@ export default {
     ...mapGetters([
       'nbSelectedTasks',
       'taskTypeMap',
-      'productionMap'
+      'productionMap',
+      'isCurrentUserVendor'
     ]),
 
     displayedTasks () {

@@ -199,6 +199,7 @@ export default {
     done_empty: 'There are no done invoices',
     empty: 'There are no ongoing invoices',
     status: {
+      invoice: 'Invoice',
       ongoing: 'Ongoing',
       pending: 'Pending',
       approved: 'Approved',
