@@ -117,7 +117,7 @@
           {{ $t('comments.post_status') }}
         </button>
       </group-button>
-      <div v-if="task.taskStatus.is_done == true" class="flexrow mt1">
+      <div v-if="task.taskStatus.is_done == true && isCurrentUserVendor" class="flexrow mt1">
         <input
           type="text"
           inputmode="number"
@@ -256,7 +256,8 @@ export default {
 
   computed: {
     ...mapGetters([
-      'isDarkTheme'
+      'isDarkTheme',
+      'isCurrentUserVendor'
     ]),
 
     isFileAttached () {
