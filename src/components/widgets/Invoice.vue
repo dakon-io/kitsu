@@ -19,7 +19,7 @@
         </div>
       </div>
       <p>Submited: date</p>
-      <p>17 Tasks - Rp {{ price }}</p>
+      <p>17 Tasks - Rp {{ price | currencyFormat }}</p>
     </div>
   </div>
 </div>
@@ -64,6 +64,12 @@ export default {
         initials: 'U1',
         color: 'red'
       }
+    }
+  },
+
+  filters: {
+    currencyFormat (value) {
+      return value.toString().replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, '$1.')
     }
   }
 }
