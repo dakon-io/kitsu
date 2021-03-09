@@ -27,7 +27,6 @@ const Episodes = () => import('../components/pages/Episodes')
 const Feeds = () => import('../components/pages/Feeds')
 const Invoices = () => import('../components/pages/Invoices')
 const MainSchedule = () => import('../components/pages/MainSchedule')
-const MyInvoices = () => import('../components/pages/MyInvoices')
 const NotFound = () => import('../components/pages/NotFound')
 const Person = () => import('../components/pages/Person')
 const People = () => import('../components/pages/People')
@@ -184,16 +183,7 @@ export const routes = [
         path: 'invoices',
         component: Invoices,
         children: [
-          { path: ':tab', component: Invoices, name: 'ongoing-tab' }
-        ]
-      },
-
-      {
-        name: 'my-invoices',
-        path: 'my-invoices',
-        component: MyInvoices,
-        children: [
-          { path: ':tab', component: MyInvoices, name: 'my-invoices-ongoing-tab' }
+          { path: ':tab', component: Invoices, name: 'invoices-ongoing-tab' }
         ]
       },
 

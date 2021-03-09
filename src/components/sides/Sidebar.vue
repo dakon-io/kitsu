@@ -127,7 +127,7 @@
            <h2>{{ $t('main.vendor')}}</h2>
 
            <p @click="toggleSidebar()">
-             <router-link :to="{name: 'my-invoices'}">
+             <router-link :to="{name: 'invoices'}">
                <dollar-sign-icon size="0.9x" />
                {{ $t('invoices.my_invoices') }}
              </router-link>

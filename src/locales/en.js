@@ -196,15 +196,15 @@ export default {
       create_new: 'Create new invoice',
       abort: 'Abort'
     },
-    done_empty: 'There are no done invoices',
+    paid_empty: 'There are no paid invoices',
     empty: 'There are no ongoing invoices',
     status: {
       invoice: 'Invoice',
-      ongoing: 'Ongoing',
+      ongoing: 'Waiting for approval',
       pending: 'Pending',
       approved: 'Approved',
-      declined: 'Declined',
-      done: 'Done'
+      rejected: 'Rejected',
+      paid: 'Paid'
     }
   },
 

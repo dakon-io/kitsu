@@ -7,9 +7,9 @@
           :class="{'is-active': isTabActive('ongoing')}"
         >
           <router-link :to="{
-            name: 'my-invoices',
+            name: 'invoices',
           }">
-            {{ $t('invoices.status.ongoing') }}
+            {{ $t('invoices.status.pending') }}
           </router-link>
         </li>
         <li
@@ -17,10 +17,10 @@
           @click="selectTab('done')"
         >
           <router-link :to="{
-            name: 'my-invoices-ongoing-tab',
+            name: 'invoices-ongoing-tab',
             params: {tab: 'done'}
           }">
-            {{ $t('invoices.status.done') }}
+            {{ $t('invoices.status.paid') }}
             <!-- ({{ displayedDoneTasks.length }}) -->
           </router-link>
         </li>
@@ -28,14 +28,29 @@
     </div>
 
     <div v-if="isTabActive('ongoing')">
+      <div class="flexrow">
+        <div class="filler"></div>
+        <router-link :to="{ name: 'todos-tab', params: {tab: 'done'}}">
+          <button-simple
+            class="flexrow-item"
+            :text="$t('invoices.action.create_new')"
+            :is-responsive="true"
+            icon="plus"
+            v-if="isCurrentUserVendor"/>
+        </router-link>
+      </div>
       <div
         v-if="invoices.length > 0"
-        class="invoices-container">
+        class="invoices-container"
+        style="height: calc(100vh - 202px);">
         <div
           v-for="(invoice, index) in invoices"
           :key="index"
           class="invoices-item">
-          <Invoice/>
+          <Invoice
+            :admin="isCurrentUserAdmin"
+            :status="invoice.status"
+            :statusText="$t('invoices.status.ongoing')"/>
         </div>
       </div>
       <div
@@ -56,7 +71,9 @@
         v-for="(invoice, index) in invoices"
         :key="index"
         class="invoices-item">
-        <Invoice/>
+        <Invoice
+          :admin="isCurrentUserAdmin"
+          :status="invoice.status"/>
       </div>
     </div>
     <div
@@ -72,43 +89,32 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 import Invoice from '@/components/widgets/Invoice'
+import ButtonSimple from '@/components/widgets/ButtonSimple'
 
 export default {
   name: 'Invoices',
 
   components: {
-    Invoice
+    Invoice,
+    ButtonSimple
   },
 
   data () {
     return {
       activeTab: 'ongoing',
       invoices: [
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {},
-        {}
+        { status: 'waiting' },
+        { status: 'approved' },
+        { status: 'rejected' },
+        { status: 'paid' },
+        { status: 'waiting' },
+        { status: 'waiting' },
+        { status: 'waiting' },
+        { status: 'waiting' },
+        { status: 'waiting' }
       ]
     }
   },
@@ -117,13 +123,20 @@ export default {
     this.updateActiveTab()
   },
 
+  computed: {
+    ...mapGetters([
+      'isCurrentUserAdmin',
+      'isCurrentUserVendor'
+    ])
+  },
+
   methods: {
     isTabActive (tab) { return this.activeTab === tab },
 
     selectTab (tab) { this.activeTab = tab },
 
     updateActiveTab () {
-      if (['done', 'timesheets'].includes(this.$route.params.tab)) {
+      if (['done'].includes(this.$route.params.tab)) {
         this.activeTab = this.$route.params.tab
       } else {
         this.activeTab = 'ongoing'

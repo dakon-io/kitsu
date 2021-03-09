@@ -5,34 +5,10 @@
       <div class="flexrow">
         <div class="flexrow-item">
           <span class="invoice-id mr05">#INVDKN123</span>
-          <span
-            class="tag"
-            :class="[statusColor]">
-            {{ $t('invoices.status.ongoing') }}
-          </span>
-        </div>
-        <div class="filler"></div>
-        <div class="flexrow-item menu-wrapper">
-          <chevron-down-icon
-            class="menu-icon"
-            @click="toggleInvoiceMenu"/>
-          <!-- MyInvoiceMenu -->
-          <div
-            v-show="showMenu"
-            class="invoice-menu"
-            ref="main">
-            <div>
-              {{ $t('main.edit')}}
-            </div>
-            <div
-              class="error">
-              {{ $t('main.abort')}}
-            </div>
-          </div>
-          <!-- End MyInvoiceMenu -->
+          <invoice-tag :status="status"/>
         </div>
       </div>
-      <div class="flexrow">
+      <div v-if="admin" class="flexrow">
         <people-avatar
           class="flexrow-item"
           :size="25"
@@ -50,25 +26,32 @@
 </template>
 
 <script>
+import InvoiceTag from '@/components/widgets/InvoiceTag'
 import PeopleAvatar from '@/components/widgets/PeopleAvatar'
 import PeopleName from '@/components/widgets/PeopleName'
-import {
-  ChevronDownIcon
-} from 'vue-feather-icons'
 
 export default {
   name: 'InvoicesList',
 
+  props: {
+    admin: {
+      type: Boolean,
+      default: false
+    },
+    status: {
+      type: String,
+      default: null
+    }
+  },
+
   components: {
+    InvoiceTag,
     PeopleAvatar,
-    PeopleName,
-    ChevronDownIcon
+    PeopleName
   },
 
   data () {
     return {
-      showMenu: false,
-      statusName: 'ongoing',
       people: {
         first_name: 'user',
         last_name: '1',
@@ -78,24 +61,10 @@ export default {
         color: 'red'
       }
     }
-  },
-
-  methods: {
-    toggleInvoiceMenu () {
-      this.showMenu = !this.showMenu
-    }
-  },
-
-  computed: {
-    statusColor () {
-      if (this.statusName === 'ongoing') {
-        return 'orange'
-      } else if (this.statusName === 'done') {
-        return 'green'
-      } else { return false }
-    }
   }
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+  .invoice-item { cursor: pointer; }
+</style>
