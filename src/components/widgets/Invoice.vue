@@ -19,7 +19,7 @@
         </div>
       </div>
       <p>Submited: date</p>
-      <p>17 Tasks</p>
+      <p>17 Tasks - Rp {{ price }}</p>
     </div>
   </div>
 </div>
@@ -40,6 +40,10 @@ export default {
     },
     status: {
       type: String,
+      default: null
+    },
+    price: {
+      type: Number,
       default: null
     }
   },

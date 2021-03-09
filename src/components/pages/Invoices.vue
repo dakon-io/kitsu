@@ -50,7 +50,8 @@
           <Invoice
             :admin="isCurrentUserAdmin"
             :status="invoice.status"
-            :statusText="$t('invoices.status.ongoing')"/>
+            :statusText="$t('invoices.status.ongoing')"
+            :price="invoice.price"/>
         </div>
       </div>
       <div
@@ -106,15 +107,22 @@ export default {
     return {
       activeTab: 'ongoing',
       invoices: [
-        { status: 'waiting' },
-        { status: 'approved' },
-        { status: 'rejected' },
-        { status: 'paid' },
-        { status: 'waiting' },
-        { status: 'waiting' },
-        { status: 'waiting' },
-        { status: 'waiting' },
-        { status: 'waiting' }
+        {
+          status: 'waiting',
+          price: 5920031
+        },
+        {
+          status: 'approved',
+          price: 5920031
+        },
+        {
+          status: 'rejected',
+          price: 5920031
+        },
+        {
+          status: 'paid',
+          price: 5920031
+        }
       ]
     }
   },
