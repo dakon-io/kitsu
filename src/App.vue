@@ -2010,6 +2010,14 @@ th.validation-cell {
     background-color: $green;
     color: $white;
   }
+  &.blue {
+    background-color: $blue;
+    color: $white;
+  }
+  &.red {
+    background-color: $red;
+    color: $white;
+  }
 }
 
 .invoice-tabs {
