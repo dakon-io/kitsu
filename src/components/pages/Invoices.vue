@@ -159,8 +159,10 @@ export default {
   },
 
   metaInfo () {
-    return {
-      title: `${this.$t('invoices.my_invoices')} - Kitsu`
+    if (this.isCurrentUserAdmin) {
+      return { title: `${this.$t('invoices.title')} - Kitsu` }
+    } else if (this.isCurrentUserVendor) {
+      return { title: `${this.$t('invoices.my_invoices')} - Kitsu` }
     }
   }
 }
