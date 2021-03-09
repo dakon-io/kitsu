@@ -1,8 +1,8 @@
 <template>
   <span
     class="tag"
-    :class="[status == 'waiting' ? 'orange' : status == 'paid' ? 'green' : status == 'approved' ? 'blue' : status == 'rejected' ? 'red' : '']">
-    {{ status == 'waiting' ? $t('invoices.status.ongoing') : status == 'paid' ? $t('invoices.status.paid') : status == 'approved' ? $t('invoices.status.approved') : status == 'rejected' ? $t('invoices.status.rejected') : '' }}
+    :class="statusColor">
+    {{ statusText }}
   </span>
 </template>
 
@@ -14,6 +14,32 @@ export default {
     status: {
       type: String,
       default: null
+    }
+  },
+
+  computed: {
+    statusColor () {
+      if (this.status === 'waiting') {
+        return 'orange'
+      } else if (this.status === 'paid') {
+        return 'green'
+      } else if (this.status === 'approved') {
+        return 'blue'
+      } else if (this.status === 'rejected') {
+        return 'red'
+      } else { return '...' }
+    },
+
+    statusText () {
+      if (this.status === 'waiting') {
+        return this.$t('invoices.status.ongoing')
+      } else if (this.status === 'paid') {
+        return this.$t('invoices.status.paid')
+      } else if (this.status === 'approved') {
+        return this.$t('invoices.status.approved')
+      } else if (this.status === 'rejected') {
+        return this.$t('invoices.status.rejected')
+      } else { return '...' }
     }
   }
 }
