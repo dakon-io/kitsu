@@ -31,7 +31,7 @@ import PeopleAvatar from '@/components/widgets/PeopleAvatar'
 import PeopleName from '@/components/widgets/PeopleName'
 
 export default {
-  name: 'InvoicesList',
+  name: 'Invoice',
 
   props: {
     admin: {

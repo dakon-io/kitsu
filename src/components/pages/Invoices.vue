@@ -49,7 +49,7 @@
           :key="index"
           class="invoices-item">
           <Invoice
-            @open-invoice-detail="openInvoiceInfo"
+            @open-invoice-detail="openInvoiceInfo(invoice)"
             :admin="isCurrentUserAdmin"
             :invoice="invoice"
             style="cursor: pointer;"/>
@@ -90,7 +90,7 @@
   <div
     v-if="showInvoiceInfo"
     class="invoice-info-container">
-    <InvoiceInfo/>
+    <InvoiceInfo :invoice="selectedInvoice"/>
     <div
       id="c-mask"
       @click="showInvoiceInfo = false"
@@ -142,7 +142,8 @@ export default {
           status: 'paid',
           price: 5920031
         }
-      ]
+      ],
+      selectedInvoice: null
     }
   },
 
@@ -170,8 +171,9 @@ export default {
       }
     },
 
-    openInvoiceInfo () {
+    openInvoiceInfo (invoice) {
       this.showInvoiceInfo = true
+      this.selectedInvoice = invoice
     }
   },
 

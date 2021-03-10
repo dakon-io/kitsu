@@ -99,7 +99,14 @@ import PeopleAvatar from '@/components/widgets/PeopleAvatar'
 import PeopleName from '@/components/widgets/PeopleName'
 
 export default {
-  name: 'FeedInfo',
+  name: 'InvoiceInfo',
+
+  props: {
+    invoice: {
+      type: Object,
+      default: null
+    }
+  },
 
   components: {
     Invoice,
@@ -119,11 +126,6 @@ export default {
         id: 'b2d2c606-0cbd-402a-b12e-2de13843e4bb',
         initials: 'U1',
         color: 'red'
-      },
-      invoice: {
-        id: 'INVDKN123',
-        status: 'waiting',
-        price: 5920031
       }
     }
   },
