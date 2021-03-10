@@ -1,5 +1,6 @@
 <template>
 <div>
+
   <div class="invoices page">
     <div class="invoice-tabs tabs">
       <ul>
@@ -48,10 +49,10 @@
           :key="index"
           class="invoices-item">
           <Invoice
+            @open-invoice-detail="openInvoiceInfo"
             :admin="isCurrentUserAdmin"
-            :status="invoice.status"
-            :statusText="$t('invoices.status.ongoing')"
-            :price="invoice.price"/>
+            :invoice="invoice"
+            style="cursor: pointer;"/>
         </div>
       </div>
       <div
@@ -73,8 +74,9 @@
         :key="index"
         class="invoices-item">
         <Invoice
+          @open-invoice-detail="openInvoiceInfo"
           :admin="isCurrentUserAdmin"
-          :status="invoice.status"/>
+          :invoice="invoice"/>
       </div>
     </div>
     <div
@@ -83,7 +85,17 @@
         {{ $t('invoices.empty') }}
       </p>
     </div>
+  </div>
 
+  <div
+    v-if="showInvoiceInfo"
+    class="invoice-info-container">
+    <InvoiceInfo/>
+    <div
+      id="c-mask"
+      @click="showInvoiceInfo = false"
+      :class="{'is-active': showInvoiceInfo}">
+    </div>
   </div>
 
 </div>
@@ -93,6 +105,7 @@
 import { mapGetters } from 'vuex'
 
 import Invoice from '@/components/widgets/Invoice'
+import InvoiceInfo from '@/components/sides/InvoiceInfo'
 import ButtonSimple from '@/components/widgets/ButtonSimple'
 
 export default {
@@ -100,26 +113,32 @@ export default {
 
   components: {
     Invoice,
+    InvoiceInfo,
     ButtonSimple
   },
 
   data () {
     return {
+      showInvoiceInfo: false,
       activeTab: 'ongoing',
       invoices: [
         {
+          id: 'INVDKN123',
           status: 'waiting',
           price: 5920031
         },
         {
+          id: 'INVDKN123',
           status: 'approved',
           price: 5920031
         },
         {
+          id: 'INVDKN123',
           status: 'rejected',
           price: 5920031
         },
         {
+          id: 'INVDKN123',
           status: 'paid',
           price: 5920031
         }
@@ -149,6 +168,10 @@ export default {
       } else {
         this.activeTab = 'ongoing'
       }
+    },
+
+    openInvoiceInfo () {
+      this.showInvoiceInfo = true
     }
   },
 
@@ -168,4 +191,19 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+  .invoice-info-container {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: 100vw;
+    height: 100vh;
+    #c-mask {
+      display: block;
+      width: 100vw;
+      height: 100vh;
+    }
+  }
+</style>

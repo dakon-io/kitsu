@@ -1,11 +1,11 @@
 <template>
-<div class="invoice-item">
+<div @click="openInvoiceDetail" class="invoice-item">
   <div class="card">
     <div class="card-content">
       <div class="flexrow">
         <div class="flexrow-item">
-          <span class="invoice-id mr05">#INVDKN123</span>
-          <invoice-tag :status="status"/>
+          <span class="invoice-id mr05">#{{ invoice.id }}</span>
+          <invoice-tag :status="invoice.status"/>
         </div>
       </div>
       <div v-if="admin" class="flexrow">
@@ -19,7 +19,7 @@
         </div>
       </div>
       <p>Submited: date</p>
-      <p>17 Tasks - Rp {{ price | currencyFormat }}</p>
+      <p>17 Tasks - Rp {{ invoice.price | currencyFormat }}</p>
     </div>
   </div>
 </div>
@@ -38,12 +38,8 @@ export default {
       type: Boolean,
       default: false
     },
-    status: {
-      type: String,
-      default: null
-    },
-    price: {
-      type: Number,
+    invoice: {
+      type: Object,
       default: null
     }
   },
@@ -67,6 +63,12 @@ export default {
     }
   },
 
+  methods: {
+    openInvoiceDetail () {
+      this.$emit('open-invoice-detail')
+    }
+  },
+
   filters: {
     currencyFormat (value) {
       return value.toString().replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, '$1.')
@@ -75,6 +77,4 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-  .invoice-item { cursor: pointer; }
-</style>
+<style lang="scss" scoped></style>

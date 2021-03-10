@@ -2117,6 +2117,11 @@ th.validation-cell {
     box-shadow: 0px 2px 6px $dark-grey-light;
     color: $light-grey-light;
   }
+  .table.tbl {
+    background-color: $dark-grey-lighter;
+    color: $white-grey;
+    tr:hover { background-color: $dark-grey-light; }
+  }
 }
 // End Dakon Additional
 </style>
