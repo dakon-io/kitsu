@@ -80,6 +80,12 @@
          <div v-if="isCurrentUserAdmin">
            <h2>{{ $t('main.admin')}}</h2>
            <p @click="toggleSidebar()">
+             <router-link :to="{name: 'invoices'}">
+               <dollar-sign-icon size="0.9x" />
+               {{ $t('invoices.title') }}
+             </router-link>
+           </p>
+           <p @click="toggleSidebar()">
              <router-link to="/task-types">
                <copy-icon size="0.9x" />
                {{ $t("task_types.title") }}
@@ -101,12 +107,6 @@
              <router-link :to="{name: 'custom-actions'}">
                <git-pull-request-icon size="0.9x" />
                {{ $t("custom_actions.title") }}
-             </router-link>
-           </p>
-           <p @click="toggleSidebar()">
-             <router-link :to="{name: 'invoices'}">
-               <dollar-sign-icon size="0.9x" />
-               {{ $t('invoices.title') }}
              </router-link>
            </p>
            <p @click="toggleSidebar()">
