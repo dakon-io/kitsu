@@ -201,6 +201,7 @@ export default {
     status: {
       invoice: 'Invoice',
       ongoing: 'Waiting for approval',
+      ongoing_short: 'WFA',
       pending: 'Pending',
       approved: 'Approved',
       rejected: 'Rejected',

@@ -1,7 +1,8 @@
 <template>
   <span
     class="tag"
-    :class="statusColor">
+    :class="statusColor"
+    :title="[status === 'waiting' ? $t('invoices.status.ongoing') : '']">
     {{ statusText }}
   </span>
 </template>
@@ -32,7 +33,7 @@ export default {
 
     statusText () {
       if (this.status === 'waiting') {
-        return this.$t('invoices.status.ongoing')
+        return this.$t('invoices.status.ongoing_short')
       } else if (this.status === 'paid') {
         return this.$t('invoices.status.paid')
       } else if (this.status === 'approved') {
