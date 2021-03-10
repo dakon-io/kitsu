@@ -2121,6 +2121,7 @@ th.validation-cell {
     background-color: $dark-grey-lighter;
     color: $white-grey;
     tr:hover { background-color: $dark-grey-light; }
+    td { border-color: $dark-grey-lightest; }
   }
 }
 // End Dakon Additional

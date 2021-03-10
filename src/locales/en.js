@@ -194,7 +194,8 @@ export default {
       give_a_price: 'Give a price',
       add_to_invoice: 'Add to invoice',
       create_new: 'Create new invoice',
-      abort: 'Abort'
+      approve: 'Approve',
+      reject: 'Reject'
     },
     paid_empty: 'There are no paid invoices',
     empty: 'There are no ongoing invoices',

@@ -44,8 +44,8 @@
               <tr
                 @click="toggleTasks=!toggleTasks"
                 style="cursor: pointer;">
-                <td>Tasks</td>
-                <td>17</td>
+                <td style="border-bottom: 0">Tasks</td>
+                <td style="border-bottom: 0">17</td>
               </tr>
               <tr>
                 <td colspan="2" style="padding-top: 0; padding-bottom: 0;">
@@ -62,6 +62,27 @@
                 </td>
               </tr>
             </table>
+            <input
+              type="text"
+              :placeholder="$t('comments.add_comment')"
+              v-model="invoiceComment"
+              ref="inputInvoiceComment"
+              class="flexrow-item input mt05"
+              style="height: fit-content; padding: 0.25rem .5rem; margin-right: .5rem;"/>
+            <div class="flexrow mt05">
+              <button
+                @click="rejectInvoice"
+                class="flexrow-item button is-danger"
+                style="width: 100%">
+                {{ $t('invoices.action.reject') }}
+              </button>
+              <button
+                @click="approveInvoice"
+                class="flexrow-item button is-success"
+                style="width: 100%">
+                {{ $t('invoices.action.approve') }}
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -90,6 +111,7 @@ export default {
   data () {
     return {
       toggleTasks: false,
+      invoiceComment: '',
       people: {
         first_name: 'user',
         last_name: '1',
@@ -111,6 +133,21 @@ export default {
       'isCurrentUserAdmin',
       'isCurrentUserVendor'
     ])
+  },
+
+  methods: {
+    rejectInvoice () {
+      if (this.invoiceComment) {
+        alert('You reject this invoice')
+      } else if (!this.invoiceComment) {
+        this.$refs.inputInvoiceComment.focus()
+      }
+    },
+
+    approveInvoice () {
+      alert('You approve this invoice')
+      this.invoiceComment = ''
+    }
   },
 
   filters: {
