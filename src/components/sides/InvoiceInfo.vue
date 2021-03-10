@@ -18,7 +18,7 @@
                 <td>ID</td>
                 <td class="strong">#{{ invoice.id }}</td>
               </tr>
-              <tr>
+              <tr v-if="isCurrentUserAdmin">
                 <td>Creator</td>
                 <td>
                   <div class="flexrow">
@@ -62,26 +62,28 @@
                 </td>
               </tr>
             </table>
-            <input
-              type="text"
-              :placeholder="$t('comments.add_comment')"
-              v-model="invoiceComment"
-              ref="inputInvoiceComment"
-              class="flexrow-item input mt05"
-              style="height: fit-content; padding: 0.25rem .5rem; margin-right: .5rem;"/>
-            <div class="flexrow mt05">
-              <button
-                @click="rejectInvoice"
-                class="flexrow-item button is-danger"
-                style="width: 100%">
-                {{ $t('invoices.action.reject') }}
-              </button>
-              <button
-                @click="approveInvoice"
-                class="flexrow-item button is-success"
-                style="width: 100%">
-                {{ $t('invoices.action.approve') }}
-              </button>
+            <div v-if="isCurrentUserAdmin" class="mt05">
+              <input
+                type="text"
+                :placeholder="$t('comments.add_comment')"
+                v-model="invoiceComment"
+                ref="inputInvoiceComment"
+                class="flexrow-item input"
+                style="height: fit-content; padding: 0.25rem .5rem; margin-right: .5rem;"/>
+              <div class="flexrow mt05">
+                <button
+                  @click="rejectInvoice"
+                  class="flexrow-item button is-danger"
+                  style="width: 100%">
+                  {{ $t('invoices.action.reject') }}
+                </button>
+                <button
+                  @click="approveInvoice"
+                  class="flexrow-item button is-success"
+                  style="width: 100%">
+                  {{ $t('invoices.action.approve') }}
+                </button>
+              </div>
             </div>
           </div>
         </div>
