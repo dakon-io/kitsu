@@ -9,80 +9,126 @@
           <div
             class="card-content"
             style="padding: 12px;">
-            <table class="table tbl">
-              <tr>
-                <td>Status</td>
-                <td><invoice-tag :status="invoice.status"/></td>
-              </tr>
-              <tr>
-                <td>ID</td>
-                <td class="strong">#{{ invoice.id }}</td>
-              </tr>
-              <tr v-if="isCurrentUserAdmin">
-                <td>Creator</td>
-                <td>
-                  <div class="flexrow">
-                    <people-avatar
-                      class="flexrow-item"
-                      :size="25"
-                      :font-size="12"
-                      :person="people"/>
-                    <div>
-                      <people-name :person="people"/>
+            <div
+              class="invoice-tabs tabs"
+              style="margin-top: 0; margin-right: -12px; margin-left: -12px;">
+              <ul>
+                <li
+                  @click="isTabActive = 'info'"
+                  :class="{'is-active': isTabActive == 'info'}">
+                  <!-- {{ $t('invoices.status.pending') }} -->
+                  <router-link :to="'#'">Info</router-link>
+                </li>
+                <li
+                  @click="isTabActive = 'chat'"
+                  :class="{'is-active': isTabActive == 'chat'}">
+                  <router-link :to="'#'">Chat</router-link>
+                </li>
+              </ul>
+            </div>
+            <div v-show="isTabActive == 'info'">
+              <table class="table tbl">
+                <tr>
+                  <td>Status</td>
+                  <td><invoice-tag :status="invoice.status"/></td>
+                </tr>
+                <tr>
+                  <td>ID</td>
+                  <td class="strong">#{{ invoice.id }}</td>
+                </tr>
+                <tr v-if="isCurrentUserAdmin">
+                  <td>Creator</td>
+                  <td>
+                    <div class="flexrow">
+                      <people-avatar
+                        class="flexrow-item"
+                        :size="25"
+                        :font-size="12"
+                        :person="people"/>
+                      <div>
+                        <people-name :person="people"/>
+                      </div>
                     </div>
-                  </div>
-                </td>
-              </tr>
-              <tr>
-                <td>Submission date</td>
-                <td>date</td>
-              </tr>
-              <tr>
-                <td>Price</td>
-                <td>Rp {{ invoice.price | currencyFormat }}</td>
-              </tr>
-              <tr
-                @click="toggleTasks=!toggleTasks"
-                style="cursor: pointer;">
-                <td style="border-bottom: 0">Tasks</td>
-                <td style="border-bottom: 0">17</td>
-              </tr>
-              <tr>
-                <td colspan="2" style="padding-top: 0; padding-bottom: 0;">
-                  <div v-show="toggleTasks">
-                    <ul>
-                      <li>tsahf</li>
-                      <li>tsahf</li>
-                      <li>tsahf</li>
-                      <li>tsahf</li>
-                      <li>tsahf</li>
-                      <li>tsahf</li>
-                    </ul>
-                  </div>
-                </td>
-              </tr>
-            </table>
-            <div v-if="isCurrentUserAdmin" class="mt05">
-              <input
-                type="text"
-                :placeholder="$t('comments.add_comment')"
-                v-model="invoiceComment"
-                ref="inputInvoiceComment"
-                class="flexrow-item input"
-                style="height: fit-content; padding: 0.25rem .5rem; margin-right: .5rem;"/>
-              <div class="flexrow mt05">
-                <button
-                  @click="rejectInvoice"
-                  class="flexrow-item button is-danger"
-                  style="width: 100%">
-                  {{ $t('invoices.action.reject') }}
-                </button>
-                <button
-                  @click="approveInvoice"
-                  class="flexrow-item button is-success"
-                  style="width: 100%">
-                  {{ $t('invoices.action.approve') }}
-                </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Submission date</td>
+                  <td>date</td>
+                </tr>
+                <tr>
+                  <td>Price</td>
+                  <td>Rp {{ invoice.price | currencyFormat }}</td>
+                </tr>
+                <tr
+                  @click="toggleTasks=!toggleTasks"
+                  style="cursor: pointer;">
+                  <td style="border-bottom: 0">Tasks</td>
+                  <td style="border-bottom: 0">17</td>
+                </tr>
+                <tr>
+                  <td colspan="2" style="padding-top: 0; padding-bottom: 0;">
+                    <div v-show="toggleTasks">
+                      <ul>
+                        <li>tsahf</li>
+                        <li>tsahf</li>
+                        <li>tsahf</li>
+                        <li>tsahf</li>
+                        <li>tsahf</li>
+                        <li>tsahf</li>
+                      </ul>
+                    </div>
+                  </td>
+                </tr>
+              </table>
+              <div v-if="isCurrentUserAdmin" class="mt05">
+                <input
+                  type="text"
+                  :placeholder="$t('comments.add_comment')"
+                  v-model="invoiceComment"
+                  ref="inputInvoiceComment"
+                  class="flexrow-item input"
+                  style="height: fit-content; padding: 0.25rem .5rem; margin-right: .5rem;"/>
+                <div class="flexrow mt05">
+                  <button
+                    @click="rejectInvoice"
+                    class="flexrow-item button is-danger"
+                    style="width: 100%">
+                    {{ $t('invoices.action.reject') }}
+                  </button>
+                  <button
+                    @click="approveInvoice"
+                    class="flexrow-item button is-success"
+                    style="width: 100%">
+                    {{ $t('invoices.action.approve') }}
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div v-show="isTabActive == 'chat'">
+              <AddFeedComment
+                ref="add-comment"
+                :user="user"
+                :peoples="displayedPeople"
+                :light="true"
+                :is-loading="loading.addComment"
+                :is-error="errors.addComment"
+                @add-comment="addComment"/>
+
+              <div
+                class="comments"
+                v-if="feedComments && feedComments.length > 0 && !loading.comment">
+                <FeedComment
+                  v-for="(comment, index) in feedComments"
+                  :key="'comment' + comment.id"
+                  :comment="comment"
+                  :light="true"
+                  :is-first="index === 0"
+                  :is-last="index === pinnedCount"/>
+              </div>
+              <div class="no-comment" v-else-if="!loading.comment">
+                <em>
+                  {{ $t('tasks.no_comment')}}
+                </em>
               </div>
             </div>
           </div>
@@ -99,6 +145,8 @@ import Invoice from '@/components/widgets/Invoice'
 import InvoiceTag from '@/components/widgets/InvoiceTag'
 import PeopleAvatar from '@/components/widgets/PeopleAvatar'
 import PeopleName from '@/components/widgets/PeopleName'
+import AddFeedComment from '../widgets/AddFeedComment'
+import FeedComment from '../widgets/FeedComment'
 
 export default {
   name: 'InvoiceInfo',
@@ -114,13 +162,16 @@ export default {
     Invoice,
     InvoiceTag,
     PeopleAvatar,
-    PeopleName
+    PeopleName,
+    AddFeedComment,
+    FeedComment
   },
 
   data () {
     return {
       toggleTasks: false,
       invoiceComment: '',
+      isTabActive: 'info',
       people: {
         first_name: 'user',
         last_name: '1',
@@ -128,6 +179,41 @@ export default {
         id: 'b2d2c606-0cbd-402a-b12e-2de13843e4bb',
         initials: 'U1',
         color: 'red'
+      },
+      inputComment: '',
+      feedComments: [
+        {
+          created_at: '2021-02-23T02:23:36',
+          data: null,
+          id: '316151ec-337b-4082-864b-89e6ce058101',
+          object_id: 'b2878463-b0d9-454b-88ec-d2a2764776ec',
+          object_type: 'Task',
+          person: {
+            first_name: 'user',
+            last_name: '1',
+            has_avatar: false,
+            id: 'b2d2c606-0cbd-402a-b12e-2de13843e4bb',
+            initials: 'U1',
+            color: 'red'
+          },
+          person_id: 'b2d2c606-0cbd-402a-b12e-2de13843e4bb',
+          pinned: false,
+          shotgun_id: null,
+          text: 'This is comment',
+          type: 'Comment',
+          updated_at: '2021-02-23T03:40:49'
+        }
+      ],
+      errors: {
+        addComment: false,
+        editComment: false,
+        deleteComment: false
+      },
+      loading: {
+        addComment: false,
+        editComment: false,
+        deleteComment: false,
+        comment: false
       }
     }
   },
@@ -135,8 +221,15 @@ export default {
   computed: {
     ...mapGetters([
       'isCurrentUserAdmin',
-      'isCurrentUserVendor'
-    ])
+      'isCurrentUserVendor',
+      'user',
+      'displayedPeople'
+    ]),
+
+    pinnedCount () {
+      if (!this.feedComments) return 0
+      return this.feedComments.filter(c => c.pinned).length
+    }
   },
 
   methods: {
@@ -151,6 +244,23 @@ export default {
     approveInvoice () {
       alert('You approve this invoice')
       this.invoiceComment = ''
+    },
+
+    addComment (comment) {
+      this.feedComments.unshift({
+        created_at: new Date(),
+        data: null,
+        id: '316151ec-337b-4082-864b-89e6ce05811' + this.feedComments.length + 1,
+        object_id: 'b2878463-b0d9-454b-88ec-d2a2764776ec',
+        object_type: 'Task',
+        person: this.user,
+        person_id: this.user.id,
+        pinned: false,
+        shotgun_id: null,
+        text: comment.text,
+        type: 'Comment',
+        updated_at: new Date()
+      })
     }
   },
 
