@@ -117,22 +117,39 @@
           {{ $t('comments.post_status') }}
         </button>
       </group-button>
-      <div v-if="task.taskStatus.is_done == true && isCurrentUserVendor" class="flexrow mt1">
+      <hr>
+      <div v-if="task.taskStatus.is_done == true && isCurrentUserVendor" class="mt1">
         <input
           type="text"
           inputmode="number"
           v-model="invoice.price"
           v-numericOnly
           ref="inputInvoicePrice"
-          :placeholder="$t('invoices.action.give_a_price') + $t('main.and_enter')"
-          @keyup.enter="addToInvoice"
-          class="flexrow-item input"
+          :placeholder="$t('invoices.action.give_a_price')"
+          class="input"
           style="height: fit-content; padding: 0.25rem .5rem; margin-right: .5rem;"/>
-        <button
-          @click="addToInvoice"
-          class="flexrow-item button is-warning">
-          {{ $t('invoices.action.add_to_invoice') }}
-        </button>
+        <div class="columns mt1">
+          <div class="column">
+            <input @change="addInvoiceToExisting=false" type="radio" id="addInvoiceMethod1" name="addInvoiceMethod" checked>
+            <label for="addInvoiceMethod1" class="ml05">Create new</label>
+          </div>
+          <div class="column">
+            <input @change="addInvoiceToExisting=true" type="radio" id="addInvoiceMethod2" name="addInvoiceMethod">
+            <label for="addInvoiceMethod2" class="ml05">Add to existing</label>
+          </div>
+        </div>
+        <div class="flexrow">
+          <select v-show="addInvoiceToExisting" class="flexrow-item input" style="width: 100%">
+            <option value="invId">#inv123</option>
+            <option value="invId">#inv123</option>
+            <option value="invId">#inv123</option>
+          </select>
+          <button
+            @click="addToInvoice"
+            class="flexrow-item button is-warning pull-right">
+            {{ $t('invoices.action.add_to_invoice') }}
+          </button>
+        </div>
       </div>
       <div
         class="error pull-right"
@@ -195,6 +212,7 @@ export default {
       modals: {
         addCommentAttachment: false
       },
+      addInvoiceToExisting: false,
       invoice: {
         price: null
       }
