@@ -132,7 +132,8 @@
           style="height: fit-content; padding: 0.25rem .5rem; margin-right: .5rem;"/>
         <div
           @click="showInvoiceInputPrice = true"
-          v-show="!showInvoiceInputPrice">IDR {{ invoice.price | currencyFormat }}</div>
+          v-show="!showInvoiceInputPrice"
+          class="input">IDR {{ invoice.price | currencyFormat }}</div>
         <div class="columns mt1">
           <div class="column">
             <input @change="addInvoiceToExisting=false" type="radio" id="addInvoiceMethod1" name="addInvoiceMethod" checked>
