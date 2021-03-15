@@ -125,9 +125,14 @@
           v-model="invoice.price"
           v-numericOnly
           ref="inputInvoicePrice"
+          @blur="showInvoiceInputPrice = false"
+          v-show="showInvoiceInputPrice"
           :placeholder="$t('invoices.action.give_a_price')"
           class="input"
           style="height: fit-content; padding: 0.25rem .5rem; margin-right: .5rem;"/>
+        <div
+          @click="showInvoiceInputPrice = true"
+          v-show="!showInvoiceInputPrice">IDR {{ invoice.price | currencyFormat }}</div>
         <div class="columns mt1">
           <div class="column">
             <input @change="addInvoiceToExisting=false" type="radio" id="addInvoiceMethod1" name="addInvoiceMethod" checked>
@@ -213,8 +218,9 @@ export default {
         addCommentAttachment: false
       },
       addInvoiceToExisting: false,
+      showInvoiceInputPrice: true,
       invoice: {
-        price: null
+        price: 0
       }
     }
   },
@@ -388,6 +394,12 @@ export default {
       } else {
         alert('Something wrong when adding to invoice')
       }
+    }
+  },
+
+  filters: {
+    currencyFormat (value) {
+      return value.toString().replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, '$1.')
     }
   },
 
