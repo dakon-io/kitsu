@@ -117,7 +117,7 @@
           {{ $t('comments.post_status') }}
         </button>
       </group-button>
-      <hr>
+      <hr v-if="task.taskStatus.is_done == true && isCurrentUserVendor">
       <div v-if="task.taskStatus.is_done == true && isCurrentUserVendor" class="mt1">
         <input
           type="text"
