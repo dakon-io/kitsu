@@ -7,7 +7,7 @@
     }"
     v-if="!isEmpty"
   >
-    <div class="content-wrapper full">
+    <div class="content-wrapper full card card-content">
       <div class="flexrow">
         <people-avatar
           class="flexrow-item"
@@ -55,7 +55,7 @@
     </div>
 
   </article>
-  <div class="empty-comment" v-else>
+  <div class="empty-comment card card-content" v-else>
     <div class="flexrow content-wrapper">
       <people-avatar
         class="flexrow-item"

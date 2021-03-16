@@ -1,14 +1,16 @@
 <template>
   <aside class="sidebar-comment">
     <div>
-      <AddFeedComment
-        ref="add-comment"
-        :user="user"
-        :peoples="displayedPeople"
-        :light="true"
-        :is-loading="loading.addComment"
-        :is-error="errors.addComment"
-        @add-comment="addComment"/>
+      <div class="card card-content">
+        <AddFeedComment
+          ref="add-comment"
+          :user="user"
+          :peoples="displayedPeople"
+          :light="true"
+          :is-loading="loading.addComment"
+          :is-error="errors.addComment"
+          @add-comment="addComment"/>
+      </div>
 
       <div
         class="comments"
@@ -146,7 +148,7 @@ export default {
     max-width: 425px;
     padding: $size-2;
     padding-top: calc(60px + #{$size-2});
-    background-color: var(--background);
+    background-color: var(--background-alt);
     border-left: 3px solid var(--border);
     overflow-y: auto;
   }
