@@ -126,10 +126,7 @@
             :column="entry.taskStatus"
           />
           <td v-if="isCurrentUserVendor">
-            <span
-              class="tag orange">
-              {{ $t('invoices.status.ongoing') }}
-            </span>
+            <invoice-tag :status="'waiting'"/>
           </td>
           <last-comment-cell
             class="last-comment"
@@ -185,6 +182,7 @@ import ProductionNameCell from '@/components/cells/ProductionNameCell'
 import TaskTypeCell from '@/components/cells/TaskTypeName'
 import TableInfo from '@/components/widgets/TableInfo'
 import ValidationCell from '@/components/cells/ValidationCell'
+import InvoiceTag from '@/components/widgets/InvoiceTag'
 
 export default {
   name: 'todos-list',
@@ -197,7 +195,8 @@ export default {
     ProductionNameCell,
     TableInfo,
     TaskTypeCell,
-    ValidationCell
+    ValidationCell,
+    InvoiceTag
   },
 
   props: [
