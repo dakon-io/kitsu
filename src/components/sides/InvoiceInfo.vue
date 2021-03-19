@@ -8,15 +8,15 @@
         <div class="card card-content">
           <table class="table tbl">
             <tr>
-              <td>Status</td>
+              <td>{{ $t('statistics.status') }}</td>
               <td><invoice-tag :status="invoice.status"/></td>
             </tr>
             <tr>
-              <td>Invoice number</td>
+              <td>{{ $t('invoices.number') }}</td>
               <td class="strong">#{{ invoice.id }}</td>
             </tr>
             <tr v-if="isCurrentUserAdmin">
-              <td>Creator</td>
+              <td>{{ $t('invoices.creator') }}</td>
               <td>
                 <div class="flexrow">
                   <people-avatar
@@ -31,20 +31,20 @@
               </td>
             </tr>
             <tr>
-              <td>Project name</td>
+              <td>{{ $t('invoices.project') }}</td>
               <td>{{ invoice.projectName }}</td>
             </tr>
             <tr>
-              <td>Submission date</td>
+              <td>{{ $t('invoices.submited') }}</td>
               <td>{{ shortDate }}</td>
             </tr>
             <tr>
-              <td>Total price</td>
+              <td>{{ $t('invoices.total_price') }}</td>
               <td>IDR {{ invoiceTotalPrice }}</td>
             </tr>
             <tr>
-              <td>Tasks</td>
-              <td>{{ invoice.tasks.length }} item<span v-if="invoice.tasks.length > 1">s</span></td>
+              <td>{{ $t('tasks.tasks') }}</td>
+              <td>{{ invoice.tasks.length }} <span v-if="invoice.tasks.length <= 1">{{ $t('main.item') }}</span><span v-if="invoice.tasks.length > 1">{{ $t('main.items') }}</span></td>
             </tr>
           </table>
           <div class="is-flex">

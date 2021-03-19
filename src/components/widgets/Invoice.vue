@@ -18,8 +18,8 @@
           <people-name :person="people"/>
         </div>
       </div>
-      <p>Submited: {{ shortDate }}</p>
-      <p>{{ invoice.tasks.length }} Task<span v-if="invoice.tasks.length > 1">s</span> - IDR {{ invoiceTotalPrice | currencyFormat }}</p>
+      <p>{{ $t('invoices.submited') }}: {{ shortDate }}</p>
+      <p>{{ invoice.tasks.length }} <span v-if="invoice.tasks.length <= 1">{{ $t('main.task') }}</span><span v-if="invoice.tasks.length > 1">{{ $t('main.tasks') }}</span> - IDR {{ invoiceTotalPrice | currencyFormat }}</p>
     </div>
   </div>
 </div>
