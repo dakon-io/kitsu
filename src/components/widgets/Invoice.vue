@@ -19,7 +19,7 @@
         </div>
       </div>
       <p>Submited: date</p>
-      <p>17 Tasks - Rp {{ invoice.price | currencyFormat }}</p>
+      <p>{{ invoice.tasks.length }} Task<span v-if="invoice.tasks.length > 1">s</span> - Rp {{ invoice.price | currencyFormat }}</p>
     </div>
   </div>
 </div>
