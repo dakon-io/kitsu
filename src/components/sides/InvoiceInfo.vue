@@ -40,7 +40,7 @@
             </tr>
             <tr>
               <td>{{ $t('invoices.total_price') }}</td>
-              <td>IDR {{ invoiceTotalPrice }}</td>
+              <td>IDR {{ invoiceTotalPrice | currencyFormat }}</td>
             </tr>
             <tr>
               <td>{{ $t('tasks.tasks') }}</td>
@@ -53,7 +53,15 @@
               <tr v-for="(task, index) in invoice.tasks" :key="index">
                 <td>{{ task.name }}</td>
                 <td>
-                  IDR {{ task.price | currencyFormat }}
+                  <div class="is-flex" style="align-items: center;">
+                    <span style="margin-right: .25rem;">IDR</span>
+                    <input
+                      v-if="invoice.status == 'waiting' && isCurrentUserVendor"
+                      type="text" inputmode="numeric" class="input"
+                      style="height: fit-content; padding: .25rem;"
+                      :value="task.price">
+                    <span v-else>{{ task.price | currencyFormat }}</span>
+                  </div>
                 </td>
               </tr>
             </table>
