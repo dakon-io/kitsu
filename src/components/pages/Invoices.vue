@@ -126,25 +126,83 @@ export default {
           id: 'INVDKN123',
           status: 'waiting',
           price: 5920031,
-          projectName: 'Prj-1'
+          projectName: 'Prj-1',
+          tasks: [
+            {
+              id: 'task1',
+              name: 'Task 1',
+              price: '153000'
+            }
+          ]
         },
         {
           id: 'INVDKN123',
           status: 'approved',
           price: 5920031,
-          projectName: 'Prj-1'
+          projectName: 'Prj-2',
+          tasks: [
+            {
+              id: 'task1',
+              name: 'Task 1',
+              price: '153000'
+            },
+            {
+              id: 'task2',
+              name: 'Task 2',
+              price: '153000'
+            },
+            {
+              id: 'task3',
+              name: 'Task 3',
+              price: '153000'
+            }
+          ]
         },
         {
           id: 'INVDKN123',
           status: 'rejected',
           price: 5920031,
-          projectName: 'Prj-1'
+          projectName: 'Prj-1',
+          tasks: [
+            {
+              id: 'task1',
+              name: 'Task 1',
+              price: '153000'
+            },
+            {
+              id: 'task1',
+              name: 'Task 1',
+              price: '153000'
+            },
+            {
+              id: 'task1',
+              name: 'Task 1',
+              price: '153000'
+            }
+          ]
         },
         {
           id: 'INVDKN123',
           status: 'paid',
           price: 5920031,
-          projectName: 'Prj-1'
+          projectName: 'Prj-1',
+          tasks: [
+            {
+              id: 'task1',
+              name: 'Task 1',
+              price: '153000'
+            },
+            {
+              id: 'task1',
+              name: 'Task 1',
+              price: '153000'
+            },
+            {
+              id: 'task1',
+              name: 'Task 1',
+              price: '153000'
+            }
+          ]
         }
       ],
       selectedInvoice: null

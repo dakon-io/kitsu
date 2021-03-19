@@ -42,24 +42,13 @@
               <td>Total price</td>
               <td>Rp {{ invoice.price | currencyFormat }}</td>
             </tr>
-            <tr
-              @click="toggleTasks=!toggleTasks"
-              style="cursor: pointer;">
-              <td style="border-bottom: 0">Tasks</td>
-              <td style="border-bottom: 0">17 items</td>
-            </tr>
             <tr>
-              <td colspan="2" style="padding-top: 0; padding-bottom: 0;">
-                <div v-show="toggleTasks">
-                  <ul>
-                    <li>tsahf</li>
-                    <li>tsahf</li>
-                    <li>tsahf</li>
-                    <li>tsahf</li>
-                    <li>tsahf</li>
-                    <li>tsahf</li>
-                  </ul>
-                </div>
+              <td>Tasks</td>
+              <td>{{ invoice.tasks.length }} item<span v-if="invoice.tasks.length > 1">s</span></td>
+            </tr>
+            <tr v-for="(task, index) in invoice.tasks" :key="index">
+              <td style="padding-top: 0; padding-bottom: 0; padding-left: 1.5rem">
+                ysuf
               </td>
             </tr>
           </table>
@@ -119,7 +108,6 @@ export default {
 
   data () {
     return {
-      toggleTasks: false,
       invoiceComment: '',
       people: {
         first_name: 'user',
