@@ -36,11 +36,11 @@
             </tr>
             <tr>
               <td>Submission date</td>
-              <td>date</td>
+              <td>{{ shortDate }}</td>
             </tr>
             <tr>
               <td>Total price</td>
-              <td>IDR {{ invoiceTotalPrice | currencyFormat }}</td>
+              <td>IDR {{ invoiceTotalPrice }}</td>
             </tr>
             <tr>
               <td>Tasks</td>
@@ -88,7 +88,9 @@
 </template>
 
 <script>
+import moment from 'moment'
 import { mapGetters } from 'vuex'
+import { parseDate } from '@/lib/time'
 
 import Invoice from '@/components/widgets/Invoice'
 import InvoiceTag from '@/components/widgets/InvoiceTag'
@@ -139,6 +141,18 @@ export default {
       return this.invoice.tasks.reduce(function (invoiceTotalPrice, item) {
         return invoiceTotalPrice + item.price
       }, 0)
+    },
+
+    createdAt () {
+      return parseDate(this.invoice.created_at)
+    },
+
+    shortDate () {
+      if (moment().diff(this.createdAt, 'days') > 1) {
+        return this.createdAt.tz(this.user.timezone).format('MMM/DD/YYYY')
+      } else {
+        return this.createdAt.tz(this.user.timezone).format('HH:mm')
+      }
     }
   },
 

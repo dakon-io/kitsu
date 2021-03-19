@@ -18,7 +18,7 @@
           <people-name :person="people"/>
         </div>
       </div>
-      <p>Submited: date</p>
+      <p>Submited: {{ shortDate }}</p>
       <p>{{ invoice.tasks.length }} Task<span v-if="invoice.tasks.length > 1">s</span> - IDR {{ invoiceTotalPrice | currencyFormat }}</p>
     </div>
   </div>
@@ -26,6 +26,10 @@
 </template>
 
 <script>
+import moment from 'moment'
+import { mapGetters } from 'vuex'
+import { parseDate } from '@/lib/time'
+
 import InvoiceTag from '@/components/widgets/InvoiceTag'
 import PeopleAvatar from '@/components/widgets/PeopleAvatar'
 import PeopleName from '@/components/widgets/PeopleName'
@@ -64,10 +68,26 @@ export default {
   },
 
   computed: {
+    ...mapGetters([
+      'user'
+    ]),
+
     invoiceTotalPrice: function () {
       return this.invoice.tasks.reduce(function (invoiceTotalPrice, item) {
         return invoiceTotalPrice + item.price
       }, 0)
+    },
+
+    createdAt () {
+      return parseDate(this.invoice.created_at)
+    },
+
+    shortDate () {
+      if (moment().diff(this.createdAt, 'days') > 1) {
+        return this.createdAt.tz(this.user.timezone).format('MMM DD, YYYY')
+      } else {
+        return this.createdAt.tz(this.user.timezone).format('HH:mm')
+      }
     }
   },
 

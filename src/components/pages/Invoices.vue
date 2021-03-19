@@ -124,6 +124,7 @@ export default {
       invoices: [
         {
           id: 'INVDKN123',
+          created_at: '2021-03-19T02:23:36',
           status: 'waiting',
           projectName: 'Prj-1',
           tasks: [
@@ -136,6 +137,7 @@ export default {
         },
         {
           id: 'INVDKN123',
+          created_at: '2021-02-23T02:23:36',
           status: 'approved',
           projectName: 'Prj-2',
           tasks: [
@@ -158,6 +160,7 @@ export default {
         },
         {
           id: 'INVDKN123',
+          created_at: '2021-02-23T02:23:36',
           status: 'rejected',
           projectName: 'Prj-1',
           tasks: [
@@ -180,6 +183,7 @@ export default {
         },
         {
           id: 'INVDKN123',
+          created_at: '2021-02-23T02:23:36',
           status: 'paid',
           projectName: 'Prj-1',
           tasks: [
