@@ -1,5 +1,5 @@
 <template>
-  <aside class="sidebar-comment">
+  <aside class="sidebar-info">
     <div>
       <Invoice
         :admin="isCurrentUserAdmin"
@@ -129,41 +129,7 @@ export default {
         initials: 'U1',
         color: 'red'
       },
-      inputComment: '',
-      invoiceComments: [
-        {
-          created_at: '2021-02-23T02:23:36',
-          data: null,
-          id: '316151ec-337b-4082-864b-89e6ce058101',
-          object_id: 'b2878463-b0d9-454b-88ec-d2a2764776ec',
-          object_type: 'Task',
-          person: {
-            first_name: 'user',
-            last_name: '1',
-            has_avatar: false,
-            id: 'b2d2c606-0cbd-402a-b12e-2de13843e4bb',
-            initials: 'U1',
-            color: 'red'
-          },
-          person_id: 'b2d2c606-0cbd-402a-b12e-2de13843e4bb',
-          pinned: false,
-          shotgun_id: null,
-          text: 'This is comment',
-          type: 'Comment',
-          updated_at: '2021-02-23T03:40:49'
-        }
-      ],
-      errors: {
-        addComment: false,
-        editComment: false,
-        deleteComment: false
-      },
-      loading: {
-        addComment: false,
-        editComment: false,
-        deleteComment: false,
-        comment: false
-      }
+      inputComment: ''
     }
   },
 
@@ -173,12 +139,7 @@ export default {
       'isCurrentUserVendor',
       'user',
       'displayedPeople'
-    ]),
-
-    pinnedCount () {
-      if (!this.invoiceComments) return 0
-      return this.invoiceComments.filter(c => c.pinned).length
-    }
+    ])
   },
 
   methods: {
@@ -193,23 +154,6 @@ export default {
     approveInvoice () {
       alert('You approve this invoice')
       this.invoiceComment = ''
-    },
-
-    addComment (comment) {
-      this.invoiceComments.unshift({
-        created_at: new Date(),
-        data: null,
-        id: '316151ec-337b-4082-864b-89e6ce05811' + this.invoiceComments.length + 1,
-        object_id: 'b2878463-b0d9-454b-88ec-d2a2764776ec',
-        object_type: 'Task',
-        person: this.user,
-        person_id: this.user.id,
-        pinned: false,
-        shotgun_id: null,
-        text: comment.text,
-        type: 'Comment',
-        updated_at: new Date()
-      })
     }
   },
 
@@ -222,7 +166,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .sidebar-comment {
+  .sidebar-info {
     position: fixed;
     top: 0;
     right: 0;
