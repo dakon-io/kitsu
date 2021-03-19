@@ -46,12 +46,20 @@
               <td>Tasks</td>
               <td>{{ invoice.tasks.length }} item<span v-if="invoice.tasks.length > 1">s</span></td>
             </tr>
-            <tr v-for="(task, index) in invoice.tasks" :key="index">
-              <td style="padding-top: 0; padding-bottom: 0; padding-left: 1.5rem">
-                ysuf
-              </td>
-            </tr>
           </table>
+          <div class="is-flex">
+            <div style="display: block; width: 1px; background-color: #c1c1c1; margin-left: 23px;"></div>
+            <table class="table tbl">
+              <tr v-for="(task, index) in invoice.tasks" :key="index">
+                <td>
+                  {{ task.name }}
+                </td>
+                <td>
+                  {{ task.price }}
+                </td>
+              </tr>
+            </table>
+          </div>
           <div v-if="isCurrentUserAdmin" class="mt05">
             <input
               type="text"
