@@ -12,7 +12,7 @@
               <td><invoice-tag :status="invoice.status"/></td>
             </tr>
             <tr>
-              <td>ID</td>
+              <td>Invoice number</td>
               <td class="strong">#{{ invoice.id }}</td>
             </tr>
             <tr v-if="isCurrentUserAdmin">
@@ -35,14 +35,14 @@
               <td>date</td>
             </tr>
             <tr>
-              <td>Price</td>
+              <td>Total price</td>
               <td>Rp {{ invoice.price | currencyFormat }}</td>
             </tr>
             <tr
               @click="toggleTasks=!toggleTasks"
               style="cursor: pointer;">
               <td style="border-bottom: 0">Tasks</td>
-              <td style="border-bottom: 0">17</td>
+              <td style="border-bottom: 0">17 items</td>
             </tr>
             <tr>
               <td colspan="2" style="padding-top: 0; padding-bottom: 0;">
