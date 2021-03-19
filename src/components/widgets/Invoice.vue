@@ -19,7 +19,7 @@
         </div>
       </div>
       <p>Submited: date</p>
-      <p>{{ invoice.tasks.length }} Task<span v-if="invoice.tasks.length > 1">s</span> - IDR {{ invoice.price | currencyFormat }}</p>
+      <p>{{ invoice.tasks.length }} Task<span v-if="invoice.tasks.length > 1">s</span> - IDR {{ invoiceTotalPrice | currencyFormat }}</p>
     </div>
   </div>
 </div>
@@ -60,6 +60,14 @@ export default {
         initials: 'U1',
         color: 'red'
       }
+    }
+  },
+
+  computed: {
+    invoiceTotalPrice: function () {
+      return this.invoice.tasks.reduce(function (invoiceTotalPrice, item) {
+        return invoiceTotalPrice + item.price
+      }, 0)
     }
   },
 

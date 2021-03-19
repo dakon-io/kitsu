@@ -40,7 +40,7 @@
             </tr>
             <tr>
               <td>Total price</td>
-              <td>IDR {{ invoice.price | currencyFormat }}</td>
+              <td>IDR {{ invoiceTotalPrice | currencyFormat }}</td>
             </tr>
             <tr>
               <td>Tasks</td>
@@ -133,7 +133,13 @@ export default {
       'isCurrentUserVendor',
       'user',
       'displayedPeople'
-    ])
+    ]),
+
+    invoiceTotalPrice: function () {
+      return this.invoice.tasks.reduce(function (invoiceTotalPrice, item) {
+        return invoiceTotalPrice + item.price
+      }, 0)
+    }
   },
 
   methods: {
