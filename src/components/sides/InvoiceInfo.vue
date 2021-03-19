@@ -31,6 +31,10 @@
               </td>
             </tr>
             <tr>
+              <td>Project name</td>
+              <td>{{ invoice.projectName }}</td>
+            </tr>
+            <tr>
               <td>Submission date</td>
               <td>date</td>
             </tr>

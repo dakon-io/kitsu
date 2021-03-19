@@ -125,22 +125,26 @@ export default {
         {
           id: 'INVDKN123',
           status: 'waiting',
-          price: 5920031
+          price: 5920031,
+          projectName: 'Prj-1'
         },
         {
           id: 'INVDKN123',
           status: 'approved',
-          price: 5920031
+          price: 5920031,
+          projectName: 'Prj-1'
         },
         {
           id: 'INVDKN123',
           status: 'rejected',
-          price: 5920031
+          price: 5920031,
+          projectName: 'Prj-1'
         },
         {
           id: 'INVDKN123',
           status: 'paid',
-          price: 5920031
+          price: 5920031,
+          projectName: 'Prj-1'
         }
       ],
       selectedInvoice: null
