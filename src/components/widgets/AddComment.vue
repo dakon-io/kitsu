@@ -136,12 +136,12 @@
           class="input">IDR {{ invoice.price | currencyFormat }}</div>
         <div class="columns mt1">
           <div class="column">
-            <input @change="addInvoiceToExisting=false" type="radio" id="addInvoiceMethod1" name="addInvoiceMethod" checked>
-            <label for="addInvoiceMethod1" class="ml05">Create new</label>
+            <input @change="addInvoiceToExisting=true" type="radio" id="addInvoiceMethod2" name="addInvoiceMethod" checked>
+            <label for="addInvoiceMethod2" class="ml05">Add to existing</label>
           </div>
           <div class="column">
-            <input @change="addInvoiceToExisting=true" type="radio" id="addInvoiceMethod2" name="addInvoiceMethod">
-            <label for="addInvoiceMethod2" class="ml05">Add to existing</label>
+            <input @change="addInvoiceToExisting=false" type="radio" id="addInvoiceMethod1" name="addInvoiceMethod">
+            <label for="addInvoiceMethod1" class="ml05">Create new</label>
           </div>
         </div>
         <div class="flexrow">
@@ -218,7 +218,7 @@ export default {
       modals: {
         addCommentAttachment: false
       },
-      addInvoiceToExisting: false,
+      addInvoiceToExisting: true,
       showInvoiceInputPrice: true,
       invoice: {
         price: 0
