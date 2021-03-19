@@ -40,7 +40,7 @@
             </tr>
             <tr>
               <td>Total price</td>
-              <td>Rp {{ invoice.price | currencyFormat }}</td>
+              <td>IDR {{ invoice.price | currencyFormat }}</td>
             </tr>
             <tr>
               <td>Tasks</td>
@@ -51,11 +51,9 @@
             <div style="display: block; width: 1px; background-color: #c1c1c1; margin-left: 23px;"></div>
             <table class="table tbl">
               <tr v-for="(task, index) in invoice.tasks" :key="index">
+                <td>{{ task.name }}</td>
                 <td>
-                  {{ task.name }}
-                </td>
-                <td>
-                  {{ task.price }}
+                  IDR {{ task.price | currencyFormat }}
                 </td>
               </tr>
             </table>
