@@ -67,13 +67,6 @@
             </table>
           </div>
           <div v-if="isCurrentUserAdmin" class="mt05">
-            <input
-              type="text"
-              :placeholder="$t('comments.add_comment')"
-              v-model="invoiceComment"
-              ref="inputInvoiceComment"
-              class="flexrow-item input"
-              style="height: fit-content; padding: 0.25rem .5rem; margin-right: .5rem;"/>
             <div class="flexrow mt05">
               <button
                 @click="rejectInvoice"
@@ -124,7 +117,6 @@ export default {
 
   data () {
     return {
-      invoiceComment: '',
       people: {
         first_name: 'user',
         last_name: '1',
@@ -166,16 +158,11 @@ export default {
 
   methods: {
     rejectInvoice () {
-      if (this.invoiceComment) {
-        alert('You reject this invoice')
-      } else if (!this.invoiceComment) {
-        this.$refs.inputInvoiceComment.focus()
-      }
+      this.$emit('rejectInvoice')
     },
 
     approveInvoice () {
       alert('You approve this invoice')
-      this.invoiceComment = ''
     }
   },
 

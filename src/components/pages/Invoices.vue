@@ -90,13 +90,22 @@
   <div
     v-if="showInvoiceInfo"
     class="invoice-info-container">
-    <InvoiceInfo :invoice="selectedInvoice"/>
+    <InvoiceInfo
+      :invoice="selectedInvoice"
+      @rejectInvoice="rejectInvoice"/>
     <div
       id="c-mask"
       @click="showInvoiceInfo = false"
       :class="{'is-active': showInvoiceInfo}">
     </div>
   </div>
+
+  <!-- From AssetTypes -->
+  <InvoiceApprovementModal
+    :active="modals.approval"
+    :invoice="selectedInvoice"
+    @cancel="modals.approval = false"
+    @confirm="confirmRejectApproval"/>
 
 </div>
 </template>
@@ -107,6 +116,7 @@ import { mapGetters } from 'vuex'
 import Invoice from '@/components/widgets/Invoice'
 import InvoiceInfo from '@/components/sides/InvoiceInfo'
 import ButtonSimple from '@/components/widgets/ButtonSimple'
+import InvoiceApprovementModal from '../modals/InvoiceApprovementModal'
 
 export default {
   name: 'Invoices',
@@ -114,7 +124,8 @@ export default {
   components: {
     Invoice,
     InvoiceInfo,
-    ButtonSimple
+    ButtonSimple,
+    InvoiceApprovementModal
   },
 
   data () {
@@ -136,7 +147,7 @@ export default {
           ]
         },
         {
-          id: 'INVDKN123',
+          id: 'INVDKN124',
           created_at: '2021-02-23T02:23:36',
           status: 'approved',
           projectName: 'Prj-2',
@@ -205,7 +216,10 @@ export default {
           ]
         }
       ],
-      selectedInvoice: null
+      selectedInvoice: null,
+      modals: {
+        approval: false
+      }
     }
   },
 
@@ -236,6 +250,15 @@ export default {
     openInvoiceInfo (invoice) {
       this.showInvoiceInfo = true
       this.selectedInvoice = invoice
+    },
+
+    rejectInvoice () {
+      this.modals.approval = true
+    },
+
+    confirmRejectApproval () {
+      alert('This invoice is rejected')
+      this.modals.approval = false
     }
   },
 

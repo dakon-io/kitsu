@@ -212,6 +212,11 @@ export default {
       approved: 'Approved',
       rejected: 'Rejected',
       paid: 'Paid'
+    },
+    reject: {
+      title: 'Reject invoice',
+      confirmation: 'Are you sure to reject this invoice? Please tell the reason clearly and re-type the invoice number for confirmation',
+      error: 'Make sure you tell the reason clearly and re-type the right invoice number including #'
     }
   },
 
@@ -318,6 +323,7 @@ export default {
     profile: 'Profile',
     production: 'Production',
     remove: 'Remove',
+    reason: 'Reason',
     reload: 'Reload',
     save: 'Save',
     search_query: 'Search query',
