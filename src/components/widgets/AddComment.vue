@@ -387,9 +387,10 @@ export default {
     },
 
     addToInvoice () {
+      const price = this.invoice.price
       if (this.invoice.price && this.invoice.price !== 0) {
         // alert('Added to invoice')
-        this.$emit('add-to-invoice')
+        this.$emit('add-to-invoice', price)
       } else if (!this.invoice.price) {
         this.$refs.inputInvoicePrice.focus()
       } else {

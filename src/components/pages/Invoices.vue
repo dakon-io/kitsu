@@ -41,22 +41,23 @@
         </router-link>
       </div>
       <div
-        v-if="invoices.length > 0"
+        v-if="allInvoices.length > 0"
         class="invoices-container"
         style="height: calc(100vh - 202px);">
         <div
-          v-for="(invoice, index) in invoices"
+          v-for="(invoice, index) in allInvoices"
           :key="index"
           class="invoices-item">
-          <Invoice
+          <!-- <Invoice
             @open-invoice-detail="openInvoiceInfo(invoice)"
             :admin="isCurrentUserAdmin"
             :invoice="invoice"
-            style="cursor: pointer;"/>
+            style="cursor: pointer;"/> -->
+          {{ invoice.id }}
         </div>
       </div>
       <div
-        v-if="invoices.length === 0">
+        v-if="allInvoices.length === 0">
         <p>
           {{ $t('invoices.empty') }}
         </p>
@@ -70,17 +71,17 @@
       v-if="isTabActive('done')"
       class="invoices-container">
       <div
-        v-for="(invoice, index) in invoices"
+        v-for="(invoice, index) in allInvoices"
         :key="index"
         class="invoices-item">
-        <Invoice
+        <!-- <Invoice
           @open-invoice-detail="openInvoiceInfo"
           :admin="isCurrentUserAdmin"
-          :invoice="invoice"/>
+          :invoice="invoice"/> -->
       </div>
     </div>
     <div
-      v-if="invoices.length === 0">
+      v-if="allInvoices.length === 0">
       <p>
         {{ $t('invoices.empty') }}
       </p>
@@ -113,7 +114,7 @@
 <script>
 import { mapGetters } from 'vuex'
 
-import Invoice from '@/components/widgets/Invoice'
+// import Invoice from '@/components/widgets/Invoice'
 import InvoiceInfo from '@/components/sides/InvoiceInfo'
 import ButtonSimple from '@/components/widgets/ButtonSimple'
 import InvoiceApprovementModal from '../modals/InvoiceApprovementModal'
@@ -122,7 +123,7 @@ export default {
   name: 'Invoices',
 
   components: {
-    Invoice,
+    // Invoice,
     InvoiceInfo,
     ButtonSimple,
     InvoiceApprovementModal
@@ -132,90 +133,90 @@ export default {
     return {
       showInvoiceInfo: false,
       activeTab: 'ongoing',
-      invoices: [
-        {
-          id: 'INVDKN123',
-          created_at: '2021-03-19T02:23:36',
-          status: 'waiting',
-          projectName: 'Prj-1',
-          tasks: [
-            {
-              id: 'task1',
-              name: 'Task 1',
-              price: 153000
-            }
-          ]
-        },
-        {
-          id: 'INVDKN124',
-          created_at: '2021-02-23T02:23:36',
-          status: 'approved',
-          projectName: 'Prj-2',
-          tasks: [
-            {
-              id: 'task1',
-              name: 'Task 1',
-              price: 153000
-            },
-            {
-              id: 'task2',
-              name: 'Task 2',
-              price: 153000
-            },
-            {
-              id: 'task3',
-              name: 'Task 3',
-              price: 153000
-            }
-          ]
-        },
-        {
-          id: 'INVDKN123',
-          created_at: '2021-02-23T02:23:36',
-          status: 'rejected',
-          projectName: 'Prj-1',
-          tasks: [
-            {
-              id: 'task1',
-              name: 'Task 1',
-              price: 153000
-            },
-            {
-              id: 'task1',
-              name: 'Task 1',
-              price: 153000
-            },
-            {
-              id: 'task1',
-              name: 'Task 1',
-              price: 153000
-            }
-          ]
-        },
-        {
-          id: 'INVDKN123',
-          created_at: '2021-02-23T02:23:36',
-          status: 'paid',
-          projectName: 'Prj-1',
-          tasks: [
-            {
-              id: 'task1',
-              name: 'Task 1',
-              price: 153000
-            },
-            {
-              id: 'task1',
-              name: 'Task 1',
-              price: 153000
-            },
-            {
-              id: 'task1',
-              name: 'Task 1',
-              price: 153000
-            }
-          ]
-        }
-      ],
+      // invoices: [
+      //   {
+      //     id: 'INVDKN123',
+      //     created_at: '2021-03-19T02:23:36',
+      //     status: 'waiting',
+      //     projectName: 'Prj-1',
+      //     tasks: [
+      //       {
+      //         id: 'task1',
+      //         name: 'Task 1',
+      //         price: 153000
+      //       }
+      //     ]
+      //   },
+      //   {
+      //     id: 'INVDKN124',
+      //     created_at: '2021-02-23T02:23:36',
+      //     status: 'approved',
+      //     projectName: 'Prj-2',
+      //     tasks: [
+      //       {
+      //         id: 'task1',
+      //         name: 'Task 1',
+      //         price: 153000
+      //       },
+      //       {
+      //         id: 'task2',
+      //         name: 'Task 2',
+      //         price: 153000
+      //       },
+      //       {
+      //         id: 'task3',
+      //         name: 'Task 3',
+      //         price: 153000
+      //       }
+      //     ]
+      //   },
+      //   {
+      //     id: 'INVDKN123',
+      //     created_at: '2021-02-23T02:23:36',
+      //     status: 'rejected',
+      //     projectName: 'Prj-1',
+      //     tasks: [
+      //       {
+      //         id: 'task1',
+      //         name: 'Task 1',
+      //         price: 153000
+      //       },
+      //       {
+      //         id: 'task1',
+      //         name: 'Task 1',
+      //         price: 153000
+      //       },
+      //       {
+      //         id: 'task1',
+      //         name: 'Task 1',
+      //         price: 153000
+      //       }
+      //     ]
+      //   },
+      //   {
+      //     id: 'INVDKN123',
+      //     created_at: '2021-02-23T02:23:36',
+      //     status: 'paid',
+      //     projectName: 'Prj-1',
+      //     tasks: [
+      //       {
+      //         id: 'task1',
+      //         name: 'Task 1',
+      //         price: 153000
+      //       },
+      //       {
+      //         id: 'task1',
+      //         name: 'Task 1',
+      //         price: 153000
+      //       },
+      //       {
+      //         id: 'task1',
+      //         name: 'Task 1',
+      //         price: 153000
+      //       }
+      //     ]
+      //   }
+      // ],
       selectedInvoice: null,
       modals: {
         approval: false
@@ -230,7 +231,8 @@ export default {
   computed: {
     ...mapGetters([
       'isCurrentUserAdmin',
-      'isCurrentUserVendor'
+      'isCurrentUserVendor',
+      'allInvoices'
     ])
   },
 

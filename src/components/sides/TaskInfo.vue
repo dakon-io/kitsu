@@ -231,6 +231,7 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
+import client from '@/store/api/client'
 import {
   getTaskEntityPath,
   getTaskPath
@@ -901,8 +902,21 @@ export default {
       }
     },
 
-    addToInvoice () {
+    addToInvoice (value) {
+      const projectId = this.task.project_id
+      const tasks = [
+        {
+          id: this.task.id,
+          amount: 909
+        }
+      ]
       alert('Added to invc')
+      console.log('Task id : ', tasks.id)
+      console.log('Price : ', tasks.amount)
+      // return client.pget(`/api/plugins/actions/projects/${projectId}/create-invoice`, tasks)
+      return new Promise((resolve, reject) => {
+        return client.ppost(`/api/plugins/actions/projects/${projectId}/create-invoice`, { tasks })
+      })
     }
   },
 
