@@ -60,6 +60,7 @@ export default {
   },
 
   comments: {
+    add_invoice: 'Add invoice',
     add_attachment: 'Add attachment',
     add_checklist: 'Add checklist',
     add_comment: 'Add a comment...',

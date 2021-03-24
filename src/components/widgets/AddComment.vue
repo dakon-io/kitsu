@@ -104,6 +104,17 @@
           @click="onAddCommentAttachmentClicked()"
         >
         </button-simple>
+        <button-simple
+          v-if="isTaskDone"
+          :class="{
+            'button': true,
+            'active': attachment.length !== 0
+          }"
+          icon="dollar"
+          :title="$t('comments.add_invoice')"
+          @click="onAddInvoiceClicked()"
+        >
+        </button-simple>
         <button
           :class="{
             'button': true,
@@ -134,6 +145,14 @@
       @cancel="onCloseCommentAttachment"
       @confirm="createCommentAttachment"
     />
+    <add-invoice-modal
+      ref="add-invoice-modal"
+      :active="modals.addInvoice"
+      :is-loading="loading.addInvoice"
+      :is-error="errors.addInvoice"
+      @cancel="onCloseInvoice"
+      @confirm="createInvoice"
+    />
   </article>
 </template>
 
@@ -144,6 +163,7 @@ import colors from '@/lib/colors'
 
 import AtTa from 'vue-at/dist/vue-at-textarea'
 import AddCommentImageModal from '@/components/modals/AddCommentImageModal'
+import AddInvoiceModal from '@/components/modals/AddInvoiceModal'
 import ComboboxStatus from '@/components/widgets/ComboboxStatus'
 import PeopleAvatar from '@/components/widgets/PeopleAvatar'
 import GroupButton from '@/components/widgets/GroupButton'
@@ -156,6 +176,7 @@ export default {
   components: {
     AtTa,
     AddCommentImageModal,
+    AddInvoiceModal,
     ComboboxStatus,
     PeopleAvatar,
     GroupButton,
@@ -171,13 +192,16 @@ export default {
       checklist: [],
       task_status_id: this.task.task_status_id,
       errors: {
-        addCommentAttachment: false
+        addCommentAttachment: false,
+        addInvoice: false
       },
       loading: {
-        addCommentAttachment: false
+        addCommentAttachment: false,
+        addInvoice: false
       },
       modals: {
-        addCommentAttachment: false
+        addCommentAttachment: false,
+        addInvoice: false
       }
     }
   },
@@ -259,6 +283,12 @@ export default {
       }
     },
 
+    isTaskDone () {
+      const status = this.taskStatus.find(t => t.id === this.task_status_id) ||
+        this.taskStatus[0]
+      return status.is_done
+    },
+
     isAddChecklistAllowed () {
       const status = this.taskStatus.find(t => t.id === this.task_status_id) ||
         this.taskStatus[0]
@@ -313,6 +343,19 @@ export default {
 
     onCloseCommentAttachment () {
       this.modals.addCommentAttachment = false
+    },
+
+    onAddInvoiceClicked (comment) {
+      this.modals.addInvoice = true
+    },
+
+    createInvoice (forms) {
+      this.onCloseInvoice()
+      this.invoice = forms
+    },
+
+    onCloseInvoice () {
+      this.modals.addInvoice = false
     },
 
     addChecklistEntry (index) {
