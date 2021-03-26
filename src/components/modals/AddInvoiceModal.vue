@@ -24,6 +24,27 @@
         />
       </form>
 
+      <div class="flexrow">
+        <div class="filler"></div>
+        <a
+          :class="{
+            button: true,
+            'flexrow-item': true,
+            'is-primary': true,
+            'is-loading': isLoading
+          }"
+          @click="confirmClicked"
+        >
+          {{ $t("main.confirmation") }}
+        </a>
+        <button
+          @click="$emit('cancel')"
+          class="button is-link"
+        >
+          {{ $t("main.cancel") }}
+        </button>
+      </div>
+
     </div>
   </div>
 </div>
@@ -86,11 +107,7 @@ export default {
     ...mapActions([
     ]),
 
-    onFileSelected (forms) {
-      this.forms = forms
-    },
-
-    confirm () {
+    confirmClicked () {
       this.$emit('confirm', this.forms)
     },
 
