@@ -261,7 +261,8 @@ export default {
 
   computed: {
     ...mapGetters([
-      'isDarkTheme'
+      'isDarkTheme',
+      'taskStatusMap'
     ]),
 
     isFileAttached () {
@@ -284,8 +285,7 @@ export default {
     },
 
     isTaskDone () {
-      const status = this.taskStatus.find(t => t.id === this.task_status_id) ||
-        this.taskStatus[0]
+      const status = this.taskStatusMap[this.task_status_id]
       return status.is_done
     },
 

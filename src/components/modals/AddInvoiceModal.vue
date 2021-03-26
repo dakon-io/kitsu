@@ -8,16 +8,21 @@
   <div class="modal-content">
     <div class="box content">
       <h1 class="title">
-        {{ $t("tasks.comment_image") }}
+        {{ $t("tasks.invoice") }}
       </h1>
 
-      <p>
-        {{ $t("tasks.select_file") }}
+      <p class="error" v-if="isError">
+        {{ $t("tasks.add_invoice_error") }}
       </p>
 
-      <p class="error" v-if="isError">
-        {{ $t("tasks.add_preview_error") }}
-      </p>
+      <form v-on:submit.prevent>
+        <text-field
+          ref="nameField"
+          :label="$t('assets.fields.amount')"
+          v-model="form.amount"
+          v-focus
+        />
+      </form>
 
     </div>
   </div>
@@ -28,11 +33,14 @@
 import { mapGetters, mapActions } from 'vuex'
 import { modalMixin } from '@/components/modals/base_modal'
 
+import TextField from '@/components/widgets/TextField'
+
 export default {
   name: 'add-invoice-modal',
   mixins: [modalMixin],
 
   components: {
+    TextField
   },
 
   props: {
@@ -56,7 +64,12 @@ export default {
 
   data () {
     return {
-      forms: null
+      form: {
+        amount: '',
+        description: '',
+        source_id: null,
+        data: {}
+      }
     }
   },
 
@@ -82,7 +95,6 @@ export default {
     },
 
     reset () {
-      this.$refs['image-field'].reset()
       this.forms = null
     }
   },

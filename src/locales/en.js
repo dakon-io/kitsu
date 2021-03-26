@@ -26,7 +26,8 @@ export default {
       production: 'Prod',
       time_spent: 'Time',
       type: 'Type',
-      hidden_from_client: 'Displayed to client'
+      hidden_from_client: 'Displayed to client',
+      amount: 'Amount'
     }
   },
 
@@ -793,6 +794,8 @@ export default {
     change_priority: 'Change priority to:',
     clear_assignations: 'clear assignations',
     comment_image: 'Attach a file to your comment',
+    invoice: 'Invoice',
+    add_invoice_error: 'An error occurred while adding invoice.',
     create_for_selection: 'Create task for each empty cell:',
     create_tasks: 'Add tasks',
     create_tasks_shot: 'Add tasks for current shots',
