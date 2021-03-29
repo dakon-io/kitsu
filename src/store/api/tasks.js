@@ -33,6 +33,10 @@ export default {
     return client.pget(`/api/data/tasks/${taskId}/previews`)
   },
 
+  getTaskInvoice (taskId, callback) {
+    return client.pget(`/api/plugins/data/invoice/task/${taskId}`)
+  },
+
   commentTask (data) {
     let commentData = {
       task_status_id: data.taskStatusId,

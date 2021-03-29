@@ -29,6 +29,8 @@ import {
   LOAD_TASK_ENTITY_PREVIEW_FILES_END,
   LOAD_TASK_SUBSCRIBE_END,
 
+  LOAD_TASK_INVOICE_END,
+
   NEW_TASK_COMMENT_END,
   NEW_TASK_END,
   EDIT_TASK_END,
@@ -81,6 +83,7 @@ const initialState = {
   taskStatuses: [],
   taskComments: {},
   taskPreviews: {},
+  taskInvoice: {},
   taskEntityPreviews: {},
   selectedTasks: {},
   selectedValidations: {},
@@ -117,6 +120,7 @@ const getters = {
   taskMap: (state) => state.taskMap,
   getTaskComments: (state, getters) => (id) => state.taskComments[id],
   getTaskPreviews: (state, getters) => (id) => state.taskPreviews[id],
+  getTaskInvoice: (state, getters) => (id) => state.taskInvoice,
 
   getTaskComment: (state, getters) => (taskId, commentId) => {
     if (state.taskComments[taskId]) {
@@ -196,6 +200,16 @@ const actions = {
       .then(comments => {
         commit(LOAD_TASK_COMMENTS_END, { comments, taskId })
         return dispatch('loadTaskEntityPreviewFiles', entityId)
+      })
+  },
+
+  loadTaskInvoice (
+    { commit, state },
+    { taskId }
+  ) {
+    return tasksApi.getTaskInvoice(taskId)
+      .then(taskInvoice => {
+        commit(LOAD_TASK_INVOICE_END, { taskInvoice })
       })
   },
 
@@ -722,6 +736,10 @@ const mutations = {
         return previews
       }
     }, [])
+  },
+
+  [LOAD_TASK_INVOICE_END] (state, { taskInvoice }) {
+    state.taskInvoice = taskInvoice
   },
 
   [LOAD_TASK_STATUSES_END] (state, taskStatuses) {

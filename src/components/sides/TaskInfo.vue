@@ -78,7 +78,11 @@
         </div>
       </div>
     </div>
-
+    <div>
+      <br/>
+      <p>My Amount {{ taskInvoice.amount }}</p>
+      <br/>
+    </div>
     <div class="task-columns" ref="task-columns">
       <div class="task-column preview-column" v-if="isPreview">
         <div class="preview-column-content">
@@ -295,6 +299,7 @@ export default {
       otherPreviews: [],
       taskComments: [],
       taskPreviews: [],
+      taskInvoice: null,
       errors: {
         addComment: false,
         addPreview: false,
@@ -344,6 +349,7 @@ export default {
       'getTaskComment',
       'getTaskComments',
       'getTaskPreviews',
+      'getTaskInvoice',
       'isCurrentUserAdmin',
       'isCurrentUserClient',
       'isCurrentUserManager',
@@ -530,6 +536,7 @@ export default {
       'loadTask',
       'loadTaskComments',
       'loadTaskSubscribed',
+      'loadTaskInvoice',
       'refreshPreview',
       'pinComment',
       'setPreview',
@@ -556,6 +563,10 @@ export default {
             console.error(err)
             this.errors.task = true
           })
+        // load task invoice
+        this.loadTaskInvoice({
+          taskId: this.task.id
+        })
       }
     },
 
@@ -592,6 +603,7 @@ export default {
       if (this.task) {
         this.taskComments = this.getTaskComments(this.task.id)
         this.taskPreviews = this.getTaskPreviews(this.task.id)
+        this.taskInvoice = this.getTaskInvoice(this.task.id)
         this.setOtherPreviews()
         this.currentPreviewPath = this.getOriginalPath()
         this.currentPreviewDlPath = this.getOriginalDlPath()
