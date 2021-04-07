@@ -77,6 +77,7 @@ export default {
     pin: 'Pin',
     pinned: 'Pinned',
     post_status: 'Post comment',
+    post_invoice: 'Post invoice',
     retake: 'Retake',
     revision: 'revision',
     set_status_to: 'Set status to',

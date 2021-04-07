@@ -78,11 +78,6 @@
         </div>
       </div>
     </div>
-    <div>
-      <br/>
-      <p>My Amount {{ taskInvoice.amount }}</p>
-      <br/>
-    </div>
     <div class="task-columns" ref="task-columns">
       <div class="task-column preview-column" v-if="isPreview">
         <div class="preview-column-content">
@@ -134,7 +129,6 @@
               @file-drop="selectFile"
               v-if="isCommentingAllowed"
             />
-
             <div
               class="comments"
               v-if="taskComments && taskComments.length > 0 && !loading.task"
@@ -299,7 +293,6 @@ export default {
       otherPreviews: [],
       taskComments: [],
       taskPreviews: [],
-      taskInvoice: null,
       errors: {
         addComment: false,
         addPreview: false,
@@ -349,7 +342,6 @@ export default {
       'getTaskComment',
       'getTaskComments',
       'getTaskPreviews',
-      'getTaskInvoice',
       'isCurrentUserAdmin',
       'isCurrentUserClient',
       'isCurrentUserManager',
@@ -536,13 +528,13 @@ export default {
       'loadTask',
       'loadTaskComments',
       'loadTaskSubscribed',
-      'loadTaskInvoice',
       'refreshPreview',
       'pinComment',
       'setPreview',
       'subscribeToTask',
       'unsubscribeFromTask',
-      'updatePreviewAnnotation'
+      'updatePreviewAnnotation',
+      'loadTaskInvoice'
     ]),
 
     loadTaskData () {
@@ -563,10 +555,21 @@ export default {
             console.error(err)
             this.errors.task = true
           })
-        // load task invoice
+        this.loadTaskInvoiceData()
+      }
+    },
+
+    loadTaskInvoiceData () {
+      if (this.task) {
         this.loadTaskInvoice({
           taskId: this.task.id
         })
+          .then(() => {
+            console.log('get new invoice')
+          })
+          .catch(() => {
+            console.log('invoice not found')
+          })
       }
     },
 
@@ -603,7 +606,6 @@ export default {
       if (this.task) {
         this.taskComments = this.getTaskComments(this.task.id)
         this.taskPreviews = this.getTaskPreviews(this.task.id)
-        this.taskInvoice = this.getTaskInvoice(this.task.id)
         this.setOtherPreviews()
         this.currentPreviewPath = this.getOriginalPath()
         this.currentPreviewDlPath = this.getOriginalDlPath()
@@ -956,6 +958,7 @@ export default {
 <style lang="scss" scoped>
 .dark {
   .add-comment,
+  .add-invoice,
   .comment,
   .preview-column-content,
   .no-comment {
@@ -982,7 +985,8 @@ export default {
   min-height: 100%;
 }
 
-.add-comment {
+.add-comment,
+.add-invoice {
   padding: 0.5em;
   margin-bottom: 0.5em;
   box-shadow: 0px 0px 6px #E0E0E0;

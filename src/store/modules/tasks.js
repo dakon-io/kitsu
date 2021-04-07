@@ -83,7 +83,7 @@ const initialState = {
   taskStatuses: [],
   taskComments: {},
   taskPreviews: {},
-  taskInvoice: {},
+  taskInvoices: {},
   taskEntityPreviews: {},
   selectedTasks: {},
   selectedValidations: {},
@@ -120,7 +120,7 @@ const getters = {
   taskMap: (state) => state.taskMap,
   getTaskComments: (state, getters) => (id) => state.taskComments[id],
   getTaskPreviews: (state, getters) => (id) => state.taskPreviews[id],
-  getTaskInvoice: (state, getters) => (id) => state.taskInvoice,
+  getTaskInvoice: (state, getters) => (id) => state.taskInvoices[id],
 
   getTaskComment: (state, getters) => (taskId, commentId) => {
     if (state.taskComments[taskId]) {
@@ -204,8 +204,8 @@ const actions = {
   },
 
   loadTaskInvoice (
-    { commit, state },
-    { taskId }
+    { commit, state, dispatch },
+    { taskId, callback }
   ) {
     return tasksApi.getTaskInvoice(taskId)
       .then(taskInvoice => {
@@ -739,7 +739,7 @@ const mutations = {
   },
 
   [LOAD_TASK_INVOICE_END] (state, { taskInvoice }) {
-    state.taskInvoice = taskInvoice
+    state.taskInvoices[taskInvoice.task_id] = taskInvoice
   },
 
   [LOAD_TASK_STATUSES_END] (state, taskStatuses) {

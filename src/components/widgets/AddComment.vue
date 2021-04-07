@@ -20,6 +20,7 @@
     </figure>
     <div class="media-content">
       <at-ta
+        v-if="!invoiceMode"
         :members="team"
         name-key="full_name"
         :limit="2"
@@ -55,7 +56,7 @@
         @remove-task="removeTask"
         v-if="checklist.length > 0"
       />
-      <div class="flexrow preview-section">
+      <div class="flexrow preview-section" v-if="!invoiceMode">
         <button
           class="button flexrow-item"
           @click="$emit('add-preview')"
@@ -76,6 +77,12 @@
             {{ attachedFileName }}
           </em>
         </span>
+      </div>
+      <div v-if="invoiceMode">
+        <task-invoice
+          ref="add-invoice"
+          :task="task"
+        />
       </div>
       <group-button class="mt1">
         <combobox-status
@@ -112,10 +119,12 @@
           }"
           icon="dollar"
           :title="$t('comments.add_invoice')"
-          @click="onAddInvoiceClicked()"
+          @click="invoiceMode = !invoiceMode"
+          :active="invoiceMode"
         >
         </button-simple>
         <button
+          v-if="!invoiceMode"
           :class="{
             'button': true,
             'is-primary': true,
@@ -126,7 +135,21 @@
           }"
           @click="runAddComment(text, attachment, checklist, task_status_id)"
         >
-          {{ $t('comments.post_status') }}
+          <h1>{{ $t('comments.post_status') }}</h1>
+        </button>
+        <button
+          v-if="invoiceMode"
+          :class="{
+            'button': true,
+            'is-primary': true,
+            'is-loading': isLoading
+          }"
+          :style="{
+            'background-color': taskStatusColor
+          }"
+          @click="runAddInvoice()"
+        >
+          <h1>{{ $t('comments.post_invoice') }}</h1>
         </button>
       </group-button>
       <div
@@ -145,14 +168,6 @@
       @cancel="onCloseCommentAttachment"
       @confirm="createCommentAttachment"
     />
-    <add-invoice-modal
-      ref="add-invoice-modal"
-      :active="modals.addInvoice"
-      :is-loading="loading.addInvoice"
-      :is-error="errors.addInvoice"
-      @cancel="onCloseInvoice"
-      @confirm="createInvoice"
-    />
   </article>
 </template>
 
@@ -163,12 +178,12 @@ import colors from '@/lib/colors'
 
 import AtTa from 'vue-at/dist/vue-at-textarea'
 import AddCommentImageModal from '@/components/modals/AddCommentImageModal'
-import AddInvoiceModal from '@/components/modals/AddInvoiceModal'
 import ComboboxStatus from '@/components/widgets/ComboboxStatus'
 import PeopleAvatar from '@/components/widgets/PeopleAvatar'
 import GroupButton from '@/components/widgets/GroupButton'
 import ButtonSimple from '@/components/widgets/ButtonSimple'
 import Checklist from '@/components/widgets/Checklist'
+import TaskInvoice from '@/components/widgets/TaskInvoice'
 
 export default {
   name: 'add-comment',
@@ -176,12 +191,12 @@ export default {
   components: {
     AtTa,
     AddCommentImageModal,
-    AddInvoiceModal,
     ComboboxStatus,
     PeopleAvatar,
     GroupButton,
     ButtonSimple,
-    Checklist
+    Checklist,
+    TaskInvoice
   },
 
   data () {
@@ -191,17 +206,15 @@ export default {
       attachment: [],
       checklist: [],
       task_status_id: this.task.task_status_id,
+      invoiceMode: false,
       errors: {
-        addCommentAttachment: false,
-        addInvoice: false
+        addCommentAttachment: false
       },
       loading: {
-        addCommentAttachment: false,
-        addInvoice: false
+        addCommentAttachment: false
       },
       modals: {
-        addCommentAttachment: false,
-        addInvoice: false
+        addCommentAttachment: false
       }
     }
   },
@@ -305,6 +318,10 @@ export default {
       this.checklist = []
     },
 
+    runAddInvoice (amount) {
+      console.log('submit invoice')
+    },
+
     updateValue (value) {
       this.task_status_id = this.$refs.statusSelect.value
     },
@@ -343,19 +360,6 @@ export default {
 
     onCloseCommentAttachment () {
       this.modals.addCommentAttachment = false
-    },
-
-    onAddInvoiceClicked (comment) {
-      this.modals.addInvoice = true
-    },
-
-    createInvoice (forms) {
-      this.onCloseInvoice()
-      this.invoice = forms
-    },
-
-    onCloseInvoice () {
-      this.modals.addInvoice = false
     },
 
     addChecklistEntry (index) {
