@@ -26,8 +26,7 @@ export default {
       production: 'Prod',
       time_spent: 'Time',
       type: 'Type',
-      hidden_from_client: 'Displayed to client',
-      amount: 'Amount'
+      hidden_from_client: 'Displayed to client'
     }
   },
 
@@ -61,7 +60,6 @@ export default {
   },
 
   comments: {
-    add_invoice: 'Add invoice',
     add_attachment: 'Add attachment',
     add_checklist: 'Add checklist',
     add_comment: 'Add a comment...',
@@ -77,7 +75,6 @@ export default {
     pin: 'Pin',
     pinned: 'Pinned',
     post_status: 'Post comment',
-    post_invoice: 'Post invoice',
     retake: 'Retake',
     revision: 'revision',
     set_status_to: 'Set status to',
@@ -795,8 +792,6 @@ export default {
     change_priority: 'Change priority to:',
     clear_assignations: 'clear assignations',
     comment_image: 'Attach a file to your comment',
-    invoice: 'Invoice',
-    add_invoice_error: 'An error occurred while adding invoice.',
     create_for_selection: 'Create task for each empty cell:',
     create_tasks: 'Add tasks',
     create_tasks_shot: 'Add tasks for current shots',

@@ -78,6 +78,7 @@
         </div>
       </div>
     </div>
+
     <div class="task-columns" ref="task-columns">
       <div class="task-column preview-column" v-if="isPreview">
         <div class="preview-column-content">
@@ -113,6 +114,12 @@
 
       <div class="task-column comments-column">
         <div>
+          <task-invoice/>
+        </div>
+      </div>
+
+      <div class="task-column comments-column">
+        <div>
           <div>
             <add-comment
               ref="add-comment"
@@ -129,6 +136,7 @@
               @file-drop="selectFile"
               v-if="isCommentingAllowed"
             />
+
             <div
               class="comments"
               v-if="taskComments && taskComments.length > 0 && !loading.task"
@@ -237,6 +245,7 @@ import {
 } from '../../lib/render'
 
 import AddComment from '../widgets/AddComment'
+import TaskInvoice from '../widgets/TaskInvoice'
 import AddPreviewModal from '../modals/AddPreviewModal'
 import ButtonSimple from '../widgets/ButtonSimple'
 import Comment from '../widgets/Comment'
@@ -252,6 +261,7 @@ export default {
   name: 'task-info',
   components: {
     AddComment,
+    TaskInvoice,
     AddPreviewModal,
     ButtonSimple,
     Comment,
@@ -533,8 +543,7 @@ export default {
       'setPreview',
       'subscribeToTask',
       'unsubscribeFromTask',
-      'updatePreviewAnnotation',
-      'loadTaskInvoice'
+      'updatePreviewAnnotation'
     ]),
 
     loadTaskData () {
@@ -554,21 +563,6 @@ export default {
           .catch(err => {
             console.error(err)
             this.errors.task = true
-          })
-        this.loadTaskInvoiceData()
-      }
-    },
-
-    loadTaskInvoiceData () {
-      if (this.task) {
-        this.loadTaskInvoice({
-          taskId: this.task.id
-        })
-          .then(() => {
-            console.log('get new invoice')
-          })
-          .catch(() => {
-            console.log('invoice not found')
           })
       }
     },
@@ -958,7 +952,6 @@ export default {
 <style lang="scss" scoped>
 .dark {
   .add-comment,
-  .add-invoice,
   .comment,
   .preview-column-content,
   .no-comment {
@@ -985,8 +978,7 @@ export default {
   min-height: 100%;
 }
 
-.add-comment,
-.add-invoice {
+.add-comment {
   padding: 0.5em;
   margin-bottom: 0.5em;
   box-shadow: 0px 0px 6px #E0E0E0;

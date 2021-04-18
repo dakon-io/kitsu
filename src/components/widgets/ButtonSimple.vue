@@ -134,10 +134,6 @@
     :class="iconClass"
     v-if="icon === 'soundon'"
   />
-  <dollar-sign-icon
-    :class="iconClass"
-    v-if="icon === 'dollar'"
-  />
 
   <span
     :class="{
@@ -183,8 +179,7 @@ import {
   UploadIcon,
   VolumeXIcon,
   Volume2Icon,
-  XIcon,
-  DollarSignIcon
+  XIcon
 } from 'vue-feather-icons'
 
 export default {
@@ -220,8 +215,7 @@ export default {
     UploadIcon,
     VolumeXIcon,
     Volume2Icon,
-    XIcon,
-    DollarSignIcon
+    XIcon
   },
 
   props: {

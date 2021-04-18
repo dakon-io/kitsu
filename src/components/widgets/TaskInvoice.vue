@@ -2,15 +2,29 @@
 <div>
   <article
     ref="wrapper">
-    <form v-on:submit.prevent>
-      <text-field
-        type="number"
-        inputClass=" amount"
-        :placeholder="$t('assets.fields.amount')"
-        v-model="taskInvoice.amount"
-        v-focus
-      />
-    </form>
+    <div class="media-content">
+      simple
+      <form v-on:submit.prevent>
+        <text-field
+          type="number"
+          inputClass=" amount"
+          :placeholder="$t('assets.fields.amount')"
+          v-model="taskInvoice.amount"
+          v-focus
+        />
+        <group-button class="mt1">
+          <button
+            :class="{
+              'button': true,
+              'is-primary': true,
+              'is-loading': false
+            }"
+          >
+            {{ $t('comments.post_status') }}
+          </button>
+        </group-button>
+      </form>
+    </div>
   </article>
 </div>
 </template>
@@ -19,12 +33,14 @@
 import { mapGetters } from 'vuex'
 
 import TextField from '@/components/widgets/TextField'
+import GroupButton from '@/components/widgets/GroupButton'
 
 export default {
   name: 'task-invoice',
 
   components: {
-    TextField
+    TextField,
+    GroupButton
   },
 
   props: {

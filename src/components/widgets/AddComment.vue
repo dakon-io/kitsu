@@ -20,7 +20,6 @@
     </figure>
     <div class="media-content">
       <at-ta
-        v-if="!invoiceMode"
         :members="team"
         name-key="full_name"
         :limit="2"
@@ -56,7 +55,7 @@
         @remove-task="removeTask"
         v-if="checklist.length > 0"
       />
-      <div class="flexrow preview-section" v-if="!invoiceMode">
+      <div class="flexrow preview-section">
         <button
           class="button flexrow-item"
           @click="$emit('add-preview')"
@@ -77,12 +76,6 @@
             {{ attachedFileName }}
           </em>
         </span>
-      </div>
-      <div v-if="invoiceMode">
-        <task-invoice
-          ref="add-invoice"
-          :task="task"
-        />
       </div>
       <group-button class="mt1">
         <combobox-status
@@ -111,20 +104,7 @@
           @click="onAddCommentAttachmentClicked()"
         >
         </button-simple>
-        <button-simple
-          v-if="isTaskDone"
-          :class="{
-            'button': true,
-            'active': attachment.length !== 0
-          }"
-          icon="dollar"
-          :title="$t('comments.add_invoice')"
-          @click="invoiceMode = !invoiceMode"
-          :active="invoiceMode"
-        >
-        </button-simple>
         <button
-          v-if="!invoiceMode"
           :class="{
             'button': true,
             'is-primary': true,
@@ -135,21 +115,7 @@
           }"
           @click="runAddComment(text, attachment, checklist, task_status_id)"
         >
-          <h1>{{ $t('comments.post_status') }}</h1>
-        </button>
-        <button
-          v-if="invoiceMode"
-          :class="{
-            'button': true,
-            'is-primary': true,
-            'is-loading': isLoading
-          }"
-          :style="{
-            'background-color': taskStatusColor
-          }"
-          @click="runAddInvoice()"
-        >
-          <h1>{{ $t('comments.post_invoice') }}</h1>
+          {{ $t('comments.post_status') }}
         </button>
       </group-button>
       <div
@@ -183,7 +149,6 @@ import PeopleAvatar from '@/components/widgets/PeopleAvatar'
 import GroupButton from '@/components/widgets/GroupButton'
 import ButtonSimple from '@/components/widgets/ButtonSimple'
 import Checklist from '@/components/widgets/Checklist'
-import TaskInvoice from '@/components/widgets/TaskInvoice'
 
 export default {
   name: 'add-comment',
@@ -195,8 +160,7 @@ export default {
     PeopleAvatar,
     GroupButton,
     ButtonSimple,
-    Checklist,
-    TaskInvoice
+    Checklist
   },
 
   data () {
@@ -206,7 +170,6 @@ export default {
       attachment: [],
       checklist: [],
       task_status_id: this.task.task_status_id,
-      invoiceMode: false,
       errors: {
         addCommentAttachment: false
       },
@@ -274,8 +237,7 @@ export default {
 
   computed: {
     ...mapGetters([
-      'isDarkTheme',
-      'taskStatusMap'
+      'isDarkTheme'
     ]),
 
     isFileAttached () {
@@ -297,11 +259,6 @@ export default {
       }
     },
 
-    isTaskDone () {
-      const status = this.taskStatusMap[this.task_status_id]
-      return status.is_done
-    },
-
     isAddChecklistAllowed () {
       const status = this.taskStatus.find(t => t.id === this.task_status_id) ||
         this.taskStatus[0]
@@ -316,10 +273,6 @@ export default {
       this.text = ''
       this.attachment = []
       this.checklist = []
-    },
-
-    runAddInvoice (amount) {
-      console.log('submit invoice')
     },
 
     updateValue (value) {
