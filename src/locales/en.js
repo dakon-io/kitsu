@@ -526,6 +526,7 @@ export default {
     new_production: 'Add a production',
     number: 'production | productions',
     open_productions: 'My productions',
+    open_invoices: 'My Invoices',
     picture: 'Change picture',
     title: 'Productions',
     home: {

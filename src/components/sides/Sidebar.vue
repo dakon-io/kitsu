@@ -37,6 +37,12 @@
                {{ $t("productions.open_productions") }}
              </router-link>
            </p>
+           <p @click="toggleSidebar()" v-if="isCurrentUserVendor">
+             <router-link :to="{name: 'open-invoices'}">
+               <dollar-sign-icon size="0.9x" />
+               {{ $t("productions.open_invoices") }}
+             </router-link>
+           </p>
          </div>
 
          <div v-if="!isCurrentUserClient && !isCurrentUserVendor">
@@ -134,7 +140,8 @@ import {
   GitPullRequestIcon,
   ListIcon,
   SettingsIcon,
-  UsersIcon
+  UsersIcon,
+  DollarSignIcon
 } from 'vue-feather-icons'
 
 export default {
@@ -150,7 +157,8 @@ export default {
     GitPullRequestIcon,
     ListIcon,
     SettingsIcon,
-    UsersIcon
+    UsersIcon,
+    DollarSignIcon
   },
 
   data () {
