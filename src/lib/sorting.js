@@ -206,3 +206,7 @@ const sortByEpisode = (a, b) => {
     return 0
   }
 }
+
+export const sortInvoice = (invoice) => {
+  return invoice.sort(firstBy('status', 'draft'))
+}

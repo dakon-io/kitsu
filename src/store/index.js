@@ -20,6 +20,7 @@ import shots from './modules/shots'
 import taskTypes from './modules/tasktypes'
 import taskStatus from './modules/taskstatus'
 import tasks from './modules/tasks'
+import invoice from './modules/invoice'
 
 Vue.use(Vuex)
 
@@ -40,6 +41,7 @@ const modules = {
   tasks,
   taskTypes,
   taskStatus,
+  invoice,
   user
 }
 
