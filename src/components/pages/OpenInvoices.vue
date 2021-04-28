@@ -8,6 +8,7 @@
       :entries="displayedInvoice"
       :is-loading="isInvoiceLoading"
       :is-error="isInvoiceLoadingError"
+      @edit-clicked="onEditClicked"
     />
 
   </div>
@@ -42,7 +43,16 @@ export default {
   methods: {
     ...mapActions([
       'loadInvoice'
-    ])
+    ]),
+
+    onEditClicked (invoice) {
+      console.log(invoice)
+      // this.errors.invite = false
+      // this.success.invite = false
+      // this.personToEdit = person
+      // this.modals.edit = true
+    }
+
   },
 
   created () {

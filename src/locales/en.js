@@ -905,8 +905,9 @@ export default {
     title: 'Invoice',
     list: {
       name: 'Number',
-      status: 'Status',
-      amount_total: 'Amount Total'
+      project: 'Project',
+      amount_total: 'Amount Total',
+      status: 'Status'
     }
   }
 }
