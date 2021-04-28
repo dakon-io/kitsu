@@ -114,7 +114,9 @@
 
       <div class="task-column comments-column">
         <div>
-          <task-invoice/>
+          <task-invoice
+            :task="task"
+            :invoice="taskInvoice"/>
         </div>
       </div>
 
@@ -303,6 +305,7 @@ export default {
       otherPreviews: [],
       taskComments: [],
       taskPreviews: [],
+      taskInvoice: {},
       errors: {
         addComment: false,
         addPreview: false,
@@ -351,6 +354,7 @@ export default {
       'currentProduction',
       'getTaskComment',
       'getTaskComments',
+      'getTaskInvoice',
       'getTaskPreviews',
       'isCurrentUserAdmin',
       'isCurrentUserClient',
@@ -537,6 +541,7 @@ export default {
       'loadPreviewFileFormData',
       'loadTask',
       'loadTaskComments',
+      'loadTaskInvoice',
       'loadTaskSubscribed',
       'refreshPreview',
       'pinComment',
@@ -563,6 +568,12 @@ export default {
           .catch(err => {
             console.error(err)
             this.errors.task = true
+          })
+        this.loadTaskInvoice({
+          taskId: this.task.id
+        })
+          .then(() => {
+            console.log('get one')
           })
       }
     },
@@ -600,6 +611,7 @@ export default {
       if (this.task) {
         this.taskComments = this.getTaskComments(this.task.id)
         this.taskPreviews = this.getTaskPreviews(this.task.id)
+        this.taskInvoice = this.getTaskInvoice(this.task.id)
         this.setOtherPreviews()
         this.currentPreviewPath = this.getOriginalPath()
         this.currentPreviewDlPath = this.getOriginalDlPath()

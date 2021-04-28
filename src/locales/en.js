@@ -903,6 +903,10 @@ export default {
 
   invoice: {
     title: 'Invoice',
+    post_invoice: 'Send to My Invoice',
+    name: 'Number',
+    amount: 'Amount',
+    status: 'Status',
     list: {
       name: 'Number',
       project: 'Project',
