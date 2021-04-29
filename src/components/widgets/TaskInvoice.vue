@@ -47,7 +47,7 @@
           type="number"
           inputClass=" amount"
           :placeholder="$t('assets.fields.amount')"
-          v-model="amount"
+          v-model.number="amount"
           v-focus
         />
         <group-button class="mt1">

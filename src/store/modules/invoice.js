@@ -9,7 +9,7 @@ import {
 } from '../mutation-types'
 
 const initialState = {
-  invoice: [],
+  invoices: [],
   displayedInvoice: [],
   invoiceMap: {},
   isInvoiceLoading: false,
@@ -21,12 +21,18 @@ const state = {
 }
 
 const getters = {
-  invoice: state => state.invoice,
+  invoices: state => state.invoices,
   displayedInvoice: state => state.displayedInvoice,
   invoiceMap: state => state.invoiceMap,
   isInvoiceLoading: state => state.isInvoiceLoading,
   isInvoiceLoadingError: state => state.isInvoiceLoadingError,
-  getInvoice: (state, getters) => (id) => state.invoiceMap[id]
+  getInvoice: (state, getters) => (id) => state.invoiceMap[id],
+  getDraftInvoice: (state, getters) => (projectId) => {
+    return state.invoices.find(
+      (invoice) => invoice.status === 'draft',
+      (invoice) => invoice.projectId === projectId
+    )
+  }
 }
 
 const actions = {
@@ -41,13 +47,35 @@ const actions = {
       }
       if (callback) callback(err)
     })
+  },
+
+  createInvoice (
+    { commit, state },
+    { projectId, data }
+  ) {
+    return invoiceleApi.createInvoice({
+      projectId,
+      data
+    })
+  },
+
+  updateInvoice (
+    { commit, state },
+    { invoiceId, data }
+  ) {
+    return invoiceleApi.updateInvoice({
+      invoiceId,
+      data
+    })
   }
+
 }
 
 const mutations = {
   [LOAD_INVOICE_START] (state) {
     state.isInvoiceLoading = true
     state.isInvoiceLoadingError = false
+    state.invoices = []
     state.invoiceMap = {}
   },
 
@@ -56,12 +84,12 @@ const mutations = {
     state.isInvoiceLoadingError = true
   },
 
-  [LOAD_INVOICE_END] (state, invoice) {
+  [LOAD_INVOICE_END] (state, invoices) {
     state.isInvoiceLoading = false
     state.isInvoiceLoadingError = false
-    state.invoice = sortInvoice(invoice)
-    state.displayedInvoice = state.invoice
-    state.invoice.forEach((invoice) => {
+    state.invoices = sortInvoice(invoices)
+    state.displayedInvoice = state.invoices
+    state.invoices.forEach((invoice) => {
       state.invoiceMap[invoice.id] = invoice
     })
   }

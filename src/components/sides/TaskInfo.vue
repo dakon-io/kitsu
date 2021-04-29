@@ -357,6 +357,7 @@ export default {
       'getTaskComments',
       'getTaskInvoice',
       'getTaskPreviews',
+      'getDraftInvoice',
       'isCurrentUserAdmin',
       'isCurrentUserClient',
       'isCurrentUserManager',
@@ -541,8 +542,10 @@ export default {
       'editTaskComment',
       'loadPreviewFileFormData',
       'loadTask',
+      'loadInvoice',
       'loadTaskComments',
       'loadTaskSubscribed',
+      'updateInvoice',
       'loadTaskInvoice',
       'refreshPreview',
       'pinComment',
@@ -556,6 +559,13 @@ export default {
       if (this.task) {
         this.loading.task = true
         this.errors.task = false
+
+        // load invoices
+        this.loadInvoice()
+        this.loadTaskInvoice({
+          taskId: this.task.id
+        })
+
         this.loadTaskComments({
           taskId: this.task.id,
           entityId: this.task.entity_id
@@ -570,9 +580,6 @@ export default {
             console.error(err)
             this.errors.task = true
           })
-        this.loadTaskInvoice({
-          taskId: this.task.id
-        })
       }
     },
 
@@ -606,7 +613,44 @@ export default {
     },
 
     addInvoice (amount) {
-      console.log(amount)
+      if (this.taskInvoice == null) {
+        const existingInvoice = this.getDraftInvoice(this.task.project_id)
+        if (existingInvoice != null) {
+          const params = {
+            invoiceId: existingInvoice.id,
+            data: {
+              tasks: [
+                {
+                  id: this.task.id,
+                  amount: amount
+                }
+              ]
+            }
+          }
+          this.$store.dispatch('updateInvoice', params)
+            .then(() => {
+              this.loadTaskData()
+            })
+        } else {
+          const params = {
+            projectId: this.task.project_id,
+            data: {
+              tasks: [
+                {
+                  id: this.task.id,
+                  amount: amount
+                }
+              ]
+            }
+          }
+          this.$store.dispatch('createInvoice', params)
+            .then(() => {
+              this.loadTaskData()
+            })
+        }
+      } else {
+        console.log('update invoice')
+      }
     },
 
     reset () {
