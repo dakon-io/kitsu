@@ -116,7 +116,8 @@
         <div>
           <task-invoice
             :task="task"
-            :invoice="taskInvoice"/>
+            :invoice="taskInvoice"
+            @add-invoice="addInvoice"/>
         </div>
       </div>
 
@@ -541,8 +542,8 @@ export default {
       'loadPreviewFileFormData',
       'loadTask',
       'loadTaskComments',
-      'loadTaskInvoice',
       'loadTaskSubscribed',
+      'loadTaskInvoice',
       'refreshPreview',
       'pinComment',
       'setPreview',
@@ -572,9 +573,6 @@ export default {
         this.loadTaskInvoice({
           taskId: this.task.id
         })
-          .then(() => {
-            console.log('get one')
-          })
       }
     },
 
@@ -605,6 +603,10 @@ export default {
           this.errors.addComment = true
           this.loading.addComment = false
         })
+    },
+
+    addInvoice (amount) {
+      console.log(amount)
     },
 
     reset () {

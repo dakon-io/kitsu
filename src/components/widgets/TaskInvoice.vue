@@ -47,7 +47,7 @@
           type="number"
           inputClass=" amount"
           :placeholder="$t('assets.fields.amount')"
-          v-model="taskInvoice.amount"
+          v-model="amount"
           v-focus
         />
         <group-button class="mt1">
@@ -57,6 +57,7 @@
               'is-primary': true,
               'is-loading': false
             }"
+            @click="postInvoice(amount)"
           >
             {{ $t('invoice.post_invoice') }}
           </button>
@@ -97,6 +98,7 @@ export default {
   data () {
     return {
       isInvoiced: false,
+      amount: 0,
       taskInvoice: {
         amount: 0
       }
@@ -115,6 +117,9 @@ export default {
   },
 
   methods: {
+    postInvoice (amount) {
+      this.$emit('add-invoice', amount)
+    },
     reset () {
       if (this.task && this.isInvoiced) {
         this.taskInvoice = this.getTaskInvoice(this.task.id)

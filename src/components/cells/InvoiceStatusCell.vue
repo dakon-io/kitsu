@@ -58,19 +58,19 @@ export default {
 
     statusDisplay () {
       if (this.status === 'draft') {
-        return 'Draft'
+        return 'DRAFT'
       }
       if (this.status === 'submit') {
-        return 'Waiting Approve'
+        return 'WAITING APPROVE'
       }
       if (this.status === 'approve') {
-        return 'Approved'
+        return 'APPROVED'
       }
       if (this.status === 'reject') {
-        return 'Rejected'
+        return 'REJECTED'
       }
       if (this.status === 'done') {
-        return 'Paid'
+        return 'PAID'
       }
     },
 
