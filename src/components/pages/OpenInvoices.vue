@@ -11,6 +11,12 @@
       @edit-clicked="onEditClicked"
     />
 
+    <edit-invoice-modal
+      :active="modals.edit"
+      :invoice-to-edit="invoiceToEdit"
+      @cancel="modals.edit = false"
+    />
+
   </div>
 </template>
 
@@ -19,17 +25,24 @@ import { mapGetters, mapActions } from 'vuex'
 
 import PageTitle from '../widgets/PageTitle'
 import InvoiceList from '../lists/InvoiceList'
+import EditInvoiceModal from '../modals/EditInvoiceModal'
 
 export default {
   name: 'open-invoices',
 
   components: {
     PageTitle,
-    InvoiceList
+    InvoiceList,
+    EditInvoiceModal
   },
 
   data () {
-    return {}
+    return {
+      modals: {
+        edit: false
+      },
+      invoiceToEdit: {}
+    }
   },
 
   computed: {
@@ -47,10 +60,8 @@ export default {
 
     onEditClicked (invoice) {
       console.log(invoice)
-      // this.errors.invite = false
-      // this.success.invite = false
-      // this.personToEdit = person
-      // this.modals.edit = true
+      this.invoiceToEdit = invoice
+      this.modals.edit = true
     }
 
   },

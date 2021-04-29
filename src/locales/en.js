@@ -903,6 +903,7 @@ export default {
 
   invoice: {
     title: 'Invoice',
+    edit_title: 'Edit Invoice',
     post_invoice: 'Add to My Invoice',
     update_invoice: 'Update Invoice',
     name: 'Number',
@@ -913,6 +914,10 @@ export default {
       project: 'Project',
       amount_total: 'Amount Total',
       status: 'Status'
+    },
+    line: {
+      task: 'Task',
+      amount: 'Amount'
     }
   }
 }
