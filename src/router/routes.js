@@ -190,6 +190,12 @@ export const routes = [
       },
 
       {
+        path: 'invoices',
+        component: OpenInvoices,
+        name: 'invoices'
+      },
+
+      {
         path: 'people',
         component: People,
         name: 'people',

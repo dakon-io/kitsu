@@ -80,6 +80,12 @@
          <div v-if="isCurrentUserAdmin">
            <h2>{{ $t('main.admin')}}</h2>
            <p @click="toggleSidebar()">
+             <router-link to="/invoices">
+               <dollar-sign-icon size="0.9x" />
+               {{ $t("invoice.title") }}
+             </router-link>
+           </p>
+           <p @click="toggleSidebar()">
              <router-link to="/task-types">
                <copy-icon size="0.9x" />
                {{ $t("task_types.title") }}
