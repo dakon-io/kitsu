@@ -20,15 +20,6 @@
             </td>
           </tr>
           <tr>
-            <td scope="col" class="amount">
-              {{ $t("invoice.amount") }}
-            </td>
-            <td>:</td>
-            <td scope="col" class="project">
-              {{ invoice.amount }}
-            </td>
-          </tr>
-          <tr>
             <td scope="col" class="status">
               {{ $t("invoice.status") }}
             </td>
@@ -37,6 +28,15 @@
               <invoice-status-cell
                 :status="invoice.invoice.status"
               />
+            </td>
+          </tr>
+          <tr>
+            <td scope="col" class="amount">
+              {{ $t("invoice.amount") }}
+            </td>
+            <td>:</td>
+            <td scope="col" class="project">
+              {{ invoice.amount }}
             </td>
           </tr>
         </tbody>
@@ -50,7 +50,7 @@
           v-model.number="amount"
           v-focus
         />
-        <group-button class="mt1">
+        <div class="mt1 btn-submit">
           <button
             :class="{
               'button': true,
@@ -61,7 +61,7 @@
           >
             {{ $t('invoice.post_invoice') }}
           </button>
-        </group-button>
+        </div>
       </form>
     </div>
   </article>
@@ -72,7 +72,6 @@
 import { mapGetters } from 'vuex'
 
 import TextField from '@/components/widgets/TextField'
-import GroupButton from '@/components/widgets/GroupButton'
 import InvoiceStatusCell from '@/components/cells/InvoiceStatusCell'
 
 export default {
@@ -80,7 +79,6 @@ export default {
 
   components: {
     TextField,
-    GroupButton,
     InvoiceStatusCell
   },
 
@@ -97,11 +95,8 @@ export default {
 
   data () {
     return {
-      isInvoiced: false,
       amount: 0,
-      taskInvoice: {
-        amount: 0
-      }
+      taskInvoice: {}
     }
   },
 
@@ -120,11 +115,13 @@ export default {
     postInvoice (amount) {
       this.$emit('add-invoice', amount)
     },
+
     reset () {
-      if (this.task && this.isInvoiced) {
-        this.taskInvoice = this.getTaskInvoice(this.task.id)
+      if (this.invoice) {
+        this.taskInvoice = this.invoice
       }
     }
+
   }
 }
 </script>
@@ -145,5 +142,8 @@ export default {
     tr > th, tr > td {
       padding: 4px 8px;
     }
+  }
+  .btn-submit {
+    float: right;
   }
 </style>

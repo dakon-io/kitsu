@@ -903,7 +903,8 @@ export default {
 
   invoice: {
     title: 'Invoice',
-    post_invoice: 'Send to My Invoice',
+    post_invoice: 'Add to My Invoice',
+    update_invoice: 'Update Invoice',
     name: 'Number',
     amount: 'Amount',
     status: 'Status',
