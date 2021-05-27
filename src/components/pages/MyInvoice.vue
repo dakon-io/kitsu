@@ -1,7 +1,7 @@
 <template>
   <div class="open-invoices page fixed-page">
     <iframe
-      src="http://localhost:8069/kitsu/login?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MjIxMDEyNDMsIm5iZiI6MTYyMjEwMTI0MywianRpIjoiOGFlN2VlMGEtOTZiNS00MDMzLThmM2YtYTMxM2YzMDMxZGQ4IiwiZXhwIjoxNjIyNzA2MDQzLCJpZGVudGl0eSI6InVzZXJAdmVuZG9yLmNvbSIsImZyZXNoIjpmYWxzZSwidHlwZSI6ImFjY2VzcyJ9.-D8F_DZznoT0BQLOXl15KdCLs5PEsMlX2UxYqFr_uUc"
+      :src="getInvoiceUrl()"
       id="iframe"/>
   </div>
 </template>
@@ -17,11 +17,16 @@ export default {
 
   computed: {
     ...mapGetters([
+      'accessToken'
     ])
   },
   methods: {
     ...mapActions([
-    ])
+    ]),
+    getInvoiceUrl () {
+      const url = 'http://localhost:8069/kitsu/login?token=' + this.accessToken
+      return url
+    }
   }
 }
 </script>
