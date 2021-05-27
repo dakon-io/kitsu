@@ -14,6 +14,7 @@ import Login from '../components/pages/Login'
 import Main from '../components/Main'
 import Notifications from '../components/pages/Notifications'
 import OpenProductions from '../components/pages/OpenProductions'
+import MyInvoice from '../components/pages/MyInvoice'
 import ProductionNewsFeed from '../components/pages/ProductionNewsFeed'
 import Shots from '../components/pages/Shots'
 import TaskType from '../components/pages/TaskType'
@@ -180,6 +181,12 @@ export const routes = [
         path: 'open-productions',
         component: OpenProductions,
         name: 'open-productions'
+      },
+
+      {
+        path: 'invoices',
+        component: MyInvoice,
+        name: 'invoices'
       },
 
       {

@@ -898,5 +898,9 @@ export default {
   wrong_browser: {
     title: 'Your browser is not supported by Kitsu',
     text: 'Kitsu can only be used with Firefox and Chrome browsers.'
+  },
+
+  invoices: {
+    my_invoice: 'My Invoice'
   }
 }

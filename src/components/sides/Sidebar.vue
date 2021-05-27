@@ -37,6 +37,12 @@
                {{ $t("productions.open_productions") }}
              </router-link>
            </p>
+           <p @click="toggleSidebar()">
+             <router-link :to="{name: 'invoices'}">
+               <film-icon size="0.9x" />
+               {{ $t("invoices.my_invoice") }}
+             </router-link>
+           </p>
          </div>
 
          <div v-if="!isCurrentUserClient && !isCurrentUserVendor">
