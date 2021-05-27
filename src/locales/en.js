@@ -906,6 +906,7 @@ export default {
     edit_title: 'Edit Invoice',
     post_invoice: 'Add to My Invoice',
     update_invoice: 'Update Invoice',
+    withdraw: 'Withdraw',
     name: 'Number',
     amount: 'Amount',
     status: 'Status',

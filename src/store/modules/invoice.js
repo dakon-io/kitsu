@@ -4,12 +4,14 @@ import { sortInvoice } from '../../lib/sorting'
 import {
   LOAD_INVOICE_START,
   LOAD_INVOICE_ERROR,
-  LOAD_INVOICE_END
+  LOAD_INVOICE_END,
+  LOAD_INVOICE_DETAIL_END
 
 } from '../mutation-types'
 
 const initialState = {
   invoices: [],
+  invoiceLines: [],
   displayedInvoice: [],
   invoiceMap: {},
   isInvoiceLoading: false,
@@ -29,8 +31,7 @@ const getters = {
   getInvoice: (state, getters) => (id) => state.invoiceMap[id],
   getDraftInvoice: (state, getters) => (projectId) => {
     return state.invoices.find(
-      (invoice) => invoice.status === 'draft',
-      (invoice) => invoice.projectId === projectId
+      invoice => invoice.status === 'draft' && invoice.project_id === projectId
     )
   }
 }
@@ -67,6 +68,18 @@ const actions = {
       invoiceId,
       data
     })
+  },
+
+  getInvoiceDetails (
+    { commit, state },
+    { invoiceId, callback }
+  ) {
+    return invoiceleApi.getInvoiceDetails(
+      invoiceId
+    )
+      .then(details => {
+        commit(LOAD_INVOICE_DETAIL_END, details)
+      })
   }
 
 }
@@ -92,6 +105,11 @@ const mutations = {
     state.invoices.forEach((invoice) => {
       state.invoiceMap[invoice.id] = invoice
     })
+  },
+
+  [LOAD_INVOICE_DETAIL_END] (state, details) {
+    state.invoiceLines = details.lines
+    state.invoiceMap[details.id] = details
   }
 }
 

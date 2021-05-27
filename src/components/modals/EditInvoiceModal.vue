@@ -26,12 +26,17 @@
             </tr>
           </thead>
           <tbody class="datatable-body">
-            <tr class="datatable-row">
-              <td>Task 001</td>
+            <tr class="datatable-row"
+                v-for="line in form.lines"
+                :key="line.id">
+              <td>
+                {{ getTaskDetail(line.task_id).entity.name }}
+              </td>
               <td>
                 <text-field
                   type="number"
-                  inputClass=" amount"/>
+                  inputClass=" amount"
+                  v-model="line.amount"/>
               </td>
             </tr>
           </tbody>
@@ -40,10 +45,22 @@
 
       <p class="has-text-right mt1">
         <button
+          v-if="isCurrentUserVendor && form.status === 'draft'"
           :class="{
             button: true,
             'is-primary': true
           }"
+          @click="confirmWithdraw"
+        >
+          {{ $t('invoice.withdraw') }}
+        </button>
+        <button
+          v-if="isCurrentUserVendor && form.status === 'draft'"
+          :class="{
+            button: true,
+            'is-primary': true
+          }"
+          @click="confirmUpdate"
         >
           {{ $t('invoice.update_invoice') }}
         </button>
@@ -70,6 +87,10 @@ export default {
 
   data () {
     return {
+      form: {
+        status: null,
+        lines: []
+      }
     }
   },
 
@@ -79,11 +100,54 @@ export default {
 
   computed: {
     ...mapGetters([
+      'isCurrentUserAdmin',
+      'isCurrentUserVendor',
+      'invoiceMap',
+      'taskMap'
     ])
   },
 
   methods: {
-    ...mapActions([])
+    ...mapActions([
+      'getInvoiceDetails',
+      'loadTask'
+    ]),
+
+    confirmUpdate () {
+      const form = { ...this.form }
+      this.$emit('confirm', this.invoiceToEdit.id, form)
+    },
+
+    confirmWithdraw () {
+      const form = { ...this.form }
+      form.status = 'submit'
+      this.$emit('withdraw', this.invoiceToEdit.id, form)
+    },
+
+    getTaskDetail (taskId) {
+      return this.taskMap[taskId]
+    },
+
+    resetForm () {
+      if (this.invoiceToEdit) {
+        this.getInvoiceDetails({
+          invoiceId: this.invoiceToEdit.id
+        })
+          .then(() => {
+            this.form.status = this.invoiceMap[this.invoiceToEdit.id].status
+            this.form.lines = this.invoiceMap[this.invoiceToEdit.id].lines
+            this.form.lines.forEach(line => {
+              this.loadTask({ taskId: line.task_id })
+            })
+          })
+      }
+    }
+  },
+
+  watch: {
+    invoiceToEdit () {
+      this.resetForm()
+    }
   }
 }
 </script>

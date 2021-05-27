@@ -112,7 +112,7 @@
         </div>
       </div>
 
-      <div class="task-column comments-column">
+      <div class="task-column comments-column" v-if="isDoneTask">
         <div>
           <task-invoice
             :task="task"
@@ -370,6 +370,7 @@ export default {
       'taskEntityPreviews',
       'getTaskStatusForCurrentUser',
       'taskTypeMap',
+      'taskStatusMap',
       'user'
     ]),
 
@@ -480,6 +481,13 @@ export default {
     is3DModelPreview () {
       return this.taskPreviews &&
        this.taskPreviews.length > 0 && this.extension === 'obj'
+    },
+
+    isDoneTask () {
+      if (this.task) {
+        return this.taskStatusMap[this.task.task_status_id].is_done
+      }
+      return false
     },
 
     moviePath () {

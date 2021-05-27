@@ -5,6 +5,10 @@ export default {
     client.get('/api/plugins/data/invoices/all', callback)
   },
 
+  getInvoiceDetails (invoiceId, callback) {
+    return client.pget(`/api/plugins/data/invoices/${invoiceId}`)
+  },
+
   createInvoice (params) {
     return client.ppost(
       `/api/plugins/actions/projects/${params.projectId}/create-invoice`,

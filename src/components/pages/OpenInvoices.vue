@@ -15,6 +15,8 @@
       :active="modals.edit"
       :invoice-to-edit="invoiceToEdit"
       @cancel="modals.edit = false"
+      @confirm="confirmEditInvoice"
+      @withdraw="confirmWithdrawInvoice"
     />
 
   </div>
@@ -55,11 +57,53 @@ export default {
 
   methods: {
     ...mapActions([
+      'updateInvoice',
       'loadInvoice'
     ]),
 
+    confirmEditInvoice (invoiceId, form) {
+      const params = {
+        invoiceId: invoiceId,
+        data: {
+          status: form.status,
+          tasks: []
+        }
+      }
+      form.lines.forEach(line => {
+        params.data.tasks.push({
+          id: line.task_id,
+          amount: line.amount
+        })
+      })
+      this.$store.dispatch('updateInvoice', params)
+        .then(() => {
+          this.modals.edit = false
+          this.loadInvoice()
+        })
+    },
+
+    confirmWithdrawInvoice (invoiceId, form) {
+      const params = {
+        invoiceId: invoiceId,
+        data: {
+          status: form.status,
+          tasks: []
+        }
+      }
+      form.lines.forEach(line => {
+        params.data.tasks.push({
+          id: line.task_id,
+          amount: line.amount
+        })
+      })
+      this.$store.dispatch('updateInvoice', params)
+        .then(() => {
+          this.modals.edit = false
+          this.loadInvoice()
+        })
+    },
+
     onEditClicked (invoice) {
-      console.log(invoice)
       this.invoiceToEdit = invoice
       this.modals.edit = true
     }
